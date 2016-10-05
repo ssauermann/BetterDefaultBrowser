@@ -10,9 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterDefaultBrowser", "Bet
 		{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C} = {5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F4B09A4-F757-4153-80C8-5252255D2CD2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "Helper\Helper.csproj", "{2950E43C-EB29-47DD-AE58-90175164B8B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterDefaultBrowser-Helper", "BetterDefaultBrowser-Helper\BetterDefaultBrowser-Helper.csproj", "{2950E43C-EB29-47DD-AE58-90175164B8B6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C} = {5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}
 	EndProjectSection
