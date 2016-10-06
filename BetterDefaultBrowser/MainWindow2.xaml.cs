@@ -28,12 +28,10 @@ namespace BetterDefaultBrowser
             InitializeComponent();
             this.DataContext = mainBind;
             browserList.ItemsSource = DB.Browsers;
+            comboBoxBrowserSelect.ItemsSource = DB.Browsers;
+            
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            mainBind.Url = "HttpStyleUriParser";
-        }
 
         private void buttonRefresh_Click(object sender, RoutedEventArgs e)
         {

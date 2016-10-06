@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BetterDefaultBrowser.Lib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace BetterDefaultBrowser
 {
     public class MainWindowBind:INotifyPropertyChanged
     {
-        private int browser;
-        public int Browser {
+        private Browser browser;
+        public Browser Browser {
             get { return browser; }
             set { browser = value;
                 OnPropertyChanged(new PropertyChangedEventArgs("Browser"));
@@ -42,7 +43,7 @@ namespace BetterDefaultBrowser
                 PropertyChanged(this, e);
         }
 
-        public MainWindowBind(int browser,Protocols protocol)
+        public MainWindowBind(Browser browser,Protocols protocol)
         {
             Browser = browser;
             Protocol= protocol;
@@ -50,7 +51,6 @@ namespace BetterDefaultBrowser
 
         public MainWindowBind()
         {
-            Browser = 1;
             Protocol = Protocols.ftp;
         }
     }

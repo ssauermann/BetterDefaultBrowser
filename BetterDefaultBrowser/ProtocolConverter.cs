@@ -18,7 +18,7 @@ namespace BetterDefaultBrowser
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (MainWindowBind.Protocols) int.Parse((string)value);
+            return (MainWindowBind.Protocols) value;
         }
     }
 }
