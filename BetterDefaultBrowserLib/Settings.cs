@@ -51,6 +51,8 @@ namespace BetterDefaultBrowserLib
             {
                 var root = XElement.Load(path);
                 var @default = root.Element("default");
+                if (@default == null)
+                    return null;
 
                 return new Browser(@default.Value);
             }
