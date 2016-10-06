@@ -33,15 +33,13 @@ namespace BetterDefaultBrowser.Proxy
 
                 Debug.WriteLine("Information: " + "Url to open: '" + url + "'");
 
-                //Read settings for filter and the default browser
-                Settings settings = new Settings();
 
-                var filters = settings.Filter;
+                var filters = Settings.Filter;
 
                 //Mustn't be null
                 Debug.Assert(filters != null, "Filter list is null");
 
-                var defBrowser = settings.DefaultBrowser;
+                var defBrowser = Settings.DefaultBrowser;
 
                 if (defBrowser == null)
                 {

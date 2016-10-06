@@ -77,6 +77,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DefaultConverter.cs" />
+    <Compile Include="MainWindow2.xaml.cs">
+      <DependentUpon>MainWindow2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindowBind.cs" />
+    <Compile Include="ProtocolConverter.cs" />
     <Compile Include="UACIcon.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -91,6 +97,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MainWindow2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
