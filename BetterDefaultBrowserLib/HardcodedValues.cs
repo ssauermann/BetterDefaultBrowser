@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BetterDefaultBrowser.Lib
 {
+    /// <summary>
+    /// Centralized collection of all hardcoded values.
+    /// </summary>
     public static class HardcodedValues
     {
         /// <summary>
