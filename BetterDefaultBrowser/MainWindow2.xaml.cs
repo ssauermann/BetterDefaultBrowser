@@ -1,4 +1,4 @@
-﻿using BetterDefaultBrowserLib;
+﻿using BetterDefaultBrowser.Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;

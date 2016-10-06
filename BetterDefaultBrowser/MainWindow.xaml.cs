@@ -73,7 +73,7 @@ namespace BetterDefaultBrowser
 
         private void btnTestOpen_Click(object sender, RoutedEventArgs e)
         {
-            (listBoxInstalledBrowsers.SelectedItem as Browser).StartWithWebsite(@"http://www.google.de");
+            //(listBoxInstalledBrowsers.SelectedItem as Browser).StartWithWebsite(@"http://www.google.de");
         }
 
         private void btnSetDefault_Click(object sender, RoutedEventArgs e)
@@ -106,14 +106,14 @@ namespace BetterDefaultBrowser
 
         private void btnSetProxyFilter_Click(object sender, RoutedEventArgs e)
         {
-            var filters = settings.Filter;
+            var filters = Settings.Filter;
             filters.AddLast(new Filter(textBox.Text, listBoxInstalledBrowsers.SelectedItem as Browser));
-            settings.Filter = filters;
+            Settings.Filter = filters;
         }
 
         private void btnSetProxyDefault_Click(object sender, RoutedEventArgs e)
         {
-            settings.DefaultBrowser = listBoxInstalledBrowsers.SelectedItem as Browser;
+            Settings.DefaultBrowser = listBoxInstalledBrowsers.SelectedItem as Browser;
         }
 
         private void btnDeleteSettings_Click(object sender, RoutedEventArgs e)
