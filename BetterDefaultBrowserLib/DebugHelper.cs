@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BetterDefaultBrowserLib.Debug
+namespace BetterDefaultBrowser.Lib.Debug
 {
     /// <summary>
     /// Debugging and logging Methods.

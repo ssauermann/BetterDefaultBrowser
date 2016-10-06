@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
-using BetterDefaultBrowserLib;
+using BetterDefaultBrowser.Lib;
 
-namespace BetterDefaultBrowser
+namespace BetterDefaultBrowser.Helper
 {
 
     class FakeBrowser

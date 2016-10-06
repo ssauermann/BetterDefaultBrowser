@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Helper
+namespace BetterDefaultBrowser.Helper
 {
     static class Program
     {
@@ -19,11 +19,11 @@ namespace Helper
                 if (args.Length <= 3)
                     return;
                 String appPath = System.Reflection.Assembly.GetEntryAssembly().CodeBase;
-                BetterDefaultBrowser.FakeBrowser.InstallFakeBrowser(appPath, args[2], args[3]);
+                FakeBrowser.InstallFakeBrowser(appPath, args[2], args[3]);
             }
             else if (args[1] == "-uninstall")
             {
-                BetterDefaultBrowser.FakeBrowser.UninstallFakeBrowser();
+                FakeBrowser.UninstallFakeBrowser();
             }
             else if (args[1] == "-iconhide")
             {

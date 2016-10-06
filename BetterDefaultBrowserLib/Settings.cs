@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using System.IO;
 
-namespace BetterDefaultBrowserLib
+namespace BetterDefaultBrowser.Lib
 {
     public class Settings
     {
