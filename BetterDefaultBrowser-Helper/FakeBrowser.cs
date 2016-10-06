@@ -28,7 +28,7 @@ namespace BetterDefaultBrowser
 
 
             //Set browser settings
-           var myKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true).CreateSubKey(keyId);
+            var myKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true).CreateSubKey(keyId);
             //Set name
             myKey.SetValue(null, keyId);
 
@@ -77,7 +77,7 @@ namespace BetterDefaultBrowser
         public static void UninstallFakeBrowser()
         {
             Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true).DeleteSubKeyTree(keyId);
-            
+
             //Remove installed program
             Registry.LocalMachine.OpenSubKey(@"SOFTWARE\RegisteredApplications", true).DeleteValue(keyId);
 

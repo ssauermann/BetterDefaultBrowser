@@ -42,7 +42,7 @@ namespace BetterDefaultBrowser.Proxy
                 Debug.Assert(filters != null, "Filter list is null");
 
                 var defBrowser = settings.DefaultBrowser;
-                
+
                 if (defBrowser == null)
                 {
                     failBrowser();
@@ -72,7 +72,7 @@ namespace BetterDefaultBrowser.Proxy
                 Launcher.Launch(selBrowser.ApplicationPath, url);
 
                 Debug.WriteLine("Information: " + "Browser opened.");
-                
+
             }
             catch (Exception ex)
             {
@@ -130,7 +130,8 @@ namespace BetterDefaultBrowser.Proxy
 
         private static void runMainExe(HardcodedValues.PROXY_ERROR_CODE error)
         {
-            try {
+            try
+            {
                 var mainAppPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet\"
                     + HardcodedValues.APP_NAME_PATH + @"\Capabilities")
                     .GetValue("ApplicationMainExe").ToString();
