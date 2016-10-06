@@ -42,11 +42,20 @@ namespace BetterDefaultBrowser.Lib
             get
             {
                 //Internet explorer is special :)
-                //TODO: MS Edge
-                if (KeyName.Equals("IEXPLORE.EXE"))
+                if (KeyName == "IEXPLORE.EXE")
                 {
-                    //This is not always true. IE.HTTPS is used for https type.
                     return "IE.HTTP";
+                    //For https
+                    //IE.HTTPS
+                }
+                
+                //Edge is even more special, it has no entry in StartMenuInternet.
+                //Note: This is arbitary
+                if (KeyName == "MSEDGE")
+                {
+                    return "AppXq0fevzme2pys62n3e0fbqa7peapykr8v";
+                    //For https
+                    //AppX90nv6nhay5n6a98fnetv7tpk64pp35es
                 }
 
                 return Registry.GetValue(path + @"\Capabilities\URLAssociations", "http", "NONE").ToString();
@@ -66,6 +75,13 @@ namespace BetterDefaultBrowser.Lib
                     return "Internet Explorer";
                 }
 
+                //Edge is even more special, it has no entry in StartMenuInternet.
+                //Note: This is arbitary
+                if (KeyName == "MSEDGE")
+                {
+                    return "Edge";
+                }
+
                 return Registry.GetValue(path + @"\Capabilities", "ApplicationName", "NONE").ToString();
             }
         }
@@ -76,7 +92,14 @@ namespace BetterDefaultBrowser.Lib
         public String IconPath
         {
             get
-            {
+            {   
+                //Edge is even more special, it has no entry in StartMenuInternet.
+                //Note: This is arbitary
+                if (KeyName == "MSEDGE")
+                {
+                    return @"%windir%\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe,0";
+                }
+
                 return Registry.GetValue(path + @"\DefaultIcon", null, "NONE").ToString();
             }
         }
@@ -89,6 +112,13 @@ namespace BetterDefaultBrowser.Lib
         {
             get
             {
+                //Edge is even more special, it has no entry in StartMenuInternet.
+                //Note: This is arbitary
+                if (KeyName == "MSEDGE")
+                {
+                    //Will open but without url, use Launcher.RunEdge(url) instead.
+                    return "microsoft-edge:";
+                }
                 return Registry.GetValue(path + @"\shell\open\command", null, "NONE").ToString();
             }
         }
@@ -100,17 +130,12 @@ namespace BetterDefaultBrowser.Lib
         {
             get
             {
-                //STUB: TODO
-                if (KeyName == "FIREFOX.EXE")
-                {
-                    return true;
-                }
-                return false;
+                return AllBrowsers.Default.Equals(this);
             }
         }
 
         /// <summary>
-        /// Sets this browser as the system default. DO NOT CALL THIS METHOD ON WINDOWS 8 AND LATER.
+        /// Sets this browser as the system default. Has to open a windows for the user on windows 8 and later.
         /// </summary>
         public void SetDefault()
         {
@@ -140,13 +165,18 @@ namespace BetterDefaultBrowser.Lib
             return Name;
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////     static below     ////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////////
-
-        public static LinkedList<Browser> getInstalledBrowsers()
+        public override bool Equals(object obj)
         {
-            return null;
+            if(!(obj is Browser)){
+                return false;
+            }
+            var other = obj as Browser;
+            return other.KeyName == this.KeyName;
+        }
+
+        public override int GetHashCode()
+        {
+            return KeyName.GetHashCode();
         }
 
     }

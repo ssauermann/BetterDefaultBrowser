@@ -66,8 +66,13 @@ namespace BetterDefaultBrowser.Proxy
                 }
 
                 //Start browser
-                Launcher.Launch(selBrowser.ApplicationPath, url);
-
+                //Edge is special
+                if (selBrowser.KeyName == "MSEDGE")
+                    Launcher.RunEdge(url);
+                else
+                    Launcher.Launch(selBrowser.ApplicationPath, url);
+                
+               
                 Debug.WriteLine("Information: " + "Browser opened.");
 
             }

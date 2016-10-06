@@ -13,7 +13,7 @@ namespace BetterDefaultBrowser.Lib
     /// <summary>
     /// Read and write settings to a XML file.
     /// </summary>
-    public class Settings
+    public static class Settings
     {
         private static String path;
         

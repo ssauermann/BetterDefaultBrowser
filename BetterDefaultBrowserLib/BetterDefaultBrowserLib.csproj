@@ -41,9 +41,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllBrowsers.cs" />
     <Compile Include="Browser.cs" />
     <Compile Include="DebugHelper.cs" />
-    <Compile Include="DefaultBrowser.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="HardcodedValues.cs" />
     <Compile Include="Launcher.cs" />

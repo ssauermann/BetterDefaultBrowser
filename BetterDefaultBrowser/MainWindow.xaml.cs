@@ -22,8 +22,6 @@ namespace BetterDefaultBrowser
     /// </summary>
     public partial class MainWindow : Window
     {
-        DefaultBrowser dB = new DefaultBrowser();
-        Settings settings = new Settings();
         public MainWindow()
         {
             InitializeComponent();
@@ -33,16 +31,15 @@ namespace BetterDefaultBrowser
 
         public void refresh()
         {
-            dB = new DefaultBrowser();
             labelDefaultBrowser.Content = "My fancy Browser"; //dB.GetDefault().Name; //TODO
             listBoxInstalledBrowsers.Items.Clear();
-            foreach (var browser in dB.Browsers)
+            foreach (var browser in AllBrowsers.InstalledBrowsers)
             {
                 listBoxInstalledBrowsers.Items.Add(browser);
             }
 
 
-            if (dB.isInstalled())
+            if (AllBrowsers.IsBDBInstalled)
             {
                 btnInstallBrowser.IsEnabled = false;
                 btnUninstallBrowser.IsEnabled = true;
