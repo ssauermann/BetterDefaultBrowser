@@ -14,22 +14,13 @@ namespace BetterDefaultBrowserLib.Debug
     public class DebugHelper
     {
         /// <summary>
-        /// External console allocation.
-        /// </summary>
-        /// <returns></returns>
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool AllocConsole();
-
-        /// <summary>
         /// Get a Console Window for debugging purposes.
         /// Now Console.WriteLine() etc. can be used.
         /// </summary>
         /// <returns></returns>
-        public static void Alloc()
-        {
-            AllocConsole();
-        }
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool AllocConsole();
 
         //Maybe move this? Into each file? TODO
         private static readonly Lazy<TraceSource> Log = new Lazy<TraceSource>(() => DebugHelper.Create("BetterDefaultBrowser"));
