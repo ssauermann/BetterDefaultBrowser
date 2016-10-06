@@ -92,6 +92,22 @@ namespace BetterDefaultBrowser.Lib
             }
         }
 
+        /// <summary>
+        /// Is this browser currently the system default browser?
+        /// </summary>
+        public bool IsDefault
+        {
+            get
+            {
+                //STUB: TODO
+                if (KeyName == "FIREFOX.EXE")
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
         public override string ToString()
         {
             return Name;

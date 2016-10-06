@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:BetterDefaultBrowser"
         mc:Ignorable="d"
         Title="MainWindow2" Height="300" Width="300">
+    <Window.Resources>
+        <local:DefaultConverter x:Key="defaultConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="92*"/>
@@ -30,7 +33,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock x:Name="textBox3" Text="{Binding Name}" HorizontalAlignment="Left" Grid.Column="0"/>
-                        <TextBlock x:Name="textBox5" Text="(default)" HorizontalAlignment="Left" Grid.Column="1"/>
+                        <TextBlock x:Name="textBox5" Text="{Binding Path=IsDefault}" HorizontalAlignment="Left" Grid.Column="1"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
