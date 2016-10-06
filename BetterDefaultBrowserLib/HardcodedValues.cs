@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BetterDefaultBrowserLib
+namespace BetterDefaultBrowser.Lib
 {
+    /// <summary>
+    /// Centralized collection of all hardcoded values.
+    /// </summary>
     public static class HardcodedValues
     {
         /// <summary>

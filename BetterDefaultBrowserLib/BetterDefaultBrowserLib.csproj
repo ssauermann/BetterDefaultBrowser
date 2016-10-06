@@ -7,7 +7,7 @@
     <ProjectGuid>{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BetterDefaultBrowserLib</RootNamespace>
+    <RootNamespace>BetterDefaultBrowser.Lib</RootNamespace>
     <AssemblyName>BetterDefaultBrowserLib</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

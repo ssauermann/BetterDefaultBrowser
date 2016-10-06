@@ -8,25 +8,35 @@ using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using System.IO;
 
-namespace BetterDefaultBrowserLib
+namespace BetterDefaultBrowser.Lib
 {
+    /// <summary>
+    /// Read and write settings to a XML file.
+    /// </summary>
     public class Settings
     {
-        private String path;
-
-        public Settings()
+        private static String path;
+        
+        /// <summary>
+        /// Create folder and settings file if not existing.
+        /// </summary>
+        static Settings()
         {
-            this.path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BetterDefaultBrowser";
+            path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BetterDefaultBrowser";
             Directory.CreateDirectory(path);
 
-            this.path += @"\settings.xml";
+            path += @"\settings.xml";
             if (!File.Exists(path))
             {
                 new XDocument(new XElement("settings")).Save(path);
             }
         }
 
-        public Browser OriginalDefaultBrowser
+        /// <summary>
+        /// The browser the user had set before setting BDB as the default.
+        /// Can't be used to reset the user browser when uninstalling BDB since Win8.
+        /// </summary>
+        public static Browser OriginalDefaultBrowser
         {
             get
             {
@@ -45,7 +55,10 @@ namespace BetterDefaultBrowserLib
         }
 
         //TODO List
-        public Browser DefaultBrowser
+        /// <summary>
+        /// The browser the requests should be send to which are not matched by a filter.
+        /// </summary>
+        public static Browser DefaultBrowser
         {
             get
             {
@@ -65,7 +78,10 @@ namespace BetterDefaultBrowserLib
             }
         }
         
-        public LinkedList<Filter> Filter
+        /// <summary>
+        /// List of filters to match for in order of priority.
+        /// </summary>
+        public static LinkedList<Filter> Filter
         {
             get
             {

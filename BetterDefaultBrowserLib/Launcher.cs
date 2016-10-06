@@ -5,10 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BetterDefaultBrowserLib
+namespace BetterDefaultBrowser.Lib
 {
+    /// <summary>
+    /// Methods for launching extra processes.
+    /// </summary>
     public class Launcher
     {
+        /// <summary>
+        /// Start a process.
+        /// </summary>
+        /// <param name="path">Path to executable.</param>
+        /// <param name="param">Parameter string for the new process.</param>
         public static void Launch(String path, String param)
         {
             Process proc = new Process();
