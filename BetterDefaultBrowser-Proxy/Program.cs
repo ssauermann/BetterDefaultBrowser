@@ -61,14 +61,19 @@ namespace BetterDefaultBrowser.Proxy
                 Debug.WriteLine("Information: " + "Matching browser: '" + selBrowser.Name + "'");
 
                 //Loop catching
-                if (selBrowser.Name == HardcodedValues.BROWSER_NAME)
+                if (selBrowser.Name == HardcodedValues.APP_NAME)
                 {
                     failLoop();
                 }
 
                 //Start browser
-                Launcher.Launch(selBrowser.ApplicationPath, url);
-
+                //Edge is special
+                if (selBrowser.KeyName == "MSEDGE")
+                    Launcher.RunEdge(url);
+                else
+                    Launcher.Launch(selBrowser.ApplicationPath, url);
+                
+               
                 Debug.WriteLine("Information: " + "Browser opened.");
 
             }
@@ -131,7 +136,7 @@ namespace BetterDefaultBrowser.Proxy
             try
             {
                 var mainAppPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet\"
-                    + HardcodedValues.APP_NAME_PATH + @"\Capabilities")
+                    + HardcodedValues.APP_NAME + @"\Capabilities")
                     .GetValue("ApplicationMainExe").ToString();
 
                 Launcher.Launch(mainAppPath, "-perror " + error.ToString());

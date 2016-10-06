@@ -11,7 +11,7 @@ namespace BetterDefaultBrowser.Lib.Debug
     /// <summary>
     /// Debugging and logging Methods.
     /// </summary>
-    public class DebugHelper
+    public static class DebugHelper
     {
         /// <summary>
         /// Get a Console Window for debugging purposes.

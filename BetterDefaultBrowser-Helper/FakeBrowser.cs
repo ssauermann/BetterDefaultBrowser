@@ -12,9 +12,10 @@ namespace BetterDefaultBrowser.Helper
     class FakeBrowser
     {
 
-        private static readonly String keyId = HardcodedValues.APP_NAME_PATH;
-        private static readonly String name = HardcodedValues.BROWSER_NAME;
-        private static readonly String progId = "BetterDefaultBrowserFake";
+        private static readonly String keyId = HardcodedValues.APP_NAME;
+        private static readonly String name = HardcodedValues.APP_NAME;
+        private static readonly String progId = HardcodedValues.PROG_ID;
+        private static readonly String appDesc = HardcodedValues.APP_DESC;
 
         public static void InstallFakeBrowser(String helperPath, String proxyPath, String appPath)
         {
@@ -26,14 +27,13 @@ namespace BetterDefaultBrowser.Helper
             progKey.CreateSubKey("DefaultIcon").SetValue(null, proxyPath + ",0");
             progKey.CreateSubKey("shell").CreateSubKey("open").CreateSubKey("command").SetValue(null, proxyPath + " \"%1\"");
 
-
             //Set browser settings
             var myKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true).CreateSubKey(keyId);
             //Set name
             myKey.SetValue(null, keyId);
 
             var cap = myKey.CreateSubKey("Capabilities");
-            cap.SetValue("ApplicationDescription", "Fake browser entry for 'Better Default Browser' proxy.");
+            cap.SetValue("ApplicationDescription", appDesc);
             cap.SetValue("ApplicationIcon", proxyPath + ",0");
             cap.SetValue("ApplicationName", name);
 
@@ -41,11 +41,11 @@ namespace BetterDefaultBrowser.Helper
             cap.SetValue("ApplicationMainExe", appPath);
 
             var fa = cap.CreateSubKey("FileAssociations");
-            fa.SetValue(".htm", progId);
-            fa.SetValue(".html", progId);
-            fa.SetValue(".shtml", progId);
-            fa.SetValue(".xht", progId);
-            fa.SetValue(".xhtml", progId);
+            //fa.SetValue(".htm", progId);
+            //fa.SetValue(".html", progId);
+            //fa.SetValue(".shtml", progId);
+            //fa.SetValue(".xht", progId);
+            //fa.SetValue(".xhtml", progId);
 
             var sm = cap.CreateSubKey("StartMenu");
             sm.SetValue("StartMenuInternet", keyId);

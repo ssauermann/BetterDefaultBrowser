@@ -22,26 +22,24 @@ namespace BetterDefaultBrowser
     /// </summary>
     public partial class MainWindow : Window
     {
-        DefaultBrowser dB = new DefaultBrowser();
-        Settings settings = new Settings();
         public MainWindow()
         {
             InitializeComponent();
+            lblWinVersion.Content = OSVersions.getVersion().ToString();
             refresh();
         }
 
         public void refresh()
         {
-            dB = new DefaultBrowser();
-            labelDefaultBrowser.Content = dB.GetDefault().Name;
+            labelDefaultBrowser.Content = "My fancy Browser"; //dB.GetDefault().Name; //TODO
             listBoxInstalledBrowsers.Items.Clear();
-            foreach (var browser in dB.Browsers)
+            foreach (var browser in AllBrowsers.InstalledBrowsers)
             {
                 listBoxInstalledBrowsers.Items.Add(browser);
             }
 
 
-            if (dB.isInstalled())
+            if (AllBrowsers.IsBDBInstalled)
             {
                 btnInstallBrowser.IsEnabled = false;
                 btnUninstallBrowser.IsEnabled = true;
@@ -73,12 +71,12 @@ namespace BetterDefaultBrowser
 
         private void btnTestOpen_Click(object sender, RoutedEventArgs e)
         {
-            //(listBoxInstalledBrowsers.SelectedItem as Browser).StartWithWebsite(@"http://www.google.de");
+            Launcher.LaunchBrowser(listBoxInstalledBrowsers.SelectedItem as Browser,@"http://www.google.de");
         }
 
         private void btnSetDefault_Click(object sender, RoutedEventArgs e)
         {
-            dB.SetDefault((listBoxInstalledBrowsers.SelectedItem as Browser));
+            (listBoxInstalledBrowsers.SelectedItem as Browser).SetDefault();
 
             refresh();
         }
@@ -91,16 +89,12 @@ namespace BetterDefaultBrowser
         private void btnInstallBrowser_Click(object sender, RoutedEventArgs e)
         {
             Helper.startHelper("install " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser-Proxy.exe" + " " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser.exe");
-            btnInstallBrowser.IsEnabled = false;
-            btnUninstallBrowser.IsEnabled = true;
             refresh();
         }
 
         private void btnUninstallBrowser_Click(object sender, RoutedEventArgs e)
         {
             Helper.startHelper("uninstall");
-            btnInstallBrowser.IsEnabled = true;
-            btnUninstallBrowser.IsEnabled = false;
             refresh();
         }
 

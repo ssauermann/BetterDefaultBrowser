@@ -20,6 +20,7 @@
         <Button x:Name="btnSetProxyFilter" Content="Set browser for following urls" HorizontalAlignment="Left" Margin="90,185,0,0" VerticalAlignment="Top" Width="179" IsEnabled="False" Click="btnSetProxyFilter_Click"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="50,212,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" ToolTip="RegEx" Text=".*"/>
         <Button x:Name="btnDeleteSettings" Content="Delete Settings" HorizontalAlignment="Left" Margin="90,279,0,0" VerticalAlignment="Top" Width="179" Click="btnDeleteSettings_Click"/>
+        <Label x:Name="lblWinVersion" Content="Label" HorizontalAlignment="Left" Margin="460,8,0,0" VerticalAlignment="Top" Width="49"/>
 
     </Grid>
 </Window>
