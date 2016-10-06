@@ -26,6 +26,7 @@ namespace BetterDefaultBrowser
         public MainWindow2()
         {
             InitializeComponent();
+            //Can probably be removed
             this.DataContext = mainBind;
             browserList.ItemsSource = DB.Browsers;
             comboBoxBrowserSelect.ItemsSource = DB.Browsers;
@@ -39,6 +40,11 @@ namespace BetterDefaultBrowser
             {
                 browser.update();
             }
+        }
+
+        private void Applybutton_Click(object sender, RoutedEventArgs e)
+        {
+            mainBind.saveCurrent();
         }
     }
 }

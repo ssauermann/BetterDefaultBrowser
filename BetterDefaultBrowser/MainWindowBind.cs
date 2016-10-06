@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BetterDefaultBrowser
@@ -18,7 +19,7 @@ namespace BetterDefaultBrowser
             }
         }
 
-        public enum Protocols { https, http, ftp};
+        public enum Protocols { https, http, all};
 
         private Protocols protocol;
 
@@ -51,7 +52,33 @@ namespace BetterDefaultBrowser
 
         public MainWindowBind()
         {
-            Protocol = Protocols.ftp;
+            Protocol = Protocols.all;
+        }
+
+        public void saveCurrent()
+        {           
+            StringBuilder str = new StringBuilder();
+            str.Append(ProtocolRegex());
+            str.Append(@"(w{3}\.)?");
+            str.Append(Regex.Escape(url));
+            Filter filter = new Filter(str.ToString(), browser);
+            LinkedList<Filter> ls = Settings.Filter;
+            ls.AddFirst(filter);
+            Settings.Filter = ls;
+        }
+
+        private string ProtocolRegex()
+        {
+            switch (protocol)
+            {
+                case Protocols.all:
+                    return @"((h|H)(t|T){2}(p|P)(s|S)?\://)?";
+                case Protocols.http:
+                    return @"(h|H)(t|T){2}(p|P)\://";
+                case Protocols.https:
+                    return @"(h|H)(t|T){2}(p|P)(s|S)\://";
+            }
+            return "";
         }
     }
 }

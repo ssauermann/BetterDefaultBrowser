@@ -5,20 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BetterDefaultBrowser"
         mc:Ignorable="d"
-        Title="MainWindow2" Height="300" Width="300">
+        Title="MainWindow2" Height="341.803" Width="300">
     <Window.Resources>
         <local:DefaultConverter x:Key="defaultConverter"/>
         <local:ProtocolConverter x:Key="protocolConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="110*"/>
-            <RowDefinition Height="159*"/>
+            <RowDefinition Height="114*"/>
+            <RowDefinition Height="197*"/>
         </Grid.RowDefinitions>
         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="74,46,0,0" VerticalAlignment="Top" Width="65" Grid.Row="1" Height="22" SelectedIndex="{Binding Path=Protocol,Converter={StaticResource protocolConverter}}">
-            <ComboBoxItem Content="http" HorizontalAlignment="Left" Width="65" IsSelected="True"/>
+            <ComboBoxItem Content="http" HorizontalAlignment="Left" Width="65"/>
             <ComboBoxItem Content="https" HorizontalAlignment="Left" Width="65"/>
-            <ComboBoxItem Content="ftp" HorizontalAlignment="Left" Width="65"/>
+            <ComboBoxItem Content="all" HorizontalAlignment="Left" Width="65" IsSelected="True"/>
         </ComboBox>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="74,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" ToolTip="enter a website e.g. www.google.de" Grid.Row="1" Text="{Binding Path=Url, Mode=TwoWay}"/>
         <Label x:Name="label" Content="Website" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="52"/>
@@ -41,6 +41,7 @@
         </ListBox>
         <Button x:Name="buttonRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="207,87,0,0" VerticalAlignment="Top" Width="75" Click="buttonRefresh_Click" Height="20"/>
         <Label x:Name="label3" Content="Browser to use" HorizontalAlignment="Left" Margin="10,117,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="88"/>
+        <Button x:Name="Applybutton" Content="Button" HorizontalAlignment="Left" Margin="197,169,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Applybutton_Click"/>
 
     </Grid>
 </Window>
