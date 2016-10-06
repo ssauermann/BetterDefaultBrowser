@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace BetterDefaultBrowser.Lib
 {
     /// <summary>
     /// Browser with informationen saved in the registry.
     /// </summary>
-    public class Browser
+    public class Browser : INotifyPropertyChanged
     {
         private String path;
 
@@ -92,6 +93,23 @@ namespace BetterDefaultBrowser.Lib
             }
         }
 
+        /// <summary>
+        /// Event handler to react to changes with IsDefault
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, e);
+        }
+
+        /// <summary>
+        /// Tells the GUI to update the (default) sign
+        /// </summary>
+        public void update()
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs("IsDefault"));
+        }
         /// <summary>
         /// Is this browser currently the system default browser?
         /// </summary>

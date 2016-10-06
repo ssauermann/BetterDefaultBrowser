@@ -34,5 +34,13 @@ namespace BetterDefaultBrowser
         {
             mainBind.Protocol = "HttpStyleUriParser";
         }
+
+        private void buttonRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var browser in DB.Browsers)
+            {
+                browser.update();
+            }
+        }
     }
 }
