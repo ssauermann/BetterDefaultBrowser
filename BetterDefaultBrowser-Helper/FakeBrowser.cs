@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using BetterDefaultBrowserLib;
 
 namespace BetterDefaultBrowser
 {
@@ -11,11 +12,11 @@ namespace BetterDefaultBrowser
     class FakeBrowser
     {
 
-        private static readonly String keyId = "Better Default Browser";
-        private static readonly String name = "BDB Proxy";
+        private static readonly String keyId = HardcodedValues.APP_NAME_PATH;
+        private static readonly String name = HardcodedValues.BROWSER_NAME;
         private static readonly String progId = "BetterDefaultBrowserFake";
 
-        public static void InstallFakeBrowser(String helperPath, String proxyPath)
+        public static void InstallFakeBrowser(String helperPath, String proxyPath, String appPath)
         {
             //TODO: Test key existance
             //Set ProgID
@@ -33,8 +34,11 @@ namespace BetterDefaultBrowser
 
             var cap = myKey.CreateSubKey("Capabilities");
             cap.SetValue("ApplicationDescription", "Fake browser entry for 'Better Default Browser' proxy.");
-            cap.SetValue("ApplicationIcon", proxyPath + ",0");  //Check this
+            cap.SetValue("ApplicationIcon", proxyPath + ",0");
             cap.SetValue("ApplicationName", name);
+
+            //THIS ONE IS FOR FINDING THE MAIN APPFLICATION FROM PROXY
+            cap.SetValue("ApplicationMainExe", appPath);
 
             var fa = cap.CreateSubKey("FileAssociations");
             fa.SetValue(".htm", progId);
