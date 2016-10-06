@@ -27,5 +27,15 @@ namespace BetterDefaultBrowserLib
         /// Browser name as it will be set in the registry.
         /// </summary>
         public static String BROWSER_NAME = "BDB Proxy";
+
+        /// <summary>
+        /// Error codes to communicate between proxy and main client.
+        /// </summary>
+        public enum PROXY_ERROR_CODE
+        {
+            UNKOWN,
+            DEFAULT_BROWSER,
+            LOOP
+        }
     }
 }

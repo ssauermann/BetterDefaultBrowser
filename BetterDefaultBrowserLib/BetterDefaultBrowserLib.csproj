@@ -45,6 +45,7 @@
     <Compile Include="DefaultBrowser.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="HardcodedValues.cs" />
+    <Compile Include="Launcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
