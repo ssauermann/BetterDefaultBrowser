@@ -37,5 +37,11 @@ namespace BetterDefaultBrowser
             Browser = browser;
             Protocol= protocol;
         }
+
+        public MainWindowBind()
+        {
+            Browser = 1;
+            Protocol = "HTCPCCC";
+        }
     }
 }
