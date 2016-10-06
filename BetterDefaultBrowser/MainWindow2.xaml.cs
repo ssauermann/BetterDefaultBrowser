@@ -21,22 +21,23 @@ namespace BetterDefaultBrowser
     public partial class MainWindow2 : Window
     {
         private MainWindowBind mainBind = new MainWindowBind();
-        private DefaultBrowser DB = new DefaultBrowser();
 
         public MainWindow2()
         {
             InitializeComponent();
             //Can probably be removed
             this.DataContext = mainBind;
-            browserList.ItemsSource = DB.Browsers;
-            comboBoxBrowserSelect.ItemsSource = DB.Browsers;
-            
+            browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
+            comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
+
+            var win1 = new MainWindow();
+            win1.Show();
         }
 
 
         private void buttonRefresh_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var browser in DB.Browsers)
+            foreach (var browser in AllBrowsers.InstalledBrowsers)
             {
                 browser.update();
             }

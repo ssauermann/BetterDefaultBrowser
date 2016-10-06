@@ -31,7 +31,7 @@ namespace BetterDefaultBrowser
 
         public void refresh()
         {
-            labelDefaultBrowser.Content = "My fancy Browser"; //dB.GetDefault().Name; //TODO
+            labelDefaultBrowser.Content = AllBrowsers.Default.Name;
             listBoxInstalledBrowsers.Items.Clear();
             foreach (var browser in AllBrowsers.InstalledBrowsers)
             {
