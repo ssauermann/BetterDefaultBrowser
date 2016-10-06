@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.Diagnostics;
 
-namespace BetterDefaultBrowserLib
+namespace BetterDefaultBrowser.Lib
 {
+    /// <summary>
+    /// Browser with informationen saved in the registry.
+    /// </summary>
     public class Browser
     {
-        public String KeyName;
         private String path;
 
+        /// <summary>
+        /// Read browser information for a specific key from the registry.
+        /// </summary>
+        /// <param name="keyName">Unique key as used in the registry path.</param>
         public Browser(String keyName)
         {
             this.KeyName = keyName;
@@ -22,14 +28,23 @@ namespace BetterDefaultBrowserLib
                 throw new ArgumentException("Browser key not existing");
             }
         }
+        /// <summary>
+        /// Unique key, identifying the browser in registry.
+        /// </summary>
+        public String KeyName { get;}
 
+        /// <summary>
+        /// Programm ID, used to reference installation registry details.
+        /// </summary>
         public String ProgId
         {
             get
             {
                 //Internet explorer is special :)
+                //TODO: MS Edge
                 if (KeyName.Equals("IEXPLORE.EXE"))
                 {
+                    //This is not always true. IE.HTTPS is used for https type.
                     return "IE.HTTP";
                 }
 
@@ -37,6 +52,9 @@ namespace BetterDefaultBrowserLib
             }
         }
 
+        /// <summary>
+        /// Full browser name for display.
+        /// </summary>
         public String Name
         {
             get
@@ -51,6 +69,9 @@ namespace BetterDefaultBrowserLib
             }
         }
 
+        /// <summary>
+        /// Path to browser icon. ICO format.
+        /// </summary>
         public String IconPath
         {
             get
@@ -59,6 +80,10 @@ namespace BetterDefaultBrowserLib
             }
         }
 
+        //TODO: What if a browser has not the <EXE> <URL> call scheme?
+        /// <summary>
+        /// Path to the browser executable.
+        /// </summary>
         public String ApplicationPath
         {
             get
@@ -72,12 +97,5 @@ namespace BetterDefaultBrowserLib
             return Name;
         }
 
-        public void StartWithWebsite(String website)
-        {
-            Process proc = new Process();
-            proc.StartInfo.FileName = this.ApplicationPath;
-            proc.StartInfo.Arguments = website;
-            proc.Start();
-        }
     }
 }

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BetterDefaultBrowserLib;
+using BetterDefaultBrowser.Lib;
 using System.Runtime.InteropServices;
 
 namespace BetterDefaultBrowser
@@ -90,7 +90,7 @@ namespace BetterDefaultBrowser
 
         private void btnInstallBrowser_Click(object sender, RoutedEventArgs e)
         {
-            Helper.startHelper("install " + AppDomain.CurrentDomain.BaseDirectory +  "BetterDefaultBrowser-Proxy.exe");
+            Helper.startHelper("install " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser-Proxy.exe" + " " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser.exe");
             btnInstallBrowser.IsEnabled = false;
             btnUninstallBrowser.IsEnabled = true;
             refresh();
