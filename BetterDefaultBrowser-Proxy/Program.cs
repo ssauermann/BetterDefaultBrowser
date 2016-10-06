@@ -33,15 +33,12 @@ namespace BetterDefaultBrowser.Proxy
 
                 Debug.WriteLine("Information: " + "Url to open: '" + url + "'");
 
-                //Read settings for filter and the default browser
-                Settings settings = new Settings();
-
-                var filters = settings.Filter;
+                var filters = Settings.Filter;
 
                 //Mustn't be null
                 Debug.Assert(filters != null, "Filter list is null");
 
-                var defBrowser = settings.DefaultBrowser;
+                var defBrowser = Settings.DefaultBrowser;
 
                 if (defBrowser == null)
                 {
@@ -63,7 +60,7 @@ namespace BetterDefaultBrowser.Proxy
                 Debug.WriteLine("Information: " + "Matching browser: '" + selBrowser.Name + "'");
 
                 //Loop catching
-                if (selBrowser.Name == HardcodedValues.BROWSER_NAME)
+                if (selBrowser.Name == HardcodedValues.APP_NAME)
                 {
                     failLoop();
                 }
@@ -133,7 +130,7 @@ namespace BetterDefaultBrowser.Proxy
             try
             {
                 var mainAppPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet\"
-                    + HardcodedValues.APP_NAME_PATH + @"\Capabilities")
+                    + HardcodedValues.APP_NAME + @"\Capabilities")
                     .GetValue("ApplicationMainExe").ToString();
 
                 Launcher.Launch(mainAppPath, "-perror " + error.ToString());

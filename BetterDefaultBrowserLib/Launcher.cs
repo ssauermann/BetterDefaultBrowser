@@ -10,7 +10,7 @@ namespace BetterDefaultBrowser.Lib
     /// <summary>
     /// Methods for launching extra processes.
     /// </summary>
-    public class Launcher
+    public static class Launcher
     {
         /// <summary>
         /// Start a process.
@@ -23,6 +23,11 @@ namespace BetterDefaultBrowser.Lib
             proc.StartInfo.FileName = path;
             proc.StartInfo.Arguments = param;
             proc.Start();
+        }
+
+        public static void LaunchBrowser(Browser browser, String url)
+        {
+            Launch(browser.ApplicationPath, url);
         }
     }
 }

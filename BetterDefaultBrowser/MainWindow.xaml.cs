@@ -27,13 +27,14 @@ namespace BetterDefaultBrowser
         public MainWindow()
         {
             InitializeComponent();
+            lblWinVersion.Content = OSVersions.getVersion().ToString();
             refresh();
         }
 
         public void refresh()
         {
             dB = new DefaultBrowser();
-            labelDefaultBrowser.Content = dB.GetDefault().Name;
+            labelDefaultBrowser.Content = "My fancy Browser"; //dB.GetDefault().Name; //TODO
             listBoxInstalledBrowsers.Items.Clear();
             foreach (var browser in dB.Browsers)
             {
@@ -73,12 +74,12 @@ namespace BetterDefaultBrowser
 
         private void btnTestOpen_Click(object sender, RoutedEventArgs e)
         {
-            (listBoxInstalledBrowsers.SelectedItem as Browser).StartWithWebsite(@"http://www.google.de");
+            Launcher.LaunchBrowser(listBoxInstalledBrowsers.SelectedItem as Browser,@"http://www.google.de");
         }
 
         private void btnSetDefault_Click(object sender, RoutedEventArgs e)
         {
-            dB.SetDefault((listBoxInstalledBrowsers.SelectedItem as Browser));
+            (listBoxInstalledBrowsers.SelectedItem as Browser).SetDefault();
 
             refresh();
         }
@@ -91,29 +92,25 @@ namespace BetterDefaultBrowser
         private void btnInstallBrowser_Click(object sender, RoutedEventArgs e)
         {
             Helper.startHelper("install " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser-Proxy.exe" + " " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser.exe");
-            btnInstallBrowser.IsEnabled = false;
-            btnUninstallBrowser.IsEnabled = true;
             refresh();
         }
 
         private void btnUninstallBrowser_Click(object sender, RoutedEventArgs e)
         {
             Helper.startHelper("uninstall");
-            btnInstallBrowser.IsEnabled = true;
-            btnUninstallBrowser.IsEnabled = false;
             refresh();
         }
 
         private void btnSetProxyFilter_Click(object sender, RoutedEventArgs e)
         {
-            var filters = settings.Filter;
+            var filters = Settings.Filter;
             filters.AddLast(new Filter(textBox.Text, listBoxInstalledBrowsers.SelectedItem as Browser));
-            settings.Filter = filters;
+            Settings.Filter = filters;
         }
 
         private void btnSetProxyDefault_Click(object sender, RoutedEventArgs e)
         {
-            settings.DefaultBrowser = listBoxInstalledBrowsers.SelectedItem as Browser;
+            Settings.DefaultBrowser = listBoxInstalledBrowsers.SelectedItem as Browser;
         }
 
         private void btnDeleteSettings_Click(object sender, RoutedEventArgs e)

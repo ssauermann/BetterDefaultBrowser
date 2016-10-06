@@ -12,24 +12,22 @@ namespace BetterDefaultBrowser.Lib
     public static class HardcodedValues
     {
         /// <summary>
-        /// App name for usage in paths.
+        /// App name for usage in display, paths or registry.
         /// </summary>
-        public static String APP_NAME_PATH = "BetterDefaultBrowser";
+        public static String APP_NAME = "Better Default Browser";
 
         /// <summary>
-        /// App name for usage in display.
+        /// Prog id for registry.
         /// </summary>
-        public static String APP_NAME  = "Better Default Browser";
+        public static String PROG_ID = "BetterDefaultBrowserHTML";
 
         /// <summary>
         /// Path to the folder in which settings and log files are stored. Ending with \.
         /// </summary>
-        public static String DATA_FOLDER = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\" + APP_NAME_PATH + @"\";
+        public static String DATA_FOLDER = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\" + APP_NAME + @"\";
 
-        /// <summary>
-        /// Browser name as it will be set in the registry.
-        /// </summary>
-        public static String BROWSER_NAME = "BDB Proxy";
+        public static String APP_DESC =
+                "This is the fake browser entry for the 'Better Default Browser' proxy, so links can be opened in different browsers based on filters.";
 
         /// <summary>
         /// Error codes to communicate between proxy and main client.

@@ -24,11 +24,11 @@ namespace BetterDefaultBrowser.Lib
             }
         }
 
-        public Browser GetDefault()
+        public static Browser GetDefault()
         {
             var id = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", "ProgId", "NONE").ToString();
 
-            foreach (Browser b in browsers)
+            foreach (Browser b in Browser.getInstalledBrowsers())
             {
                 if (b.ProgId.Equals(id))
                 {
@@ -39,18 +39,13 @@ namespace BetterDefaultBrowser.Lib
             return null;
         }
 
-        public void SetDefault(Browser browser)
-        {
-            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", "ProgId", browser.ProgId);
-            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice", "ProgId", browser.ProgId);
-            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp\UserChoice", "ProgId", browser.ProgId);
-        }
+
 
         public bool isInstalled()
         {
             foreach (var b in Browsers)
             {
-                if(b.Name == "BDB Proxy")
+                if(b.Name == HardcodedValues.APP_NAME)
                 {
                     return true;
                 }

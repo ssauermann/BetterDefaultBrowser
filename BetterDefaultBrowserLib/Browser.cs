@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.Diagnostics;
+using static BetterDefaultBrowser.Lib.OSVersions;
 
 namespace BetterDefaultBrowser.Lib
 {
@@ -31,7 +32,7 @@ namespace BetterDefaultBrowser.Lib
         /// <summary>
         /// Unique key, identifying the browser in registry.
         /// </summary>
-        public String KeyName { get;}
+        public String KeyName { get; }
 
         /// <summary>
         /// Programm ID, used to reference installation registry details.
@@ -92,9 +93,60 @@ namespace BetterDefaultBrowser.Lib
             }
         }
 
+        /// <summary>
+        /// Is this browser currently the system default browser?
+        /// </summary>
+        public bool IsDefault
+        {
+            get
+            {
+                //STUB: TODO
+                if (KeyName == "FIREFOX.EXE")
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Sets this browser as the system default. DO NOT CALL THIS METHOD ON WINDOWS 8 AND LATER.
+        /// </summary>
+        public void SetDefault()
+        {
+            var version = OSVersions.getVersion();
+            if (version.HasFlag(OS.VISTA) || version.HasFlag(OS.WIN7))
+            {
+                Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", "ProgId", ProgId);
+                Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice", "ProgId", ProgId);
+                Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp\UserChoice", "ProgId", ProgId);
+            }
+            else if (version.HasFlag(OS.WIN8))
+            {
+                OSVersions.openBrowserSelectWindow(Name);
+            }
+            else if (version.HasFlag(OS.WIN10) || version.HasFlag(OS.NEWER))
+            {
+                var msg = "To set your default browser, go to Settings > System > Default apps.";
+                WindowNotification.show(this, msg);
+            }else
+            {
+                throw new ApplicationException("Your OS is not supported. Sorry :(");
+            }
+        }
+
         public override string ToString()
         {
             return Name;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////     static below     ////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+        public static LinkedList<Browser> getInstalledBrowsers()
+        {
+            return null;
         }
 
     }
