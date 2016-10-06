@@ -8,18 +8,19 @@
         Title="MainWindow2" Height="300" Width="300">
     <Window.Resources>
         <local:DefaultConverter x:Key="defaultConverter"/>
+        <local:ProtocolConverter x:Key="protocolConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="92*"/>
             <RowDefinition Height="177*"/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="74,38,0,0" VerticalAlignment="Top" Width="65" Grid.Row="1" Height="22">
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="74,38,0,0" VerticalAlignment="Top" Width="65" Grid.Row="1" Height="22" SelectedIndex="{Binding Path=Protocol,Converter={StaticResource protocolConverter}}">
             <ComboBoxItem Content="http" HorizontalAlignment="Left" Width="65" IsSelected="True"/>
             <ComboBoxItem Content="https" HorizontalAlignment="Left" Width="65"/>
             <ComboBoxItem Content="ftp" HorizontalAlignment="Left" Width="65"/>
         </ComboBox>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="74,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" ToolTip="enter a website e.g. www.google.de" Grid.Row="1" Text="{Binding Path=Protocol, Mode=TwoWay}"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="74,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" ToolTip="enter a website e.g. www.google.de" Grid.Row="1" Text="{Binding Path=Url, Mode=TwoWay}"/>
         <Label x:Name="label" Content="Website" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="52"/>
         <Label x:Name="label1" Content="Protocol" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="54"/>
         <Label x:Name="label2" Content="Add a new filter" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="94"/>

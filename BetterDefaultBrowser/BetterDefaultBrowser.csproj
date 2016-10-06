@@ -82,6 +82,7 @@
       <DependentUpon>MainWindow2.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindowBind.cs" />
+    <Compile Include="ProtocolConverter.cs" />
     <Compile Include="UACIcon.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

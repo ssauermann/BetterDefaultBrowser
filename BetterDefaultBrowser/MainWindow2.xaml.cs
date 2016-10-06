@@ -20,7 +20,7 @@ namespace BetterDefaultBrowser
     /// </summary>
     public partial class MainWindow2 : Window
     {
-        private MainWindowBind mainBind = new MainWindowBind(1, "HTTP");
+        private MainWindowBind mainBind = new MainWindowBind();
         private DefaultBrowser DB = new DefaultBrowser();
 
         public MainWindow2()
@@ -32,7 +32,7 @@ namespace BetterDefaultBrowser
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            mainBind.Protocol = "HttpStyleUriParser";
+            mainBind.Url = "HttpStyleUriParser";
         }
 
         private void buttonRefresh_Click(object sender, RoutedEventArgs e)

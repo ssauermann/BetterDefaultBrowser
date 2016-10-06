@@ -17,12 +17,22 @@ namespace BetterDefaultBrowser
             }
         }
 
-        private string protocol;
+        public enum Protocols { https, http, ftp};
 
-        public string Protocol {
+        private Protocols protocol;
+
+        public Protocols Protocol {
             get { return protocol; }
             set { protocol = value;
                 OnPropertyChanged(new PropertyChangedEventArgs("Protocol"));
+            }
+        }
+
+        private string url;
+        public string Url {
+            get { return url; }
+            set { url = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("Url"));
             }
         }
 
@@ -32,7 +42,7 @@ namespace BetterDefaultBrowser
                 PropertyChanged(this, e);
         }
 
-        public MainWindowBind(int browser,string protocol)
+        public MainWindowBind(int browser,Protocols protocol)
         {
             Browser = browser;
             Protocol= protocol;
@@ -41,7 +51,7 @@ namespace BetterDefaultBrowser
         public MainWindowBind()
         {
             Browser = 1;
-            Protocol = "HTCPCCC";
+            Protocol = Protocols.ftp;
         }
     }
 }
