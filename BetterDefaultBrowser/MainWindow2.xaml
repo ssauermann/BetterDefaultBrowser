@@ -33,7 +33,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock x:Name="textBox3" Text="{Binding Name}" HorizontalAlignment="Left" Grid.Column="0"/>
-                        <TextBlock x:Name="textBox5" Text="{Binding Path=IsDefault}" HorizontalAlignment="Left" Grid.Column="1"/>
+                        <TextBlock x:Name="textBox5" Text="{Binding Path=IsDefault, Converter={StaticResource defaultConverter}}" HorizontalAlignment="Left" Grid.Column="1"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
