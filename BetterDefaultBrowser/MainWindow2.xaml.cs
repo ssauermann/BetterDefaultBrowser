@@ -30,6 +30,8 @@ namespace BetterDefaultBrowser
             browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
             comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
 
+            WinVerLabel.Content= OSVersions.getVersion().ToString();
+
             EnableDisableInstallationButton();
 
             var win1 = new MainWindow();
@@ -97,7 +99,8 @@ namespace BetterDefaultBrowser
 
         private void deleteSettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            
+            System.IO.Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BetterDefaultBrowser", true);
+            Application.Current.Shutdown();
         }
     }
 }
