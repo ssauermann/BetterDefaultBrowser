@@ -29,7 +29,7 @@ namespace BetterDefaultBrowser.Lib
                 this.path = @"HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\" + keyName;
                 if ((Registry.GetValue(path, null, null)) == null)
                 {
-                    throw new ArgumentException("Browser key not existing");
+                    throw new ArgumentException("Browser key does not exist!");
                 }
             }
         }
@@ -51,6 +51,9 @@ namespace BetterDefaultBrowser.Lib
                     return "IE.HTTP";
                     //For https
                     //IE.HTTPS
+                }else if(KeyName == "VMWAREHOSTOPEN.EXE")
+                {
+                    return "VMwareHostOpen.AssocUrl";
                 }
                 
                 //Edge is even more special, it has no entry in StartMenuInternet.
@@ -62,7 +65,12 @@ namespace BetterDefaultBrowser.Lib
                     //AppX90nv6nhay5n6a98fnetv7tpk64pp35es
                 }
 
-                return Registry.GetValue(path + @"\Capabilities\URLAssociations", "http", "NONE").ToString();
+
+                Trace.WriteLine(KeyName);
+                Trace.WriteLine(Registry.GetValue(path + @"\Capabilities\URLAssociations", "http", null));
+
+                var val = Registry.GetValue(path + @"\Capabilities\URLAssociations", "http", null);
+                return (val == null) ? "" : val.ToString();
             }
         }
 
@@ -78,6 +86,10 @@ namespace BetterDefaultBrowser.Lib
                 {
                     return "Internet Explorer";
                 }
+                else if (KeyName == "VMWAREHOSTOPEN.EXE")
+                {
+                    return "VMware Host Open";
+                }
 
                 //Edge is even more special, it has no entry in StartMenuInternet.
                 //Note: This is arbitary
@@ -86,7 +98,8 @@ namespace BetterDefaultBrowser.Lib
                     return "Edge";
                 }
 
-                return Registry.GetValue(path + @"\Capabilities", "ApplicationName", "NONE").ToString();
+                var val = Registry.GetValue(path + @"\Capabilities", "ApplicationName", null).ToString();
+                return (val == null) ? "" : val.ToString();
             }
         }
 
@@ -104,7 +117,8 @@ namespace BetterDefaultBrowser.Lib
                     return @"%windir%\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe,0";
                 }
 
-                return Registry.GetValue(path + @"\DefaultIcon", null, "NONE").ToString();
+                var val = Registry.GetValue(path + @"\DefaultIcon", null, null).ToString();
+                return (val == null) ? "" : val.ToString();
             }
         }
 
@@ -123,7 +137,8 @@ namespace BetterDefaultBrowser.Lib
                     //Will open but without url, use Launcher.RunEdge(url) instead.
                     return "microsoft-edge:";
                 }
-                return Registry.GetValue(path + @"\shell\open\command", null, "NONE").ToString();
+                var val = Registry.GetValue(path + @"\shell\open\command", null, null).ToString();
+                return (val == null) ? "" : val.ToString();
             }
         }
 
@@ -173,10 +188,14 @@ namespace BetterDefaultBrowser.Lib
             else if (version.HasFlag(OS.WIN8))
             {
                 OSVersions.openBrowserSelectWindow(Name);
+                var msg = "Please select all wanted protocolls and files.";
+                WindowNotification.show(this, msg);
             }
             else if (version.HasFlag(OS.WIN10) || version.HasFlag(OS.NEWER))
             {
-                var msg = "To set your default browser, go to Settings > System > Default apps.";
+                Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\AppData\Local\Packages\windows.immersivecontrolpanel_cw5n1h2txyewy\LocalState\Indexed\Settings\de-DE\AAA_SettingsPageAppsDefaults.settingcontent-ms");
+                var msg = "Please select " + Name + " as your default webbrowser.";
+                //var msg = "To set your default browser, go to Settings > System > Default apps.";
                 WindowNotification.show(this, msg);
             }else
             {
