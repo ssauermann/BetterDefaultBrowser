@@ -38,5 +38,11 @@ namespace BetterDefaultBrowser.Lib
             DEFAULT_BROWSER,
             LOOP
         }
+
+        public enum HELPER_ERROR_CODE
+        {
+            UNKOWN,
+
+        }
     }
 }
