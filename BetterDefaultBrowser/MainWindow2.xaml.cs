@@ -30,37 +30,10 @@ namespace BetterDefaultBrowser
             browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
             comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
 
-            WinVerLabel.Content= OSVersions.getVersion().ToString();
-
-            EnableDisableInstallationButton();
+            WinVerLabel.Content = OSVersions.getVersion().ToString();
 
             var win1 = new MainWindow();
             win1.Show();
-        }
-
-        /// <summary>
-        /// If refresh buttonis clicked the dropdown menu for browserselection and the list of browser should be updated
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            //foreach (var browser in AllBrowsers.InstalledBrowsers)
-            //{
-                //browser.update();
-            //}
-     updateBrowsersGUI();
-        }
-
-        /// <summary>
-        /// All references to browsers in the GUI will be refreshed
-        /// </summary>
-        private void updateBrowsersGUI()
-        {
-            browserList.ItemsSource = null;
-            browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
-            comboBoxBrowserSelect.ItemsSource = null;
-            comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
         }
 
         private void Applybutton_Click(object sender, RoutedEventArgs e)
