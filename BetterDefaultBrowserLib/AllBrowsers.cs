@@ -1,11 +1,9 @@
 ﻿using Microsoft.Win32;
 using RegistryUtils;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace BetterDefaultBrowser.Lib
 {
@@ -122,6 +120,7 @@ namespace BetterDefaultBrowser.Lib
         #endregion
 
         #region Event Handler
+        private static SynchronizationContext synchronizationContext;
         static AllBrowsers()
         {
             //Registry Monitors
@@ -136,6 +135,9 @@ namespace BetterDefaultBrowser.Lib
 
             //TODO: When to stop? Do they have to?
 
+            //Context for main thread
+            synchronizationContext = SynchronizationContext.Current;
+
             //Initial loading
             LoadBrowsers();
             LoadDefault();
@@ -143,11 +145,17 @@ namespace BetterDefaultBrowser.Lib
 
         private static void OnDefaultBrowserChanged(object sender, EventArgs e)
         {
-            LoadDefault();
+            synchronizationContext.Post(delegate
+            {
+                LoadDefault();
+            }, null);
         }
         private static void OnInstalledBrowsersChanged(object sender, EventArgs e)
         {
-            LoadBrowsers();
+            synchronizationContext.Post(delegate
+            {
+                LoadBrowsers();
+            }, null);
         }
 
         #endregion
