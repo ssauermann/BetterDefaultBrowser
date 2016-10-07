@@ -61,7 +61,7 @@ namespace BetterDefaultBrowser
             browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
             comboBoxBrowserSelect.ItemsSource = null;
             comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
-        }        }
+        }
 
         private void Applybutton_Click(object sender, RoutedEventArgs e)
         {
