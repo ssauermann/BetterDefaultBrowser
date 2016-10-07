@@ -13,8 +13,10 @@ namespace BetterDefaultBrowser.Lib
     /// <summary>
     /// Browser with informationen saved in the registry.
     /// </summary>
-    public class Browser : INotifyPropertyChanged
+    public class Browser : INotifyPropertyChanged, IEquatable<Browser>, IComparable<Browser>
     {
+        #region Attributes & Constructor
+
         private String path;
 
         /// <summary>
@@ -33,6 +35,9 @@ namespace BetterDefaultBrowser.Lib
                 }
             }
         }
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Unique key, identifying the browser in registry.
         /// </summary>
@@ -143,26 +148,6 @@ namespace BetterDefaultBrowser.Lib
         }
 
         /// <summary>
-        /// Event handler to react to changes with IsDefault
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, e);
-        }
-
-        /// <summary>
-        /// Tells the GUI to update the (default) sign
-        /// </summary>
-        public void update()
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs("IsDefault"));
-        }
-
-
-
-        /// <summary>
         /// Is this browser currently the system default browser?
         /// </summary>
         public bool IsDefault
@@ -173,8 +158,11 @@ namespace BetterDefaultBrowser.Lib
             }
         }
 
+        #endregion
+
+        #region Methods
         /// <summary>
-        /// Sets this browser as the system default. Has to open a windows for the user on windows 8 and later.
+        /// Sets this browser as the system default. Has to open a window for the user on windows 8 and later.
         /// </summary>
         public void SetDefault()
         {
@@ -203,12 +191,30 @@ namespace BetterDefaultBrowser.Lib
             }
         }
 
+        #endregion
+
+        #region Event Handler
+        /// <summary>
+        /// Event handler to react to changes with IsDefault
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
 
 
+        /// <summary>
+        /// Tells the GUI to update the (default) label
+        /// </summary>
+        public void update()
+        {
+            OnPropertyChanged("IsDefault");
+        }
+        #endregion
 
-
-
-
+        #region Object Methods
         public override string ToString()
         {
             return Name;
@@ -219,8 +225,7 @@ namespace BetterDefaultBrowser.Lib
             if(!(obj is Browser)){
                 return false;
             }
-            var other = obj as Browser;
-            return other.KeyName == this.KeyName;
+            return this.Equals(obj as Browser);
         }
 
         public override int GetHashCode()
@@ -228,5 +233,19 @@ namespace BetterDefaultBrowser.Lib
             return KeyName.GetHashCode();
         }
 
+        public bool Equals(Browser other)
+        {
+            if (other == null)
+                return false;
+            return other.KeyName == this.KeyName;
+        }
+
+        public int CompareTo(Browser other)
+        {
+            if (other == null)
+                return 1;
+            return this.Name.CompareTo(other.Name);
+        }
+        #endregion
     }
 }
