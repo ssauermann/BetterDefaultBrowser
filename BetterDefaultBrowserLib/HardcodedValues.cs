@@ -14,19 +14,19 @@ namespace BetterDefaultBrowser.Lib
         /// <summary>
         /// App name for usage in display, paths or registry.
         /// </summary>
-        public static String APP_NAME = "Better Default Browser";
+        public const String APP_NAME = "Better Default Browser";
 
         /// <summary>
         /// Prog id for registry.
         /// </summary>
-        public static String PROG_ID = "BetterDefaultBrowserHTML";
+        public const String PROG_ID = "BetterDefaultBrowserHTML";
 
         /// <summary>
         /// Path to the folder in which settings and log files are stored. Ending with \.
         /// </summary>
-        public static String DATA_FOLDER = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\" + APP_NAME + @"\";
+        public static readonly String DATA_FOLDER = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\" + APP_NAME + @"\";
 
-        public static String APP_DESC =
+        public const String APP_DESC =
                 "This is the fake browser entry for the 'Better Default Browser' proxy, so links can be opened in different browsers based on filters.";
 
         /// <summary>
@@ -37,6 +37,12 @@ namespace BetterDefaultBrowser.Lib
             UNKOWN,
             DEFAULT_BROWSER,
             LOOP
+        }
+
+        public enum HELPER_ERROR_CODE
+        {
+            UNKOWN,
+
         }
     }
 }

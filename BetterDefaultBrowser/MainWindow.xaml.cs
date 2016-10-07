@@ -112,7 +112,7 @@ namespace BetterDefaultBrowser
 
         private void btnDeleteSettings_Click(object sender, RoutedEventArgs e)
         {
-            System.IO.Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BetterDefaultBrowser",true);
+            System.IO.Directory.Delete(HardcodedValues.DATA_FOLDER,true);
             Application.Current.Shutdown();
         }
     }

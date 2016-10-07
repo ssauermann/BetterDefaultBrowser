@@ -22,10 +22,10 @@ namespace BetterDefaultBrowser.Lib
         /// </summary>
         static Settings()
         {
-            path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BetterDefaultBrowser";
+            path = HardcodedValues.DATA_FOLDER;
             Directory.CreateDirectory(path);
 
-            path += @"\settings.xml";
+            path += @"settings.xml";
             if (!File.Exists(path))
             {
                 new XDocument(new XElement("settings")).Save(path);

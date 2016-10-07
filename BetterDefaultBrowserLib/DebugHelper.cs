@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -35,8 +36,10 @@ namespace BetterDefaultBrowser.Lib.Debug
 
         public static void SetUpListener()
         {
+            var path = HardcodedValues.DATA_FOLDER + "log.txt";
+            Directory.CreateDirectory(HardcodedValues.DATA_FOLDER);
             //Setup listener:
-            var listener = new TextWriterTraceListener(HardcodedValues.DATA_FOLDER + "log.txt");
+            var listener = new TextWriterTraceListener(path);
             Trace.Listeners.Add(listener);
             Trace.AutoFlush = true;
             Trace.IndentSize = 4;
