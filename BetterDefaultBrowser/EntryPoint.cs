@@ -8,7 +8,6 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Reflection;
 using BetterDefaultBrowser.Lib.Debug;
-using System.Windows;
 using BetterDefaultBrowser.Lib;
 
 namespace BetterDefaultBrowser
@@ -84,9 +83,11 @@ namespace BetterDefaultBrowser
             catch(Exception ex)
             {
                 Trace.TraceError(ex.ToString());
-                var result = MessageBox.Show("An error has occured!\n" +
-                    "TODO: Show this in a nice window.\nPS: The error has been logged to: " + HardcodedValues.DATA_FOLDER,
-                        HardcodedValues.APP_NAME + " - An error has occured!",MessageBoxButton.OK, MessageBoxImage.Error);
+                DebugHelper.AllocConsole();
+                Console.WriteLine("An error has occured!\n" +
+                    "The error has been logged to: " + HardcodedValues.DATA_FOLDER);
+                Console.WriteLine("Press any key to close...");
+                Console.ReadKey();
                 Environment.Exit(1);
             }
             finally
