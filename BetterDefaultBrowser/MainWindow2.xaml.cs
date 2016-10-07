@@ -34,12 +34,20 @@ namespace BetterDefaultBrowser
             win1.Show();
         }
 
-
+        /// <summary>
+        /// If refresh buttonis clicked the dropdown menu for browserselection and the list of browser should be updated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonRefresh_Click(object sender, RoutedEventArgs e)
         {
             foreach (var browser in AllBrowsers.InstalledBrowsers)
             {
                 browser.update();
+                browserList.ItemsSource = null;
+                browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
+                comboBoxBrowserSelect.ItemsSource = null;
+                comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
             }
         }
 

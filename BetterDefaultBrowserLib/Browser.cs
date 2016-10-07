@@ -24,10 +24,13 @@ namespace BetterDefaultBrowser.Lib
         public Browser(String keyName)
         {
             this.KeyName = keyName;
-            this.path = @"HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\" + keyName;
-            if ((Registry.GetValue(path, null, null)) == null)
+            if (KeyName != "MSEDGE")
             {
-                throw new ArgumentException("Browser key not existing");
+                this.path = @"HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\" + keyName;
+                if ((Registry.GetValue(path, null, null)) == null)
+                {
+                    throw new ArgumentException("Browser key not existing");
+                }
             }
         }
         /// <summary>
