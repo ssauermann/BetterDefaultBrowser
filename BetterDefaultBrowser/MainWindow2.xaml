@@ -5,27 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BetterDefaultBrowser"
         mc:Ignorable="d"
-        Title="MainWindow2" Height="341.803" Width="300">
+        Title="MainWindow2" Height="401.338" Width="300">
     <Window.Resources>
         <local:DefaultConverter x:Key="defaultConverter"/>
         <local:ProtocolConverter x:Key="protocolConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="114*"/>
-            <RowDefinition Height="197*"/>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="59*"/>
+            <RowDefinition Height="103*"/>
         </Grid.RowDefinitions>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="74,46,0,0" VerticalAlignment="Top" Width="65" Grid.Row="1" Height="22" SelectedIndex="{Binding Path=Protocol,Converter={StaticResource protocolConverter}}">
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="74,46,0,0" VerticalAlignment="Top" Width="65" Grid.Row="2" Height="22" SelectedIndex="{Binding Path=Protocol,Converter={StaticResource protocolConverter}}">
             <ComboBoxItem Content="http" HorizontalAlignment="Left" Width="65"/>
             <ComboBoxItem Content="https" HorizontalAlignment="Left" Width="65"/>
             <ComboBoxItem Content="all" HorizontalAlignment="Left" Width="65" IsSelected="True"/>
         </ComboBox>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="74,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" ToolTip="enter a website e.g. www.google.de" Grid.Row="1" Text="{Binding Path=Url, Mode=TwoWay}"/>
-        <Label x:Name="label" Content="Website" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="52"/>
-        <Label x:Name="label1" Content="Protocol" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="54"/>
-        <Label x:Name="label2" Content="Add a new filter" HorizontalAlignment="Left" Margin="4,0,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="94"/>
-        <ComboBox x:Name="comboBoxBrowserSelect" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="120" SelectedItem="{Binding Path=Browser}" Margin="152,121,0,0" Grid.Row="1" Height="22"/>
-        <ListBox x:Name="browserList" HorizontalAlignment="Stretch" Height="72" Margin="20,10,10,0" VerticalAlignment="Top">
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="74,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" ToolTip="enter a website e.g. www.google.de" Grid.Row="2" Text="{Binding Path=Url, Mode=TwoWay}"/>
+        <Label x:Name="label" Content="Website" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Grid.Row="2" Height="26" Width="52"/>
+        <Label x:Name="label1" Content="Protocol" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" Grid.Row="2" Height="26" Width="54"/>
+        <Label x:Name="label2" Content="Add a new filter" HorizontalAlignment="Left" Margin="4,0,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="94"/>
+        <ComboBox x:Name="comboBoxBrowserSelect" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="120" SelectedItem="{Binding Path=Browser}" Margin="152,121,0,0" Grid.Row="2" Height="22"/>
+        <ListBox x:Name="browserList" HorizontalAlignment="Stretch" Height="72" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
@@ -39,9 +40,19 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="buttonRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="207,87,0,0" VerticalAlignment="Top" Width="75" Click="buttonRefresh_Click" Height="20"/>
-        <Label x:Name="label3" Content="Browser to use" HorizontalAlignment="Left" Margin="10,117,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="88"/>
-        <Button x:Name="Applybutton" Content="Button" HorizontalAlignment="Left" Margin="197,169,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="Applybutton_Click"/>
-
+        <Button x:Name="buttonRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="207,88,0,0" VerticalAlignment="Top" Width="75" Click="buttonRefresh_Click" Height="20" Grid.Row="1"/>
+        <Label x:Name="label3" Content="Browser to use" HorizontalAlignment="Left" Margin="10,117,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="88"/>
+        <Button x:Name="Applybutton" Content="save" HorizontalAlignment="Left" Margin="197,169,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="Applybutton_Click" Height="20"/>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="292">
+            <MenuItem Header="File">
+                <MenuItem x:Name="deleteSettingsMenuItem" Header="Delete all settings" HorizontalAlignment="Left" Width="266" Margin="0,0,-126,0" Click="deleteSettingsMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="Install/Uninstall BDB">
+                <MenuItem x:Name="InstallBDBMenuItem" Header="Install" HorizontalAlignment="Left" Width="140" Click="InstallBDBMenuItem_Click"/>
+                <MenuItem x:Name="UninstallBDBMenuItem" Header="Uninstall" HorizontalAlignment="Left" Width="140" Click="UninstallBDBMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        <Label x:Name="WinVerLabel" Content="Label" HorizontalAlignment="Left" Margin="236,19,0,0" VerticalAlignment="Top" Width="54"/>
+        <Button x:Name="button" Content="Selected as default Browser" HorizontalAlignment="Left" Margin="10,88,0,0" Grid.Row="1" VerticalAlignment="Top" Width="182"/>
     </Grid>
 </Window>
