@@ -30,6 +30,8 @@ namespace BetterDefaultBrowser
             browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
             comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
 
+            EnableDisableInstallationButton();
+
             var win1 = new MainWindow();
             win1.Show();
         }
@@ -44,16 +46,58 @@ namespace BetterDefaultBrowser
             foreach (var browser in AllBrowsers.InstalledBrowsers)
             {
                 browser.update();
-                browserList.ItemsSource = null;
-                browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
-                comboBoxBrowserSelect.ItemsSource = null;
-                comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
             }
+            updateBrowsersGUI();
+        }
+
+        /// <summary>
+        /// All references to browsers in the GUI will be refreshed
+        /// </summary>
+        private void updateBrowsersGUI()
+        {
+            browserList.ItemsSource = null;
+            browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
+            comboBoxBrowserSelect.ItemsSource = null;
+            comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
         }
 
         private void Applybutton_Click(object sender, RoutedEventArgs e)
         {
             mainBind.saveCurrent();
+        }
+
+        private void UninstallBDBMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Helper.startHelper("uninstall");
+            EnableDisableInstallationButton();
+        }
+
+        private void InstallBDBMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Helper.startHelper("install " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser-Proxy.exe" + " " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser.exe");
+            EnableDisableInstallationButton();
+        }
+
+        /// <summary>
+        /// Checks wether BDB is installed and enables or disables the install buttons
+        /// </summary>
+        private void EnableDisableInstallationButton()
+        {
+            if (AllBrowsers.IsBDBInstalled)
+            {
+                UninstallBDBMenuItem.IsEnabled = true;
+                InstallBDBMenuItem.IsEnabled = false;
+            }
+            else
+            {
+                UninstallBDBMenuItem.IsEnabled = false;
+                InstallBDBMenuItem.IsEnabled = true;
+            }
+        }
+
+        private void deleteSettingsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
