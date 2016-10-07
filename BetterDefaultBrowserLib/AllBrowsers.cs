@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
+using RegistryUtils;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +11,9 @@ namespace BetterDefaultBrowser.Lib
 {
     public static class AllBrowsers
     {
+        private static BindingList<Browser> browsers = new BindingList<Browser>();
+        private static Browser @default;
+
         public static bool IsBrowserInstalled(String name)
         {
             foreach (var b in InstalledBrowsers)
@@ -28,44 +33,76 @@ namespace BetterDefaultBrowser.Lib
         {
             get
             {
-                var id = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", "ProgId", "NONE").ToString();
-
-                foreach (Browser b in InstalledBrowsers)
-                {
-                    if (b.ProgId.Equals(id))
-                    {
-                        return b;
-                    }
-                }
-
-                return null;
+                return @default;
             }
         }
 
         /// <summary>
         /// List of all installed browsers.
         /// </summary>
-        public static LinkedList<Browser> InstalledBrowsers
+        public static BindingList<Browser> InstalledBrowsers
         {
             get
             {
-                LinkedList<Browser> browsers = new LinkedList<Browser>();
-
-                var keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet").GetSubKeyNames();
-                foreach (var name in keys)
-                {
-                    browsers.AddLast(new Browser(name));
-                }
-
-                //MS Edge is special :(
-                var version = OSVersions.getVersion();
-                if (version.HasFlag(OSVersions.OS.WIN10) || version.HasFlag(OSVersions.OS.NEWER)){
-                    browsers.AddLast(new Browser("MSEDGE"));
-                }
-
                 return browsers;
             }
         }
+
+        #region Value Loaders
+        private static void LoadDefault()
+        {
+            var idK = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", "ProgId", null);
+
+            if (idK != null)
+            {
+                var id = idK.ToString();
+
+                foreach (Browser b in InstalledBrowsers)
+                    if (b.ProgId.Equals(id))
+                    {
+                        AllBrowsers.@default = b;
+                        break;
+                    }
+            }
+            else
+                AllBrowsers.@default = null;
+
+            //Set default for all browsers:
+            foreach(var b in InstalledBrowsers)
+            {
+                if (b.Equals(AllBrowsers.Default))
+                    b.IsDefault = true;
+                else
+                    b.IsDefault = false;
+            }
+        }
+
+
+
+        private static void LoadBrowsers()
+        {
+            browsers.Clear();
+            var keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet").GetSubKeyNames();
+            foreach (var name in keys)
+            {
+                AllBrowsers.browsers.Add(new Browser(name));
+            }
+
+            //MS Edge is special :(
+            var version = OSVersions.getVersion();
+            if (version.HasFlag(OSVersions.OS.WIN10) || version.HasFlag(OSVersions.OS.NEWER))
+            {
+                AllBrowsers.browsers.Add(new Browser("MSEDGE"));
+            }
+
+            //Sort
+            AllBrowsers.browsers.OrderBy(b => b.Name);
+        }
+
+
+        #endregion
+
+        #region Convenience Methods
 
         public static bool IsBDBInstalled
         {
@@ -82,5 +119,37 @@ namespace BetterDefaultBrowser.Lib
                 return Default.KeyName == HardcodedValues.APP_NAME;
             }
         }
+        #endregion
+
+        #region Event Handler
+        static AllBrowsers()
+        {
+            //Registry Monitors
+            RegistryMonitor defaultBrowserMonitor = new RegistryMonitor(RegistryHive.CurrentUser, @"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice");
+            RegistryMonitor installedBrowsersMonitor = new RegistryMonitor(RegistryHive.LocalMachine, @"SOFTWARE\Clients\StartMenuInternet");
+
+            defaultBrowserMonitor.RegChanged += new EventHandler(OnDefaultBrowserChanged);
+            installedBrowsersMonitor.RegChanged += new EventHandler(OnInstalledBrowsersChanged);
+
+            defaultBrowserMonitor.Start();
+            installedBrowsersMonitor.Start();
+
+            //TODO: When to stop? Do they have to?
+
+            //Initial loading
+            LoadBrowsers();
+            LoadDefault();
+        }
+
+        private static void OnDefaultBrowserChanged(object sender, EventArgs e)
+        {
+            LoadDefault();
+        }
+        private static void OnInstalledBrowsersChanged(object sender, EventArgs e)
+        {
+            LoadBrowsers();
+        }
+
+        #endregion
     }
 }

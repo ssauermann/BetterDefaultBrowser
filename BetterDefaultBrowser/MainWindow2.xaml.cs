@@ -37,10 +37,7 @@ namespace BetterDefaultBrowser
 
         private void buttonRefresh_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var browser in AllBrowsers.InstalledBrowsers)
-            {
-                browser.update();
-            }
+            //I'm useless now
         }
 
         private void Applybutton_Click(object sender, RoutedEventArgs e)

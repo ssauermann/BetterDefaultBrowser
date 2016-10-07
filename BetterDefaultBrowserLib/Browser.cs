@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using static BetterDefaultBrowser.Lib.OSVersions;
 using System.ComponentModel;
+using RegistryUtils;
 
 namespace BetterDefaultBrowser.Lib
 {
@@ -18,6 +19,7 @@ namespace BetterDefaultBrowser.Lib
         #region Attributes & Constructor
 
         private String path;
+        private bool isDefault;
 
         /// <summary>
         /// Read browser information for a specific key from the registry.
@@ -25,6 +27,11 @@ namespace BetterDefaultBrowser.Lib
         /// <param name="keyName">Unique key as used in the registry path.</param>
         public Browser(String keyName)
         {
+            if(keyName==null || keyName == "")
+            {
+                throw new ArgumentNullException("Key must not be null or empty.");
+            }
+
             this.KeyName = keyName;
             if (KeyName != "MSEDGE")
             {
@@ -34,6 +41,8 @@ namespace BetterDefaultBrowser.Lib
                     throw new ArgumentException("Browser key does not exist!");
                 }
             }
+
+            isDefault = this.Equals(AllBrowsers.Default);
         }
         #endregion
 
@@ -56,11 +65,12 @@ namespace BetterDefaultBrowser.Lib
                     return "IE.HTTP";
                     //For https
                     //IE.HTTPS
-                }else if(KeyName == "VMWAREHOSTOPEN.EXE")
+                }
+                else if (KeyName == "VMWAREHOSTOPEN.EXE")
                 {
                     return "VMwareHostOpen.AssocUrl";
                 }
-                
+
                 //Edge is even more special, it has no entry in StartMenuInternet.
                 //Note: This is arbitary
                 if (KeyName == "MSEDGE")
@@ -103,7 +113,7 @@ namespace BetterDefaultBrowser.Lib
                     return "Edge";
                 }
 
-                var val = Registry.GetValue(path + @"\Capabilities", "ApplicationName", null).ToString();
+                var val = Registry.GetValue(path + @"\Capabilities", "ApplicationName", null);
                 return (val == null) ? "" : val.ToString();
             }
         }
@@ -114,7 +124,7 @@ namespace BetterDefaultBrowser.Lib
         public String IconPath
         {
             get
-            {   
+            {
                 //Edge is even more special, it has no entry in StartMenuInternet.
                 //Note: This is arbitary
                 if (KeyName == "MSEDGE")
@@ -122,7 +132,7 @@ namespace BetterDefaultBrowser.Lib
                     return @"%windir%\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe,0";
                 }
 
-                var val = Registry.GetValue(path + @"\DefaultIcon", null, null).ToString();
+                var val = Registry.GetValue(path + @"\DefaultIcon", null, null);
                 return (val == null) ? "" : val.ToString();
             }
         }
@@ -142,7 +152,7 @@ namespace BetterDefaultBrowser.Lib
                     //Will open but without url, use Launcher.RunEdge(url) instead.
                     return "microsoft-edge:";
                 }
-                var val = Registry.GetValue(path + @"\shell\open\command", null, null).ToString();
+                var val = Registry.GetValue(path + @"\shell\open\command", null, null);
                 return (val == null) ? "" : val.ToString();
             }
         }
@@ -154,7 +164,15 @@ namespace BetterDefaultBrowser.Lib
         {
             get
             {
-                return AllBrowsers.Default.Equals(this);
+                return isDefault;
+            }
+            internal set
+            {
+                if (isDefault != value)
+                {
+                    isDefault = value;
+                    OnPropertyChanged("IsDefault");
+                }
             }
         }
 
@@ -185,7 +203,8 @@ namespace BetterDefaultBrowser.Lib
                 var msg = "Please select " + Name + " as your default webbrowser.";
                 //var msg = "To set your default browser, go to Settings > System > Default apps.";
                 WindowNotification.show(this, msg);
-            }else
+            }
+            else
             {
                 throw new ApplicationException("Your OS is not supported. Sorry :(");
             }
@@ -203,15 +222,7 @@ namespace BetterDefaultBrowser.Lib
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
-        /// <summary>
-        /// Tells the GUI to update the (default) label
-        /// </summary>
-        public void update()
-        {
-            OnPropertyChanged("IsDefault");
-        }
+        
         #endregion
 
         #region Object Methods
@@ -222,7 +233,8 @@ namespace BetterDefaultBrowser.Lib
 
         public override bool Equals(object obj)
         {
-            if(!(obj is Browser)){
+            if (!(obj is Browser))
+            {
                 return false;
             }
             return this.Equals(obj as Browser);
