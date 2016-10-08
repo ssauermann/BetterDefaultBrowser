@@ -41,11 +41,11 @@ namespace BetterDefaultBrowser.Helper
             cap.SetValue("ApplicationMainExe", appPath);
 
             var fa = cap.CreateSubKey("FileAssociations");
-            //fa.SetValue(".htm", progId);
-            //fa.SetValue(".html", progId);
-            //fa.SetValue(".shtml", progId);
-            //fa.SetValue(".xht", progId);
-            //fa.SetValue(".xhtml", progId);
+            fa.SetValue(".htm", progId);
+            fa.SetValue(".html", progId);
+            fa.SetValue(".shtml", progId);
+            fa.SetValue(".xht", progId);
+            fa.SetValue(".xhtml", progId);
 
             var sm = cap.CreateSubKey("StartMenu");
             sm.SetValue("StartMenuInternet", keyId);
