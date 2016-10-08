@@ -20,7 +20,10 @@ namespace BetterDefaultBrowser.Lib
         /// Create a managed filter for an assigned browser.
         /// </summary>
         /// <param name="browser">Assigned browser</param>
-        public ManagedFilter(Browser browser) : base(browser) { }
+        public ManagedFilter(Browser browser) : base(browser)
+        {
+            this.Type = FType.MANAGED;
+        }
 
         /// <summary>
         /// The matching protocols.

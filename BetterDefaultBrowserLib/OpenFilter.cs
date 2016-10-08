@@ -21,7 +21,7 @@ namespace BetterDefaultBrowser.Lib
         /// <param name="inner">Inner Filter used for Matching.</param>
         public OpenFilter(Filter inner) : base(inner.AssignedBrowser)
         {
-
+            this.Type = FType.OPEN;
         }
 
         /// <summary>

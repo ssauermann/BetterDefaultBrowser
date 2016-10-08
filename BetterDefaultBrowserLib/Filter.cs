@@ -17,7 +17,6 @@ namespace BetterDefaultBrowser.Lib
         //Default value: Regex matching nothing
         private Regex regex = new Regex("(?!x)x");
         private Browser assignedBrowser;
-        private FType ftype;
         private String name;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -29,6 +28,7 @@ namespace BetterDefaultBrowser.Lib
         public Filter(Browser browser)
         {
             this.AssignedBrowser = browser;
+            this.Type = FType.PLAIN;
         }
 
         /// <summary>
@@ -88,21 +88,7 @@ namespace BetterDefaultBrowser.Lib
         /// <summary>
         /// Filter type
         /// </summary>
-        public FType Type
-        {
-            get
-            {
-                return this.ftype;
-            }
-            set
-            {
-                if (!ftype.Equals(value))
-                {
-                    this.ftype = value;
-                    OnPropertyChanged("Type");
-                }
-            }
-        }
+        public FType Type { get; protected set; }
 
         /// <summary>
         /// ID for reference in saved file
@@ -120,7 +106,7 @@ namespace BetterDefaultBrowser.Lib
             }
             set
             {
-                if(name != value)
+                if (name != value)
                 {
                     name = value;
                     OnPropertyChanged("Name");
