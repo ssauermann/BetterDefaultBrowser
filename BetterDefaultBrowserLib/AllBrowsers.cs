@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using RegistryUtils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
@@ -10,6 +11,7 @@ namespace BetterDefaultBrowser.Lib
     public static class AllBrowsers
     {
         private static BindingList<Browser> browsers = new BindingList<Browser>();
+        private static List<Browser> browserList = new List<Browser>();
         private static Browser @default;
 
         public static bool IsBrowserInstalled(String name)
@@ -80,21 +82,28 @@ namespace BetterDefaultBrowser.Lib
         private static void LoadBrowsers()
         {
             browsers.Clear();
+            AllBrowsers.browserList.Clear();
             var keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet").GetSubKeyNames();
             foreach (var name in keys)
             {
-                AllBrowsers.browsers.Add(new Browser(name));
+                AllBrowsers.browserList.Add(new Browser(name));
             }
 
             //MS Edge is special :(
             var version = OSVersions.getVersion();
             if (version.HasFlag(OSVersions.OS.WIN10) || version.HasFlag(OSVersions.OS.NEWER))
             {
-                AllBrowsers.browsers.Add(new Browser("MSEDGE"));
+                AllBrowsers.browserList.Add(new Browser("MSEDGE"));
             }
 
             //Sort
-            AllBrowsers.browsers.OrderBy(b => b.Name);
+            AllBrowsers.browserList.Sort();
+            
+            //Add the browsers to the actual bindingList
+            foreach(var browser in AllBrowsers.browserList)
+            {
+                browsers.Add(browser);
+            }
 
             BDBInstalled.Instance.IsBDBInstalled = IsBrowserInstalled(HardcodedValues.APP_NAME);
         }
