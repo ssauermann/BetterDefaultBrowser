@@ -32,9 +32,19 @@ namespace BetterDefaultBrowser
 
             WinVerLabel.Content = OSVersions.getVersion().ToString();
 
+            //---Show UAC Admin icon in menu---
+            var img = new Image();
+            img.Source = UACIcon.ShieldSource;
+            var img2 = new Image();
+            img2.Source = UACIcon.ShieldSource;
+            InstallBDBMenuItem.Icon = img;
+            UninstallBDBMenuItem.Icon = img2;
+            //---------------------------------
+
             var win1 = new MainWindow();
             win1.Show();
         }
+
 
         private void Applybutton_Click(object sender, RoutedEventArgs e)
         {
