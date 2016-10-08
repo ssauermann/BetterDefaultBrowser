@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using RegistryUtils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
@@ -10,6 +11,7 @@ namespace BetterDefaultBrowser.Lib
     public static class AllBrowsers
     {
         private static BindingList<Browser> browsers = new BindingList<Browser>();
+        private static List<Browser> browserList = new List<Browser>();
         private static Browser @default;
 
         public static bool IsBrowserInstalled(String name)
@@ -66,7 +68,7 @@ namespace BetterDefaultBrowser.Lib
                 AllBrowsers.@default = null;
 
             //Set default for all browsers:
-            foreach(var b in InstalledBrowsers)
+            foreach (var b in InstalledBrowsers)
             {
                 if (b.Equals(AllBrowsers.Default))
                     b.IsDefault = true;
@@ -80,21 +82,30 @@ namespace BetterDefaultBrowser.Lib
         private static void LoadBrowsers()
         {
             browsers.Clear();
+            AllBrowsers.browserList.Clear();
             var keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet").GetSubKeyNames();
             foreach (var name in keys)
             {
-                AllBrowsers.browsers.Add(new Browser(name));
+                AllBrowsers.browserList.Add(new Browser(name));
             }
 
             //MS Edge is special :(
             var version = OSVersions.getVersion();
             if (version.HasFlag(OSVersions.OS.WIN10) || version.HasFlag(OSVersions.OS.NEWER))
             {
-                AllBrowsers.browsers.Add(new Browser("MSEDGE"));
+                AllBrowsers.browserList.Add(new Browser("MSEDGE"));
             }
 
             //Sort
-            AllBrowsers.browsers.OrderBy(b => b.Name);
+            AllBrowsers.browserList.Sort();
+            
+            //Add the browsers to the actual bindingList
+            foreach(var browser in AllBrowsers.browserList)
+            {
+                browsers.Add(browser);
+            }
+
+            BDBInstalled.Instance.IsBDBInstalled = IsBrowserInstalled(HardcodedValues.APP_NAME);
         }
 
 
@@ -102,11 +113,11 @@ namespace BetterDefaultBrowser.Lib
 
         #region Convenience Methods
 
-        public static bool IsBDBInstalled
+        public static BDBInstalled IsBDBInstalled
         {
             get
             {
-                return IsBrowserInstalled(HardcodedValues.APP_NAME);
+                return BDBInstalled.Instance;
             }
         }
 
@@ -140,7 +151,7 @@ namespace BetterDefaultBrowser.Lib
 
             //Initial loading
             LoadBrowsers();
-            LoadDefault();
+            LoadDefault();        
         }
 
         private static void OnDefaultBrowserChanged(object sender, EventArgs e)
@@ -158,6 +169,40 @@ namespace BetterDefaultBrowser.Lib
             }, null);
         }
 
+        #endregion
+
+
+        #region Subclasses
+        public class BDBInstalled : INotifyPropertyChanged
+        {
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            private bool isBDBInstalled=false;
+            public bool IsBDBInstalled
+            {
+                get
+                {
+                    return isBDBInstalled;
+                }
+                set
+                {
+                    isBDBInstalled = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("IsBDBInstalled"));
+                }
+            }
+
+            public static BDBInstalled Instance { get; private set; }
+            protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+            {
+                if (PropertyChanged != null)
+                    PropertyChanged(this, e);
+            }
+
+            static BDBInstalled()
+            {
+                Instance = new BDBInstalled();
+            }
+        }
         #endregion
     }
 }

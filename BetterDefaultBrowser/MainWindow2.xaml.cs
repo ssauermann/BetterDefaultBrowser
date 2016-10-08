@@ -25,8 +25,10 @@ namespace BetterDefaultBrowser
         public MainWindow2()
         {
             InitializeComponent();
-            //Can probably be removed
+   
             this.DataContext = mainBind;
+            InstallMenu.DataContext = AllBrowsers.BDBInstalled.Instance;
+
             browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
             comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
 
@@ -39,10 +41,10 @@ namespace BetterDefaultBrowser
             img2.Source = UACIcon.ShieldSource;
             InstallBDBMenuItem.Icon = img;
             UninstallBDBMenuItem.Icon = img2;
-            //---------------------------------
+            //---------------------------------            
 
-            var win1 = new MainWindow();
-            win1.Show();
+	    //var win1 = new MainWindow();
+            //win1.Show();
         }
 
 
@@ -54,36 +56,24 @@ namespace BetterDefaultBrowser
         private void UninstallBDBMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Helper.startHelper("uninstall");
-            EnableDisableInstallationButton();
         }
 
         private void InstallBDBMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Helper.startHelper("install " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser-Proxy.exe" + " " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser.exe");
-            EnableDisableInstallationButton();
-        }
-
-        /// <summary>
-        /// Checks wether BDB is installed and enables or disables the install buttons
-        /// </summary>
-        private void EnableDisableInstallationButton()
-        {
-            if (AllBrowsers.IsBDBInstalled)
-            {
-                UninstallBDBMenuItem.IsEnabled = true;
-                InstallBDBMenuItem.IsEnabled = false;
-            }
-            else
-            {
-                UninstallBDBMenuItem.IsEnabled = false;
-                InstallBDBMenuItem.IsEnabled = true;
-            }
         }
 
         private void deleteSettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             System.IO.Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BetterDefaultBrowser", true);
             Application.Current.Shutdown();
+        }
+
+
+        private void SetDefaultButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (browserList.SelectedItem != null)
+                (browserList.SelectedItem as Browser).SetDefault();
         }
     }
 }

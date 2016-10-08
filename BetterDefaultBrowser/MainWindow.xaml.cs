@@ -39,7 +39,7 @@ namespace BetterDefaultBrowser
             }
 
 
-            if (AllBrowsers.IsBDBInstalled)
+            if (AllBrowsers.BDBInstalled.Instance.IsBDBInstalled)
             {
                 btnInstallBrowser.IsEnabled = false;
                 btnUninstallBrowser.IsEnabled = true;
