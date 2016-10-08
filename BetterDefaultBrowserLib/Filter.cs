@@ -106,7 +106,7 @@ namespace BetterDefaultBrowser.Lib
         /// <summary>
         /// ID for reference in saved file
         /// </summary>
-        internal int ID { get; set; }
+        internal String ID { get; set; }
 
         #endregion
 
