@@ -43,7 +43,7 @@ namespace BetterDefaultBrowser
             UninstallBDBMenuItem.Icon = img2;
             //---------------------------------            
 
-	    //var win1 = new MainWindow();
+            //var win1 = new MainWindow();
             //win1.Show();
         }
 
@@ -60,7 +60,7 @@ namespace BetterDefaultBrowser
 
         private void InstallBDBMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Helper.startHelper("install " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser-Proxy.exe" + " " + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser.exe");
+            Helper.startHelper("install " + "\"" + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser-Proxy.exe\"" + " " + "\"" + AppDomain.CurrentDomain.BaseDirectory + "BetterDefaultBrowser.exe\"");
         }
 
         private void deleteSettingsMenuItem_Click(object sender, RoutedEventArgs e)
