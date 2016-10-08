@@ -66,7 +66,7 @@ namespace BetterDefaultBrowser.Lib
                 AllBrowsers.@default = null;
 
             //Set default for all browsers:
-            foreach(var b in InstalledBrowsers)
+            foreach (var b in InstalledBrowsers)
             {
                 if (b.Equals(AllBrowsers.Default))
                     b.IsDefault = true;
@@ -95,6 +95,8 @@ namespace BetterDefaultBrowser.Lib
 
             //Sort
             AllBrowsers.browsers.OrderBy(b => b.Name);
+
+            BDBInstalled.Instance.IsBDBInstalled = IsBrowserInstalled(HardcodedValues.APP_NAME);
         }
 
 
@@ -102,11 +104,11 @@ namespace BetterDefaultBrowser.Lib
 
         #region Convenience Methods
 
-        public static bool IsBDBInstalled
+        public static BDBInstalled IsBDBInstalled
         {
             get
             {
-                return IsBrowserInstalled(HardcodedValues.APP_NAME);
+                return BDBInstalled.Instance;
             }
         }
 
@@ -140,7 +142,7 @@ namespace BetterDefaultBrowser.Lib
 
             //Initial loading
             LoadBrowsers();
-            LoadDefault();
+            LoadDefault();        
         }
 
         private static void OnDefaultBrowserChanged(object sender, EventArgs e)
@@ -158,6 +160,40 @@ namespace BetterDefaultBrowser.Lib
             }, null);
         }
 
+        #endregion
+
+
+        #region Subclasses
+        public class BDBInstalled : INotifyPropertyChanged
+        {
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            private bool isBDBInstalled=false;
+            public bool IsBDBInstalled
+            {
+                get
+                {
+                    return isBDBInstalled;
+                }
+                set
+                {
+                    isBDBInstalled = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs("IsBDBInstalled"));
+                }
+            }
+
+            public static BDBInstalled Instance { get; private set; }
+            protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+            {
+                if (PropertyChanged != null)
+                    PropertyChanged(this, e);
+            }
+
+            static BDBInstalled()
+            {
+                Instance = new BDBInstalled();
+            }
+        }
         #endregion
     }
 }

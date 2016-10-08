@@ -9,6 +9,7 @@
     <Window.Resources>
         <local:DefaultConverter x:Key="defaultConverter"/>
         <local:ProtocolConverter x:Key="protocolConverter"/>
+        <local:InvertBoolConverter x:Key="invertBoolConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -46,12 +47,12 @@
             <MenuItem Header="File">
                 <MenuItem x:Name="deleteSettingsMenuItem" Header="Delete all settings" HorizontalAlignment="Left" Width="266" Margin="0,0,-126,0" Click="deleteSettingsMenuItem_Click"/>
             </MenuItem>
-            <MenuItem Header="Install/Uninstall BDB">
-                <MenuItem x:Name="InstallBDBMenuItem" Header="Install" HorizontalAlignment="Left" Width="140" Click="InstallBDBMenuItem_Click"/>
-                <MenuItem x:Name="UninstallBDBMenuItem" Header="Uninstall" HorizontalAlignment="Left" Width="140" Click="UninstallBDBMenuItem_Click"/>
+            <MenuItem x:Name="InstallMenu" Header="Install/Uninstall BDB">
+                <MenuItem x:Name="InstallBDBMenuItem" Header="Install" HorizontalAlignment="Left" Width="140" Click="InstallBDBMenuItem_Click" IsEnabled="{Binding Path=IsBDBInstalled, Converter={StaticResource invertBoolConverter}}"/>
+                <MenuItem x:Name="UninstallBDBMenuItem" Header="Uninstall" HorizontalAlignment="Left" Width="140" Click="UninstallBDBMenuItem_Click" IsEnabled="{Binding Path=IsBDBInstalled}"/>
             </MenuItem>
         </Menu>
         <Label x:Name="WinVerLabel" Content="Label" HorizontalAlignment="Left" Margin="236,19,0,0" VerticalAlignment="Top" Width="54"/>
-        <Button x:Name="button" Content="Selected as default Browser" HorizontalAlignment="Left" Margin="10,88,0,0" Grid.Row="1" VerticalAlignment="Top" Width="182"/>
+        <Button x:Name="SetDefaultButton" Content="Current as default Browser" HorizontalAlignment="Left" Margin="10,88,0,0" Grid.Row="1" VerticalAlignment="Top" Width="182" Click="SetDefaultButton_Click"/>
     </Grid>
 </Window>

@@ -79,6 +79,7 @@
     </Page>
     <Compile Include="DefaultConverter.cs" />
     <Compile Include="EntryPoint.cs" />
+    <Compile Include="InvertBoolConverter.cs" />
     <Compile Include="MainWindow2.xaml.cs">
       <DependentUpon>MainWindow2.xaml</DependentUpon>
     </Compile>
