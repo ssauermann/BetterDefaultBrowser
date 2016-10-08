@@ -18,6 +18,7 @@ namespace BetterDefaultBrowser.Lib
         private Regex regex = new Regex("(?!x)x");
         private Browser assignedBrowser;
         private FType ftype;
+        private String name;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -107,6 +108,25 @@ namespace BetterDefaultBrowser.Lib
         /// ID for reference in saved file
         /// </summary>
         internal String ID { get; set; }
+
+        /// <summary>
+        /// Filter name for listing
+        /// </summary>
+        public String Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if(name != value)
+                {
+                    name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
 
         #endregion
 
