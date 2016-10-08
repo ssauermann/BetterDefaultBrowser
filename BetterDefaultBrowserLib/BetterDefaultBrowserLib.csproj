@@ -47,6 +47,8 @@
     <Compile Include="Filter.cs" />
     <Compile Include="HardcodedValues.cs" />
     <Compile Include="Launcher.cs" />
+    <Compile Include="ManagedFilter.cs" />
+    <Compile Include="OpenFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistryMonitor.cs" />
     <Compile Include="Settings.cs" />
