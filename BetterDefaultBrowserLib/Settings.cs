@@ -140,7 +140,6 @@ namespace BetterDefaultBrowser.Lib
         internal static void deleteFilter(Filter filter)
         {
             var root = XElement.Load(path);
-            root.SetElementValue("filters", "");
             var filtersOuter = root.Element("filters");
 
             var thisFilter = from f in filtersOuter.Elements()
@@ -148,6 +147,7 @@ namespace BetterDefaultBrowser.Lib
                              select f;
 
             thisFilter.Remove();
+            root.Save(path);
 
             Settings.filters.Remove(filter);
         }
@@ -155,7 +155,6 @@ namespace BetterDefaultBrowser.Lib
         internal static void saveFilter(Filter filter)
         {
             var root = XElement.Load(path);
-            root.SetElementValue("filters", "");
             var filtersOuter = root.Element("filters");
 
             var thisFilter = from f in filtersOuter.Elements()
@@ -182,6 +181,7 @@ namespace BetterDefaultBrowser.Lib
                 thisFilter.First().ReplaceWith(filter.ToXML());
             }
 
+            root.Save(path);
             //Add to list
             Settings.filters.Add(filter);
 

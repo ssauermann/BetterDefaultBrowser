@@ -81,10 +81,6 @@ namespace BetterDefaultBrowser.Lib
                     //AppX90nv6nhay5n6a98fnetv7tpk64pp35es
                 }
 
-
-                Trace.WriteLine(KeyName);
-                Trace.WriteLine(Registry.GetValue(path + @"\Capabilities\URLAssociations", "http", null));
-
                 var val = Registry.GetValue(path + @"\Capabilities\URLAssociations", "http", null);
                 return (val == null) ? "" : val.ToString();
             }

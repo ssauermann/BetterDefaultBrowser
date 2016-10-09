@@ -26,6 +26,8 @@ namespace BetterDefaultBrowser.Lib.Filters
         {
             get
             {
+                if (regex == null)
+                    return ".*";
                 return regex.ToString();
             }
             set

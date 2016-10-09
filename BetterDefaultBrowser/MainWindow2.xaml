@@ -45,7 +45,7 @@
         <!-- ADDING Managed Filters -->
         <Grid x:Name="AddManagedFilterGrid" HorizontalAlignment="Left" Height="186" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="498" Visibility="visible">
             <Label x:Name="useBrowserLabel" Content="Browser to use" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Height="26" Width="88" RenderTransformOrigin="1.084,0.743"/>
-            <ComboBox x:Name="comboBoxBrowserSelectManaged" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="163" SelectedItem="{Binding AssignedBrowser}" Margin="113,36,0,0" Height="22"/>
+            <ComboBox x:Name="comboBoxBrowserSelectManaged" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="163" SelectedItem="{Binding Path=AssignedBrowser}" Margin="113,36,0,0" Height="22"/>
             <Label x:Name="label2" Content="Add a new filter" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="94"/>
             <Label x:Name="label1" Content="Protocol" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" Height="26" Width="54" RenderTransformOrigin="0.496,0.105"/>
             <Label x:Name="label" Content="Website" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Height="26" Width="52" RenderTransformOrigin="1.606,-0.36"/>
