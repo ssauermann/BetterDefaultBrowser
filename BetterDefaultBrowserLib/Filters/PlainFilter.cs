@@ -32,7 +32,7 @@ namespace BetterDefaultBrowser.Lib.Filters
             {
                 if (IsValidRegex(value))
                 {
-                    if (!regex.Equals(value))
+                    if (regex == null || !regex.Equals(value))
                     {
                         regex = new Regex(value);
                         OnPropertyChanged("RegEx");
@@ -57,7 +57,7 @@ namespace BetterDefaultBrowser.Lib.Filters
             }
             set
             {
-                if (!assignedBrowser.Equals(value))
+                if (assignedBrowser == null || !assignedBrowser.Equals(value))
                 {
                     this.assignedBrowser = value;
                     base.OnPropertyChanged("AssignedBrowser");

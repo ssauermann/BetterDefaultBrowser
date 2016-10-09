@@ -14,7 +14,7 @@ namespace BetterDefaultBrowser.Lib.Filters
     public class ManagedFilter : PlainFilter
     {
         private Protocols protocol;
-        private String url;
+        private String url = "";
         private Ignore flags;
 
         /// <summary>
@@ -42,6 +42,7 @@ namespace BetterDefaultBrowser.Lib.Filters
                 if (!protocol.Equals(value))
                 {
                     protocol = value;
+                    RebuildRegex();
                     OnPropertyChanged("Protocol");
                 }
             }
@@ -61,6 +62,7 @@ namespace BetterDefaultBrowser.Lib.Filters
                 if (!url.Equals(value))
                 {
                     url = value;
+                    RebuildRegex();
                     OnPropertyChanged("URL");
                 }
             }
@@ -80,6 +82,7 @@ namespace BetterDefaultBrowser.Lib.Filters
                 if (!flags.Equals(value))
                 {
                     flags = value;
+                    RebuildRegex();
                     OnPropertyChanged("Flags");
                 }
             }
@@ -129,6 +132,11 @@ namespace BetterDefaultBrowser.Lib.Filters
                 throw new FilterInvalidException("XML parsing error. Invalid protocols.");
 
         }
+
+        private void RebuildRegex()
+        {
+            this.RegEx = RegexBuilder.build(this);
+        }
         #endregion
 
         /// <summary>
@@ -137,12 +145,14 @@ namespace BetterDefaultBrowser.Lib.Filters
         [Flags]
         public enum Ignore
         {
+            //These have to be in order of occurence in an url.
             SD = 1 << 0,
             TLD = 1 << 1,
             Port = 1 << 2,
             Page = 1 << 3,
             Parameter = 1 << 4
         }
+
     }
 
     /// <summary>
@@ -154,5 +164,60 @@ namespace BetterDefaultBrowser.Lib.Filters
     {
         HTTP = 1 << 0,
         HTTPS = 1 << 1
+    }
+
+    /// <summary>
+    /// Extension Methods for Protocols enum
+    /// </summary>
+    public static class ProtocolsExtensions
+    {
+        /// <summary>
+        /// Gets the regex for this protocol
+        /// </summary>
+        /// <param name="prots">Protocol</param>
+        /// <returns>Regex</returns>
+        public static String Regex(this Protocols prots)
+        {
+            switch (prots)
+            {
+                case Protocols.HTTP:
+                    return @"(http\:\/\/)";
+                case Protocols.HTTPS:
+                    return @"(https\:\/\/)";
+                default:
+                    throw new NotImplementedException("Missing implementation for a protocol");
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Extension Methods for Ignore enum
+    /// </summary>
+    public static class IgnoreExtensions
+    {
+        /// <summary>
+        /// Gets the regex for this flag.
+        /// </summary>
+        /// <param name="flag">Flag</param>
+        /// <returns>Regex</returns>
+        public static String Regex(this ManagedFilter.Ignore flag)
+        {
+            switch (flag)
+            {
+                case ManagedFilter.Ignore.Parameter:
+                    return @"(\?.*)";
+                case ManagedFilter.Ignore.Page:
+                    return @"(\/(?:[^?])+)";
+                case ManagedFilter.Ignore.Port:
+                    return @"(\:[0-9]+)";
+                case ManagedFilter.Ignore.TLD:
+                    throw new NotSupportedException("Regex has to be created by DomainNameLib.");
+                case ManagedFilter.Ignore.SD:
+                    throw new NotSupportedException("Regex has to be created by DomainNameLib.");
+                default:
+                    throw new NotImplementedException("Missing implementation for a protocol");
+            }
+        }
     }
 }
