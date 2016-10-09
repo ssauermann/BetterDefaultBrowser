@@ -26,6 +26,12 @@ namespace BetterDefaultBrowser
         private Binding.AddFilterBind addBind = new Binding.AddFilterBind();
         private MainWindowBind mainBind = new MainWindowBind();
 
+
+        private Lib.Filters.ManagedFilter managed;
+        private Lib.Filters.OpenFilter open;
+        private Lib.Filters.PlainFilter plain;
+
+
         public MainWindow2()
         {
             InitializeComponent();
@@ -91,7 +97,28 @@ namespace BetterDefaultBrowser
 
         private void addFilterButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(addBind.FilterType.ToString(), "Debug");
+            switch (addBind.FilterType)
+            {
+                case Lib.Filters.Filter.FType.MANAGED:
+                    managed = new Lib.Filters.ManagedFilter();
+                    AddManagedFilterGrid.DataContext = managed;
+                    AddFilterGrid.Visibility = Visibility.Hidden;
+                    AddManagedFilterGrid.Visibility = Visibility.Visible;
+                    return;
+                case Lib.Filters.Filter.FType.OPEN:
+                    open = new Lib.Filters.OpenFilter();
+                    AddOpenFilterGrid.DataContext = open;
+                    AddFilterGrid.Visibility = Visibility.Hidden;
+                    AddOpenFilterGrid.Visibility = Visibility.Visible;
+                    return;
+
+                case Lib.Filters.Filter.FType.PLAIN:
+                    plain = new Lib.Filters.PlainFilter();
+                    AddPlainFilterGrid.DataContext = plain;
+                    AddFilterGrid.Visibility = Visibility.Hidden;
+                    AddPlainFilterGrid.Visibility = Visibility.Visible;
+                    return;
+            }
         }
     }
 }
