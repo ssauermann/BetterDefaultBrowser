@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using BetterDefaultBrowser.Lib.Filters;
 using static BetterDefaultBrowser.Lib.Filters.Filter;
+using System.ComponentModel;
 
 namespace BetterDefaultBrowser.Lib
 {
@@ -18,6 +19,7 @@ namespace BetterDefaultBrowser.Lib
     public static class Settings
     {
         private static String path;
+        private static BindingList<Filter> filters = new BindingList<Filter>();
 
         /// <summary>
         /// Create folder and settings file if not existing.
@@ -32,28 +34,8 @@ namespace BetterDefaultBrowser.Lib
             {
                 new XDocument(new XElement("settings")).Save(path);
             }
-        }
 
-        /// <summary>
-        /// The browser the user had set before setting BDB as the default.
-        /// Can't be used to reset the user browser when uninstalling BDB since Win8.
-        /// </summary>
-        public static Browser OriginalDefaultBrowser
-        {
-            get
-            {
-                var root = XElement.Load(path);
-                var originalDefault = root.Element("originalDefault");
-
-                return new Browser(originalDefault.Value);
-            }
-            set
-            {
-                var root = XElement.Load(path);
-                root.SetElementValue("originalDefault", value.KeyName);
-
-                root.Save(path);
-            }
+            loadFilters();
         }
 
         //TODO List
@@ -121,6 +103,55 @@ namespace BetterDefaultBrowser.Lib
             }
         }
 
+        internal static void loadFilters()
+        {
+            Settings.filters.Clear();
+
+            var root = XElement.Load(path);
+            var filtersOuter = root.Element("filters");
+            if (filtersOuter == null)
+                return;
+
+            var filters = filtersOuter.Elements();
+
+            foreach (var filter in filters)
+            {
+                Filter fil;
+                switch ((FType)Enum.Parse(typeof(FType), filter.Attribute("type").Value))
+                {
+                    case FType.PLAIN:
+                        fil = new PlainFilter();
+                        break;
+                    case FType.MANAGED:
+                        fil = new ManagedFilter();
+                        break;
+                    case FType.OPEN:
+                        fil = new OpenFilter();
+                        break;
+                    default:
+                        throw new NotImplementedException("Filter type not implemented!");
+                }
+                fil.FromXML(filter);
+
+                Settings.filters.Add(fil);
+            }
+        }
+
+        internal static void deleteFilter(Filter filter)
+        {
+            var root = XElement.Load(path);
+            root.SetElementValue("filters", "");
+            var filtersOuter = root.Element("filters");
+
+            var thisFilter = from f in filtersOuter.Elements()
+                             where f.Attribute("id").Value == filter.ID
+                             select f;
+
+            thisFilter.Remove();
+
+            Settings.filters.Remove(filter);
+        }
+
         internal static void saveFilter(Filter filter)
         {
             var root = XElement.Load(path);
@@ -150,6 +181,9 @@ namespace BetterDefaultBrowser.Lib
                 //Replace information of this filter with the new one
                 thisFilter.First().ReplaceWith(filter.ToXML());
             }
+
+            //Add to list
+            Settings.filters.Add(filter);
 
         }
     }

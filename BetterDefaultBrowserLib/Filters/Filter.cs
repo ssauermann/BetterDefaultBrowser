@@ -125,6 +125,14 @@ namespace BetterDefaultBrowser.Lib.Filters
             Settings.saveFilter(this);
         }
 
+        /// <summary>
+        /// Deletes the filter from the save file.
+        /// </summary>
+        public virtual void Delete()
+        {
+            Settings.deleteFilter(this);
+        }
+
 
         private static String newID()
         {
@@ -182,5 +190,13 @@ namespace BetterDefaultBrowser.Lib.Filters
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Filter))
+            {
+                return false;
+            }
+            return ID == (obj as Filter).ID;
+        }
     }
 }
