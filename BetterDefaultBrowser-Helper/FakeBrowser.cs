@@ -76,15 +76,48 @@ namespace BetterDefaultBrowser.Helper
 
         public static void UninstallFakeBrowser()
         {
-            Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true).DeleteSubKeyTree(keyId);
+            Exception caughtException = null;
+            try
+            {
+                var k = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true);
+                if (k != null)
+                    k.DeleteSubKeyTree(keyId);
+            }
+            catch (Exception ex)
+            {
+                caughtException = ex;
+            }
 
-            //Remove installed program
-            Registry.LocalMachine.OpenSubKey(@"SOFTWARE\RegisteredApplications", true).DeleteValue(keyId);
+            try
+            {
+                //Remove installed program
+                var k = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\RegisteredApplications", true);
+                if (k != null)
+                    k.DeleteSubKeyTree(keyId);
+            }
+            catch (Exception ex)
+            {
+                caughtException = ex;
+            }
 
-            //Remove ProgId
-            Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes", true).DeleteSubKeyTree(progId);
+            try
+            {
+                //Remove ProgId
+                var k = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes", true);
+                if (k != null)
+                    k.DeleteSubKeyTree(progId);
+            }
+            catch (Exception ex)
+            {
+                caughtException = ex;
+            }
 
             ChangeNotify.NotifySystemOfNewRegistration();
+
+            if (caughtException != null)
+            {
+                throw caughtException;
+            }
         }
 
     }
