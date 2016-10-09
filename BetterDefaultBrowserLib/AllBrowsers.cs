@@ -11,7 +11,6 @@ namespace BetterDefaultBrowser.Lib
     public static class AllBrowsers
     {
         private static BindingList<Browser> browsers = new BindingList<Browser>();
-        private static List<Browser> browserList = new List<Browser>();
         private static Browser @default;
 
         public static bool IsBrowserInstalled(String name)
@@ -80,25 +79,27 @@ namespace BetterDefaultBrowser.Lib
         private static void LoadBrowsers()
         {
             browsers.Clear();
-            AllBrowsers.browserList.Clear();
+            var browserList = new List<Browser>();
+
+            browserList.Clear();
             var keys = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet").GetSubKeyNames();
             foreach (var name in keys)
             {
-                AllBrowsers.browserList.Add(new Browser(name));
+                browserList.Add(new Browser(name));
             }
 
             //MS Edge is special :(
             var version = OSVersions.getVersion();
             if (version.HasFlag(OSVersions.OS.WIN10) || version.HasFlag(OSVersions.OS.NEWER))
             {
-                AllBrowsers.browserList.Add(new Browser("MSEDGE"));
+                browserList.Add(new Browser("MSEDGE"));
             }
 
             //Sort
-            AllBrowsers.browserList.Sort();
-            
+            browserList.Sort();
+
             //Add the browsers to the actual bindingList
-            foreach(var browser in AllBrowsers.browserList)
+            foreach (var browser in browserList)
             {
                 browsers.Add(browser);
             }
@@ -149,7 +150,7 @@ namespace BetterDefaultBrowser.Lib
 
             //Initial loading
             LoadBrowsers();
-            LoadDefault();        
+            LoadDefault();
         }
 
         private static void OnDefaultBrowserChanged(object sender, EventArgs e)
@@ -175,7 +176,7 @@ namespace BetterDefaultBrowser.Lib
         {
             public event PropertyChangedEventHandler PropertyChanged;
 
-            private bool isBDBInstalled=false;
+            private bool isBDBInstalled = false;
             public bool IsBDBInstalled
             {
                 get
