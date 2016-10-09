@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BetterDefaultBrowser.Lib.Filters
 {
-    public class RegexBuilder
+    public static class RegexBuilder
     {
 
-        public String build(ManagedFilter filter)
+        public static String build(ManagedFilter filter)
         {
 
             String finalUrl = filter.URL;
@@ -51,7 +51,8 @@ namespace BetterDefaultBrowser.Lib.Filters
                 }
             }
 
-
+            //Escape remaining url
+            finalUrl = Regex.Escape(finalUrl);
 
             //Add protocolls to start of the new regex
             var protocols = Enum.GetValues(typeof(Protocols)).Cast<Protocols>();
@@ -73,9 +74,6 @@ namespace BetterDefaultBrowser.Lib.Filters
             Console.WriteLine(finalUrl);
 
             return finalUrl;
-
-
-            //TODO: Match TLD and SD as case insensitive
         }
 
     }

@@ -42,6 +42,7 @@ namespace BetterDefaultBrowser.Lib.Filters
                 if (!protocol.Equals(value))
                 {
                     protocol = value;
+                    RebuildRegex();
                     OnPropertyChanged("Protocol");
                 }
             }
@@ -61,6 +62,7 @@ namespace BetterDefaultBrowser.Lib.Filters
                 if (!url.Equals(value))
                 {
                     url = value;
+                    RebuildRegex();
                     OnPropertyChanged("URL");
                 }
             }
@@ -80,6 +82,7 @@ namespace BetterDefaultBrowser.Lib.Filters
                 if (!flags.Equals(value))
                 {
                     flags = value;
+                    RebuildRegex();
                     OnPropertyChanged("Flags");
                 }
             }
@@ -128,6 +131,11 @@ namespace BetterDefaultBrowser.Lib.Filters
             else
                 throw new FilterInvalidException("XML parsing error. Invalid protocols.");
 
+        }
+
+        private void RebuildRegex()
+        {
+            this.RegEx = RegexBuilder.build(this);
         }
         #endregion
 
