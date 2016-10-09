@@ -42,7 +42,6 @@ namespace BetterDefaultBrowser.Lib.Filters
                 if (!protocol.Equals(value))
                 {
                     protocol = value;
-                    RebuildRegex();
                     OnPropertyChanged("Protocol");
                     OnPropertyChanged("ProtocolHTTP");
                     OnPropertyChanged("ProtocolHTTPS");
@@ -64,7 +63,6 @@ namespace BetterDefaultBrowser.Lib.Filters
                 if (!url.Equals(value))
                 {
                     url = value;
-                    RebuildRegex();
                     OnPropertyChanged("URL");
                 }
             }
@@ -84,7 +82,6 @@ namespace BetterDefaultBrowser.Lib.Filters
                 if (!flags.Equals(value))
                 {
                     flags = value;
-                    RebuildRegex();
                     OnPropertyChanged("Flags");
                     OnPropertyChanged("IgnoreSD");
                     OnPropertyChanged("IgnoreTLD");
@@ -269,10 +266,12 @@ namespace BetterDefaultBrowser.Lib.Filters
 
         }
 
-        private void RebuildRegex()
+        public override void Store()
         {
             this.RegEx = RegexBuilder.build(this);
+            base.Store();
         }
+
         #endregion
 
         /// <summary>

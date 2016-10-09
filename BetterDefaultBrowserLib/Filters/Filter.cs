@@ -120,7 +120,7 @@ namespace BetterDefaultBrowser.Lib.Filters
         /// Stores the filter into the save file.
         /// Has to be called after an filters was edited or added.
         /// </summary>
-        public void Store()
+        public virtual void Store()
         {
             Settings.saveFilter(this);
         }
