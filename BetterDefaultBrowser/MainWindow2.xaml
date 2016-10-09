@@ -43,12 +43,12 @@
         <Label x:Name="WinVerLabel" Content="Label" HorizontalAlignment="Left" Margin="236,19,0,0" VerticalAlignment="Top" Width="54" Height="26"/>
         <Button x:Name="SetDefaultButton" Content="Selected as default Browser" HorizontalAlignment="Right" Margin="0,88,10,0" Grid.Row="1" VerticalAlignment="Top" Width="182" Click="SetDefaultButton_Click" Height="20"/>
         <!-- ADDING Managed Filters -->
-        <Grid x:Name="AddManagedFilterGrid" HorizontalAlignment="Left" Height="186" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="498" Visibility="Hidden">
+        <Grid x:Name="AddManagedFilterGrid" HorizontalAlignment="Left" Height="186" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="498" Visibility="Visible">
             <Label x:Name="useBrowserLabel" Content="Browser to use" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Height="26" Width="88" RenderTransformOrigin="1.084,0.743"/>
-            <ComboBox x:Name="comboBoxBrowserSelectManaged" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="163" SelectedItem="{Binding Browser}" Margin="113,36,0,0" Height="22"/>
+            <ComboBox x:Name="comboBoxBrowserSelectManaged" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="163" SelectedItem="{Binding AssignedBrowser}" Margin="113,36,0,0" Height="22"/>
             <Label x:Name="label2" Content="Add a new filter" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="94"/>
             <Label x:Name="label1" Content="Protocol" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" Height="26" Width="54" RenderTransformOrigin="0.496,0.105"/>
-            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="112,102,0,0" VerticalAlignment="Top" Width="65" Height="22" SelectedIndex="{Binding Protocol, Converter={StaticResource protocolConverter}}" RenderTransformOrigin="0.394,1.451">
+            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="112,102,0,0" VerticalAlignment="Top" Width="65" Height="22" SelectedIndex="{Binding Path=Protocols, Converter={StaticResource protocolConverter}}" RenderTransformOrigin="0.394,1.451">
                 <ComboBoxItem Content="http" HorizontalAlignment="Left" Width="65"/>
                 <ComboBoxItem Content="https" HorizontalAlignment="Left" Width="65"/>
                 <ComboBoxItem Content="any" HorizontalAlignment="Left" Width="65" IsSelected="True"/>
@@ -64,12 +64,12 @@
                 <CheckBox x:Name="checkBox4" Content="parameter" HorizontalAlignment="Left" Margin="10,0,0,60" VerticalAlignment="Bottom"/>
                 <Label x:Name="label4" Content="Ignore:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
-            <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="113,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162"/>
+            <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="113,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162" Text="{Binding Path=Name}"/>
             <Label x:Name="label5" Content="Filter name" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.23,0.619"/>
         </Grid>
 
         <!-- ADDING new Filters -->
-        <Grid x:Name="AddFilterGrid" HorizontalAlignment="Left" Height="186" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="498" Visibility="Visible">
+        <Grid x:Name="AddFilterGrid" HorizontalAlignment="Left" Height="186" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="498" Visibility="Hidden">
             <Label x:Name="label6" Content="FilterType" HorizontalAlignment="Left" Margin="0,56,0,0" VerticalAlignment="Top"/>
             <ComboBox x:Name="filterTypeComboBox1" HorizontalAlignment="Left" Margin="117,56,0,0" VerticalAlignment="Top" Width="163" SelectedIndex="{Binding Path=FilterType}">
                 <ComboBoxItem Content="managed" HorizontalAlignment="Left" Width="161"/>

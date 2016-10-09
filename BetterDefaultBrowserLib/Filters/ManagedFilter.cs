@@ -43,7 +43,7 @@ namespace BetterDefaultBrowser.Lib.Filters
                 {
                     protocol = value;
                     RebuildRegex();
-                    OnPropertyChanged("Protocol");
+                    OnPropertyChanged("Protocols");
                 }
             }
         }

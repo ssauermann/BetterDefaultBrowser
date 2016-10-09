@@ -48,6 +48,12 @@ namespace BetterDefaultBrowser
 
             WinVerLabel.Content = OSVersions.getVersion().ToString();
 
+            //Visibility Settings
+            AddManagedFilterGrid.Visibility = Visibility.Hidden;
+            AddFilterGrid.Visibility = Visibility.Visible;
+            AddOpenFilterGrid.Visibility = Visibility.Hidden;
+            AddPlainFilterGrid.Visibility = Visibility.Hidden;
+
             //---Show UAC Admin icon in menu---
             var img = new Image();
             img.Source = UACIcon.ShieldSource;
