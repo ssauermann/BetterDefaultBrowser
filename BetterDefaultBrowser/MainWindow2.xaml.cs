@@ -86,6 +86,7 @@ namespace BetterDefaultBrowser
                 open.InnerFilter = managed;
                 open.Store();
             }
+            IsSubfilter = false;
             AddManagedFilterGrid.Visibility = Visibility.Hidden;
             AddFilterGrid.Visibility = Visibility.Visible;
         }
@@ -160,6 +161,7 @@ namespace BetterDefaultBrowser
                 open.InnerFilter = plain;
                 open.Store();
             }
+            IsSubfilter = false;
             AddPlainFilterGrid.Visibility = Visibility.Hidden;
             AddFilterGrid.Visibility = Visibility.Visible;
         }
