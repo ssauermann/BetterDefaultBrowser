@@ -14,7 +14,7 @@ namespace BetterDefaultBrowser.Lib.Filters
     /// </summary>
     public abstract class Filter : INotifyPropertyChanged
     {
-        private String name;
+        private String name = "";
 
         public event PropertyChangedEventHandler PropertyChanged;
 
