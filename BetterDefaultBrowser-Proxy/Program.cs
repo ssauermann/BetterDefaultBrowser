@@ -47,15 +47,19 @@ namespace BetterDefaultBrowser.Proxy
                 }
 
                 //Select a browser based on the filters
-                var selBrowser = defBrowser;
+                Browser selBrowser = null;
 
                 foreach (var filter in filters)
                 {
-                    if (filter.match(url))
+                    if (filter.Match(url, out selBrowser))
                     {
-                        selBrowser = filter.AssignedBrowser;
                         break;
                     }
+                }
+
+                if(selBrowser == null)
+                {
+                    selBrowser = defBrowser;
                 }
 
                 Debug.WriteLine("Information: " + "Matching browser: '" + selBrowser.Name + "'");

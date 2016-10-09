@@ -77,8 +77,6 @@ namespace BetterDefaultBrowser.Lib
             }
         }
 
-
-
         private static void LoadBrowsers()
         {
             browsers.Clear();

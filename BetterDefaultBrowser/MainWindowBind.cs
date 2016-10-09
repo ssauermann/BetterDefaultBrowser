@@ -1,4 +1,5 @@
 ﻿using BetterDefaultBrowser.Lib;
+using BetterDefaultBrowser.Lib.Filters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -66,18 +67,16 @@ namespace BetterDefaultBrowser
         }
 
         public void saveCurrent()
-        {
-            if (browser != null)
+        {           
+if (browser != null)
             {
-                StringBuilder str = new StringBuilder();
-                str.Append(ProtocolRegex());
-                str.Append(@"(w{3}\.)?");
-                str.Append(Regex.Escape(url));
-                Filter filter = new Filter(str.ToString(), browser);
-                LinkedList<Filter> ls = Settings.Filter;
-                ls.AddFirst(filter);
-                Settings.Filter = ls;
-            }
+            StringBuilder str = new StringBuilder();
+            str.Append(ProtocolRegex());
+            str.Append(@"(w{3}\.)?");
+            str.Append(Regex.Escape(url));
+            Filter filter = new PlainFilter() { RegEx = str.ToString(), AssignedBrowser = browser };
+            filter.Store();
+}
             else
             {
                 throw new Exception("user did not mark a browser");
