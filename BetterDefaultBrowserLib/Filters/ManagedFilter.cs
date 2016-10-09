@@ -186,8 +186,6 @@ namespace BetterDefaultBrowser.Lib.Filters
                 }
             }
         }
-        #endregion
-
 
         public bool ProtocolHTTP
         {
@@ -224,6 +222,8 @@ namespace BetterDefaultBrowser.Lib.Filters
                 }
             }
         }
+
+        #endregion
 
         #region Methods
         /// <summary>
