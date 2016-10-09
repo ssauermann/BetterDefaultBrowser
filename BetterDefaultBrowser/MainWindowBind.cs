@@ -67,16 +67,16 @@ namespace BetterDefaultBrowser
         }
 
         public void saveCurrent()
-        {           
-if (browser != null)
+        {
+            if (browser != null)
             {
-            StringBuilder str = new StringBuilder();
-            str.Append(ProtocolRegex());
-            str.Append(@"(w{3}\.)?");
-            str.Append(Regex.Escape(url));
-            Filter filter = new PlainFilter() { RegEx = str.ToString(), AssignedBrowser = browser };
-            filter.Store();
-}
+                StringBuilder str = new StringBuilder();
+                str.Append(ProtocolRegex());
+                str.Append(@"(w{3}\.)?");
+                str.Append(Regex.Escape(url));
+                Filter filter = new PlainFilter() { RegEx = str.ToString(), AssignedBrowser = browser };
+                filter.Store();
+            }
             else
             {
                 throw new Exception("user did not mark a browser");
