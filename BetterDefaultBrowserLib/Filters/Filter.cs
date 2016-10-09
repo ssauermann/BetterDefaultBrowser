@@ -162,17 +162,19 @@ namespace BetterDefaultBrowser.Lib.Filters
         public enum FType
         {
             /// <summary>
-            /// Just plain regex
+            /// Fancy GUI for regex creation
             /// </summary>
-            PLAIN,
+            MANAGED = 0,
             /// <summary>
             /// Uses first open browser
             /// </summary>
-            OPEN,
+            OPEN = 1,
             /// <summary>
-            /// Fancy GUI for regex creation
+            /// Just plain regex
             /// </summary>
-            MANAGED
+            PLAIN = 2
+
+
         }
         #endregion
 

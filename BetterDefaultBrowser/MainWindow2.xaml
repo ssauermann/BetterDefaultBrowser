@@ -67,16 +67,16 @@
         </Grid>
 
         <!-- ADDING new Filters -->
-        <Grid x:Name="AddFilterGrid" HorizontalAlignment="Left" Height="186" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="498" Visibility="Hidden">
+        <Grid x:Name="AddFilterGrid" HorizontalAlignment="Left" Height="186" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="498" Visibility="visible">
             <Label x:Name="label3" Content="Browser to use" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="26" Width="88" RenderTransformOrigin="1.084,0.743"/>
             <ComboBox x:Name="comboBoxBrowserSelect" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="163" SelectedItem="{Binding Browser}" Margin="117,14,0,0" Height="22"/>
             <Label x:Name="label6" Content="FilterType" HorizontalAlignment="Left" Margin="0,56,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="filterTypeComboBox1" HorizontalAlignment="Left" Margin="117,56,0,0" VerticalAlignment="Top" Width="163">
-                <ComboBoxItem Content="managed" HorizontalAlignment="Left" Width="161" IsSelected="True"/>
+            <ComboBox x:Name="filterTypeComboBox1" HorizontalAlignment="Left" Margin="117,56,0,0" VerticalAlignment="Top" Width="163" SelectedIndex="{Binding Path=FilterType}">
+                <ComboBoxItem Content="managed" HorizontalAlignment="Left" Width="161"/>
                 <ComboBoxItem Content="open" HorizontalAlignment="Left" Width="161"/>
                 <ComboBoxItem Content="plain" HorizontalAlignment="Left" Width="161"/>
             </ComboBox>
-            <Button x:Name="button1" Content="Add Filter" HorizontalAlignment="Left" Margin="413,156,0,0" VerticalAlignment="Top" Width="75"/>
+            <Button x:Name="addFilterButton" Content="Add Filter" HorizontalAlignment="Left" Margin="413,156,0,0" VerticalAlignment="Top" Width="75" Click="addFilterButton_Click"/>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,124,0,0" TextWrapping="Wrap" Text="Easy to use appropriate for all users." VerticalAlignment="Top" Height="62" Width="109"/>
             <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="140,124,0,0" TextWrapping="Wrap" Text="Advanced. Nest multiple filters." VerticalAlignment="Top" Height="62" Width="109"/>
             <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="274,124,0,0" TextWrapping="Wrap" Text="Advanced. You need to be familiar with REGEX." VerticalAlignment="Top" Height="62" Width="109"/>
@@ -91,7 +91,7 @@
             <Button x:Name="button" Content="Save" HorizontalAlignment="Left" Margin="413,156,0,0" VerticalAlignment="Top" Width="75"/>
         </Grid>
         <!-- ADDING OPEN filters -->
-        <Grid x:Name="AddOpenFilterGrid" HorizontalAlignment="Left" Height="186" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="498">
+        <Grid x:Name="AddOpenFilterGrid" HorizontalAlignment="Left" Height="186" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="498" Visibility="Hidden">
             <ListBox x:Name="addBrowserlistBox" HorizontalAlignment="Left" Height="100" Margin="147,10,0,0" VerticalAlignment="Top" Width="341"/>
             <Button x:Name="button2" Content="Next" HorizontalAlignment="Left" Margin="413,156,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.363,0.143"/>
             <Label x:Name="label11" Content="Add additional browsers" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>

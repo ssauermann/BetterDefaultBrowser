@@ -20,14 +20,27 @@ namespace BetterDefaultBrowser
     /// </summary>
     public partial class MainWindow2 : Window
     {
+        private Binding.PlainFilterBind plainBind = new Binding.PlainFilterBind();
+        private Binding.ManagedFilterBind managedBind = new Binding.ManagedFilterBind();
+        private Binding.OpenFilterBind openBind = new Binding.OpenFilterBind();
+        private Binding.AddFilterBind addBind = new Binding.AddFilterBind();
         private MainWindowBind mainBind = new MainWindowBind();
 
         public MainWindow2()
         {
             InitializeComponent();
-   
+
+            #region Bindings
             this.DataContext = mainBind;
+            AddPlainFilterGrid.DataContext = plainBind;
+            AddOpenFilterGrid.DataContext = openBind;
+            AddManagedFilterGrid.DataContext = managedBind;
+            AddFilterGrid.DataContext = addBind;
+
+            #endregion
+
             InstallMenu.DataContext = AllBrowsers.BDBInstalled.Instance;
+
 
             browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
             comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
@@ -74,6 +87,11 @@ namespace BetterDefaultBrowser
         {
             if (browserList.SelectedItem != null)
                 (browserList.SelectedItem as Browser).SetDefault();
+        }
+
+        private void addFilterButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(addBind.FilterType.ToString(), "Debug");
         }
     }
 }
