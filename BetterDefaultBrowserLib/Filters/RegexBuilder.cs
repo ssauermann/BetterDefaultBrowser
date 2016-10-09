@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using DNL = DomainName.Library;
 
 namespace BetterDefaultBrowser.Lib.Filters
 {
@@ -25,6 +25,8 @@ namespace BetterDefaultBrowser.Lib.Filters
             Console.Write("Without protocol:\t");
             Console.WriteLine(finalUrl);
 
+            var domainURL = finalUrl;
+
 
             //Domain part of url is case insensitive
             //Find first slash or ? or line end and insert case insensitive matching end tag before it
@@ -37,17 +39,32 @@ namespace BetterDefaultBrowser.Lib.Filters
             var flags = Enum.GetValues(typeof(ManagedFilter.Ignore)).Cast<ManagedFilter.Ignore>();
             var filterFlags = filter.Flags;
 
-
             foreach (var flag in flags)
             {
                 if (filterFlags.HasFlag(flag))
                 {
-                    //Remove the part from the url
-                    finalUrl = Regex.Replace(finalUrl, flag.Regex(), "<>");
+                    if (flag == ManagedFilter.Ignore.SD)
+                    {
+                        //Use external Lib to get SD
+                        var sd = getSD(domainURL);
+                        var regSD = new Regex(Regex.Escape(sd + "."));
+                        finalUrl = regSD.Replace(finalUrl, "<>", 1);
+                    }
+                    else if (flag == ManagedFilter.Ignore.TLD)
+                    {
+                        //Use external Lib to get TLD
+                        var tld = getTLD(domainURL);
+                        var regTLD = new Regex(Regex.Escape("." + tld));
+                        finalUrl = regTLD.Replace(finalUrl, "<>", 1);
+                    }
+                    else
+                    {
+                        //Remove the part from the url
+                        finalUrl = Regex.Replace(finalUrl, flag.Regex(), "<>");
 
-                    Console.Write("Without " + flag + ":\t");
-                    Console.WriteLine(finalUrl);
-
+                        Console.Write("Without " + flag + ":\t");
+                        Console.WriteLine(finalUrl);
+                    }
                 }
             }
 
@@ -76,5 +93,30 @@ namespace BetterDefaultBrowser.Lib.Filters
             return finalUrl;
         }
 
+        private static String getTLD(string url)
+        {
+            var domainURL = Regex.Replace(url, ManagedFilter.Ignore.Page.Regex(), "");
+            domainURL = Regex.Replace(domainURL, ManagedFilter.Ignore.Parameter.Regex(), "");
+
+            DNL.DomainName dnOut;
+            if (!DNL.DomainName.TryParse(domainURL, out dnOut))
+            {
+                throw new Filter.FilterInvalidException("URL invalid");
+            }
+            return dnOut.TLD;
+        }
+
+        private static String getSD(string url)
+        {
+            var domainURL = Regex.Replace(url, ManagedFilter.Ignore.Page.Regex(), "");
+            domainURL = Regex.Replace(domainURL, ManagedFilter.Ignore.Parameter.Regex(), "");
+
+            DNL.DomainName dnOut;
+            if (!DNL.DomainName.TryParse(domainURL, out dnOut))
+            {
+                throw new Filter.FilterInvalidException("URL invalid");
+            }
+            return dnOut.SubDomain;
+        }
     }
 }

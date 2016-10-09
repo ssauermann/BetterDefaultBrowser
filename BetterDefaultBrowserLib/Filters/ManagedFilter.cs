@@ -212,9 +212,9 @@ namespace BetterDefaultBrowser.Lib.Filters
                 case ManagedFilter.Ignore.Port:
                     return @"(\:[0-9]+)";
                 case ManagedFilter.Ignore.TLD:
-                    throw new NotImplementedException(); //TODO
+                    throw new NotSupportedException("Regex has to be created by DomainNameLib.");
                 case ManagedFilter.Ignore.SD:
-                    throw new NotImplementedException(); //TODO
+                    throw new NotSupportedException("Regex has to be created by DomainNameLib.");
                 default:
                     throw new NotImplementedException("Missing implementation for a protocol");
             }
