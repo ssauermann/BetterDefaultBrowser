@@ -7,23 +7,24 @@ using DNL = DomainName.Library;
 
 namespace BetterDefaultBrowser.Lib.Filters
 {
+    /// <summary>
+    /// Helper methods for regex creation.
+    /// </summary>
     public static class RegexBuilder
     {
 
+        /// <summary>
+        /// Create a regex from a managed filter.
+        /// </summary>
+        /// <param name="filter">Filter</param>
+        /// <returns>Regex</returns>
         public static String build(ManagedFilter filter)
         {
 
             String finalUrl = filter.URL;
 
-            Console.Write("Original url:\t");
-            Console.WriteLine(finalUrl);
-
             //Remove all protocols
             finalUrl = Regex.Replace(finalUrl, @"(.*?\:\/\/)", "");
-
-
-            Console.Write("Without protocol:\t");
-            Console.WriteLine(finalUrl);
 
             var domainURL = finalUrl;
 
@@ -62,8 +63,6 @@ namespace BetterDefaultBrowser.Lib.Filters
                         //Remove the part from the url
                         finalUrl = Regex.Replace(finalUrl, flag.Regex(), "<>");
 
-                        Console.Write("Without " + flag + ":\t");
-                        Console.WriteLine(finalUrl);
                     }
                 }
             }
@@ -77,18 +76,12 @@ namespace BetterDefaultBrowser.Lib.Filters
             var protocolRegex = "<_>(" + String.Join("|", from p in protocols where filterProtocols.HasFlag(p) select p.Regex()) + ")<->";
             finalUrl = protocolRegex + finalUrl;
 
-            Console.Write("With selected protocols:\t");
-            Console.WriteLine(finalUrl);
-
 
             //Set replaced parts to an valid regex expression
             finalUrl = Regex.Replace(finalUrl, "(<>)+", "(.*?)");
             finalUrl = Regex.Replace(finalUrl, "(<->)(<_>)+", "");
             finalUrl = Regex.Replace(finalUrl, "(<_>)+", "(?i)");
             finalUrl = Regex.Replace(finalUrl, "(<->)+", "(?-i)");
-
-            Console.Write("As Regex:\t");
-            Console.WriteLine(finalUrl);
 
             return finalUrl;
         }
