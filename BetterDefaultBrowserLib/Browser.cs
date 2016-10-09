@@ -8,6 +8,7 @@ using System.Diagnostics;
 using static BetterDefaultBrowser.Lib.OSVersions;
 using System.ComponentModel;
 using RegistryUtils;
+using System.Text.RegularExpressions;
 
 namespace BetterDefaultBrowser.Lib
 {
@@ -153,7 +154,15 @@ namespace BetterDefaultBrowser.Lib
                     return "microsoft-edge:";
                 }
                 var val = Registry.GetValue(path + @"\shell\open\command", null, null);
-                return (val == null) ? "" : val.ToString();
+
+                var ret = (val == null) ? "" : val.ToString();
+
+                if (ret.ElementAt(0) == '"')
+                {
+                    ret = ret.Substring(1, ret.Length - 2);
+                }
+
+                return ret;
             }
         }
 

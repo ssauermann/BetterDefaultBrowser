@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -118,7 +119,7 @@ namespace BetterDefaultBrowser.Lib.Filters
         /// </summary>
         /// <param name="browser">Browser to check</param>
         /// <returns>Is running?</returns>
-        public bool isBrowserOpen(Browser browser)
+        public static bool isBrowserOpen(Browser browser)
         {
             var path = browser.ApplicationPath;
 
@@ -126,7 +127,12 @@ namespace BetterDefaultBrowser.Lib.Filters
             {
                 try
                 {
-                    if (p.MainModule.FileName == path)
+                    String pPath = p.MainModule.FileName;
+                    int pathEql = String.Compare(
+                                    Path.GetFullPath(pPath).TrimEnd('\\'),
+                                    Path.GetFullPath(path).TrimEnd('\\'),
+                                    StringComparison.InvariantCultureIgnoreCase);
+                    if (pathEql == 0)
                     {
                         return true;
                     }
@@ -135,12 +141,9 @@ namespace BetterDefaultBrowser.Lib.Filters
                 {
                     //Ignore: Some processes (System / Idle) can not be inspected
                 }
-                catch (Win32Exception ex)
+                catch (Win32Exception)
                 {
-                    //TODO: Remove
-                    Trace.WriteLine(ex);
                     //Win32 Applications can't inspect 64bit processes
-                    //TODO: Problem: 64bit Browser as this is currently compiled as an 32bit exe
                 }
             }
 
