@@ -16,6 +16,8 @@ namespace BetterDefaultBrowser.Proxy
     /// </summary>
     static class Program
     {
+        private static Uri uriResult;
+
         [STAThread]
         static void Main()
         {
@@ -30,6 +32,12 @@ namespace BetterDefaultBrowser.Proxy
                 var url = "";
                 if (args.Length > 1)
                     url = args[1];
+
+                //Add protocol if missing. TODO: Fix this for file paths
+                if (!(Uri.TryCreate(url, UriKind.Absolute, out uriResult) && (uriResult != null) && ((uriResult.Scheme == Uri.UriSchemeHttp) || (uriResult.Scheme == Uri.UriSchemeHttps))))
+                {
+                    url = @"http://" + url;
+                }
 
                 Debug.WriteLine("Information: " + "Url to open: '" + url + "'");
 
@@ -57,7 +65,7 @@ namespace BetterDefaultBrowser.Proxy
                     }
                 }
 
-                if(selBrowser == null)
+                if (selBrowser == null)
                 {
                     selBrowser = defBrowser;
                 }
@@ -76,8 +84,8 @@ namespace BetterDefaultBrowser.Proxy
                     Launcher.RunEdge(url);
                 else
                     Launcher.Launch(selBrowser.ApplicationPath, url);
-                
-               
+
+
                 Debug.WriteLine("Information: " + "Browser opened.");
 
             }
