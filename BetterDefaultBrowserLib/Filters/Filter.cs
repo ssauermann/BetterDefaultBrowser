@@ -198,5 +198,10 @@ namespace BetterDefaultBrowser.Lib.Filters
             }
             return ID == (obj as Filter).ID;
         }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
     }
 }
