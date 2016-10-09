@@ -20,9 +20,7 @@ namespace BetterDefaultBrowser
     /// </summary>
     public partial class MainWindow2 : Window
     {
-        private Binding.PlainFilterBind plainBind = new Binding.PlainFilterBind();
-        private Binding.ManagedFilterBind managedBind = new Binding.ManagedFilterBind();
-        private Binding.OpenFilterBind openBind = new Binding.OpenFilterBind();
+
         private Binding.AddFilterBind addBind = new Binding.AddFilterBind();
         private MainWindowBind mainBind = new MainWindowBind();
 
@@ -38,9 +36,6 @@ namespace BetterDefaultBrowser
 
             #region Bindings
             this.DataContext = mainBind;
-            AddPlainFilterGrid.DataContext = plainBind;
-            AddOpenFilterGrid.DataContext = openBind;
-            AddManagedFilterGrid.DataContext = managedBind;
             AddFilterGrid.DataContext = addBind;
 
             #endregion
@@ -69,7 +64,9 @@ namespace BetterDefaultBrowser
 
         private void Applybutton_Click(object sender, RoutedEventArgs e)
         {
-            mainBind.saveCurrent();
+            managed.Store();
+            AddManagedFilterGrid.Visibility = Visibility.Hidden;
+            AddFilterGrid.Visibility = Visibility.Visible;
         }
 
         private void UninstallBDBMenuItem_Click(object sender, RoutedEventArgs e)

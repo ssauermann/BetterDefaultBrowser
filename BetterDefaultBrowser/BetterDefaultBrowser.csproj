@@ -78,9 +78,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Binding\AddFilterBind.cs" />
-    <Compile Include="Binding\ManagedFilterBind.cs" />
-    <Compile Include="Binding\OpenFilterBind.cs" />
-    <Compile Include="Binding\PlainFilterBind.cs" />
     <Compile Include="DefaultConverter.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="InvertBoolConverter.cs" />
