@@ -211,29 +211,5 @@ namespace BetterDefaultBrowser.Lib.Filters
                     throw new NotImplementedException("Missing implementation for a protocol");
             }
         }
-
-        /// <summary>
-        /// Is the regex for this flag case sensitive?
-        /// </summary>
-        /// <param name="flag">Flag</param>
-        /// <returns>Is case sensisitve</returns>
-        public static bool IsCaseSensitive(this ManagedFilter.Ignore flag)
-        {
-            switch (flag)
-            {
-                case ManagedFilter.Ignore.Parameter:
-                    return true;
-                case ManagedFilter.Ignore.Page:
-                    return true;
-                case ManagedFilter.Ignore.Port:
-                    return true; //Does not matter
-                case ManagedFilter.Ignore.TLD:
-                    return false;
-                case ManagedFilter.Ignore.SD:
-                    return false;
-                default:
-                    throw new NotImplementedException("Missing implementation for a protocol");
-            }
-        }
     }
 }

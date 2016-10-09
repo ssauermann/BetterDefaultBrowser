@@ -13,17 +13,12 @@ namespace BetterDefaultBrowser.Lib.Filters
         public String build(ManagedFilter filter)
         {
 
-            var protocols = Enum.GetValues(typeof(Protocols)).Cast<Protocols>();
-            var filterProtocols = filter.Protocols;
-
-            var protocolRegex = "((?i)" + String.Join("|", from p in protocols where filterProtocols.HasFlag(p) select p.Regex()) + "(?-i))";
-
             String finalUrl = filter.URL;
 
             Console.Write("Original url:\t");
             Console.WriteLine(finalUrl);
 
-
+            //Remove all protocols
             finalUrl = Regex.Replace(finalUrl, @"(.*?\:\/\/)", "");
 
 
@@ -31,6 +26,14 @@ namespace BetterDefaultBrowser.Lib.Filters
             Console.WriteLine(finalUrl);
 
 
+            //Domain part of url is case insensitive
+            //Find first slash or ? or line end and insert case insensitive matching end tag before it
+            //Additional add a start tag at the begining of the string
+            var cireg = new Regex(@"(\/|\?|\z)");
+            finalUrl = @"<_>" + cireg.Replace(finalUrl, m => string.Format(@"<->{0}", m.Value), 1);
+
+
+            //Process flags and replace ignored parts
             var flags = Enum.GetValues(typeof(ManagedFilter.Ignore)).Cast<ManagedFilter.Ignore>();
             var filterFlags = filter.Flags;
 
@@ -46,21 +49,25 @@ namespace BetterDefaultBrowser.Lib.Filters
                     Console.WriteLine(finalUrl);
 
                 }
-                else
-                {
-                    //Part will not be removed, should it be matched case insensitive?
-                    //TODO
-                }
             }
 
 
+
+            //Add protocolls to start of the new regex
+            var protocols = Enum.GetValues(typeof(Protocols)).Cast<Protocols>();
+            var filterProtocols = filter.Protocols;
+            var protocolRegex = "<_>(" + String.Join("|", from p in protocols where filterProtocols.HasFlag(p) select p.Regex()) + ")<->";
             finalUrl = protocolRegex + finalUrl;
 
             Console.Write("With selected protocols:\t");
             Console.WriteLine(finalUrl);
 
 
+            //Set replaced parts to an valid regex expression
             finalUrl = Regex.Replace(finalUrl, "(<>)+", "(.*?)");
+            finalUrl = Regex.Replace(finalUrl, "(<->)(<_>)+", "");
+            finalUrl = Regex.Replace(finalUrl, "(<_>)+", "(?i)");
+            finalUrl = Regex.Replace(finalUrl, "(<->)+", "(?-i)");
 
             Console.Write("As Regex:\t");
             Console.WriteLine(finalUrl);
