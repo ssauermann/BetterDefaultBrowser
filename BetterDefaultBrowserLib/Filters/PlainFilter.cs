@@ -57,7 +57,7 @@ namespace BetterDefaultBrowser.Lib.Filters
             }
             set
             {
-                if (!assignedBrowser.Equals(value))
+                if (assignedBrowser == null || !assignedBrowser.Equals(value))
                 {
                     this.assignedBrowser = value;
                     base.OnPropertyChanged("AssignedBrowser");

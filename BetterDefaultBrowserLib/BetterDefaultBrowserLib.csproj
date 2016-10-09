@@ -45,6 +45,7 @@
     <Compile Include="Browser.cs" />
     <Compile Include="DebugHelper.cs" />
     <Compile Include="Filters\Filter.cs" />
+    <Compile Include="Filters\RegexBuilder.cs" />
     <Compile Include="HardcodedValues.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Filters\ManagedFilter.cs" />

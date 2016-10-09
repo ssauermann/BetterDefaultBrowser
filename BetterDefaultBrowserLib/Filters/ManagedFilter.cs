@@ -14,7 +14,7 @@ namespace BetterDefaultBrowser.Lib.Filters
     public class ManagedFilter : PlainFilter
     {
         private Protocols protocol;
-        private String url;
+        private String url = "";
         private Ignore flags;
 
         /// <summary>
@@ -137,12 +137,14 @@ namespace BetterDefaultBrowser.Lib.Filters
         [Flags]
         public enum Ignore
         {
+            //These have to be in order of occurence in an url.
             SD = 1 << 0,
             TLD = 1 << 1,
             Port = 1 << 2,
             Page = 1 << 3,
             Parameter = 1 << 4
         }
+
     }
 
     /// <summary>
@@ -154,5 +156,84 @@ namespace BetterDefaultBrowser.Lib.Filters
     {
         HTTP = 1 << 0,
         HTTPS = 1 << 1
+    }
+
+    /// <summary>
+    /// Extension Methods for Protocols enum
+    /// </summary>
+    public static class ProtocolsExtensions
+    {
+        /// <summary>
+        /// Gets the regex for this protocol
+        /// </summary>
+        /// <param name="prots">Protocol</param>
+        /// <returns>Regex</returns>
+        public static String Regex(this Protocols prots)
+        {
+            switch (prots)
+            {
+                case Protocols.HTTP:
+                    return @"(http\:\/\/)";
+                case Protocols.HTTPS:
+                    return @"(https\:\/\/)";
+                default:
+                    throw new NotImplementedException("Missing implementation for a protocol");
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// Extension Methods for Ignore enum
+    /// </summary>
+    public static class IgnoreExtensions
+    {
+        /// <summary>
+        /// Gets the regex for this flag.
+        /// </summary>
+        /// <param name="flag">Flag</param>
+        /// <returns>Regex</returns>
+        public static String Regex(this ManagedFilter.Ignore flag)
+        {
+            switch (flag)
+            {
+                case ManagedFilter.Ignore.Parameter:
+                    return @"(\?.*)";
+                case ManagedFilter.Ignore.Page:
+                    return @"(\/(?:[^?])+)";
+                case ManagedFilter.Ignore.Port:
+                    return @"(\:[0-9]+)";
+                case ManagedFilter.Ignore.TLD:
+                    throw new NotImplementedException(); //TODO
+                case ManagedFilter.Ignore.SD:
+                    throw new NotImplementedException(); //TODO
+                default:
+                    throw new NotImplementedException("Missing implementation for a protocol");
+            }
+        }
+
+        /// <summary>
+        /// Is the regex for this flag case sensitive?
+        /// </summary>
+        /// <param name="flag">Flag</param>
+        /// <returns>Is case sensisitve</returns>
+        public static bool IsCaseSensitive(this ManagedFilter.Ignore flag)
+        {
+            switch (flag)
+            {
+                case ManagedFilter.Ignore.Parameter:
+                    return true;
+                case ManagedFilter.Ignore.Page:
+                    return true;
+                case ManagedFilter.Ignore.Port:
+                    return true; //Does not matter
+                case ManagedFilter.Ignore.TLD:
+                    return false;
+                case ManagedFilter.Ignore.SD:
+                    return false;
+                default:
+                    throw new NotImplementedException("Missing implementation for a protocol");
+            }
+        }
     }
 }
