@@ -98,7 +98,7 @@ namespace BetterDefaultBrowser.Lib
                 foreach (var filter in filters)
                 {
                     Filter fil;
-                    switch ((FType)Enum.Parse(typeof(FType),filter.Attribute("type").Value))
+                    switch ((FType)Enum.Parse(typeof(FType), filter.Attribute("type").Value))
                     {
                         case FType.PLAIN:
                             fil = new PlainFilter();
@@ -134,7 +134,8 @@ namespace BetterDefaultBrowser.Lib
             if (count > 1)
             {
                 //User must had edited the list manually -> so remove the duplicate? Give them a new ID? [currently first]
-                for(int i=1;i<count;i++) {
+                for (int i = 1; i < count; i++)
+                {
                     thisFilter.ElementAt(i).Remove();
                 }
             }

@@ -66,7 +66,7 @@ namespace BetterDefaultBrowser.Lib
                 AllBrowsers.@default = null;
 
             //Set default for all browsers:
-            foreach(var b in InstalledBrowsers)
+            foreach (var b in InstalledBrowsers)
             {
                 if (b.Equals(AllBrowsers.Default))
                     b.IsDefault = true;
@@ -74,8 +74,6 @@ namespace BetterDefaultBrowser.Lib
                     b.IsDefault = false;
             }
         }
-
-
 
         private static void LoadBrowsers()
         {

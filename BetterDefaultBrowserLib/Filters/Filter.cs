@@ -15,7 +15,7 @@ namespace BetterDefaultBrowser.Lib.Filters
     public abstract class Filter : INotifyPropertyChanged
     {
         private String name;
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Filter()
@@ -23,7 +23,7 @@ namespace BetterDefaultBrowser.Lib.Filters
             //Generate a new id, can be overwritten when loading the xml data.
             ID = newID();
         }
-        
+
 
         #region Properties
 
@@ -88,7 +88,7 @@ namespace BetterDefaultBrowser.Lib.Filters
         /// </summary>
         internal virtual void FromXML(XElement e)
         {
-            foreach(var attr in e.Attributes())
+            foreach (var attr in e.Attributes())
             {
                 switch (attr.Name.LocalName)
                 {
@@ -98,7 +98,7 @@ namespace BetterDefaultBrowser.Lib.Filters
                             if (Type != (FType)Enum.Parse(typeof(FType), attr.Value))
                                 throw new FilterInvalidException("XML parsing error. Invalid type.");
                         }
-                        catch(Exception ex) when (ex is ArgumentException | ex is ArgumentNullException)
+                        catch (Exception ex) when (ex is ArgumentException | ex is ArgumentNullException)
                         {
                             throw new FilterInvalidException("XML parsing error. Not a type.", ex);
                         }

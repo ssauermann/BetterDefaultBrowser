@@ -11,7 +11,7 @@ using RegistryUtils;
 
 namespace BetterDefaultBrowser.Lib
 {
-    /// <summary>
+    /// <summary> 
     /// Browser with informationen saved in the registry.
     /// </summary>
     public class Browser : INotifyPropertyChanged, IEquatable<Browser>, IComparable<Browser>
@@ -27,7 +27,7 @@ namespace BetterDefaultBrowser.Lib
         /// <param name="keyName">Unique key as used in the registry path.</param>
         public Browser(String keyName)
         {
-            if(keyName==null || keyName == "")
+            if (keyName == null || keyName == "")
             {
                 throw new ArgumentNullException("Key must not be null or empty.");
             }
@@ -222,7 +222,7 @@ namespace BetterDefaultBrowser.Lib
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
         #endregion
 
         #region Object Methods

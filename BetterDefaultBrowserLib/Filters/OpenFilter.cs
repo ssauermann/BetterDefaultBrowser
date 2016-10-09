@@ -11,7 +11,7 @@ namespace BetterDefaultBrowser.Lib.Filters
     /// <summary>
     /// Filter which will use currently running browsers first before opening a new one.
     /// </summary>
-    class OpenFilter : Filter
+    public class OpenFilter : Filter
     {
         private bool onlyOpen;
         private BindingList<Browser> browsers = new BindingList<Browser>();
@@ -92,7 +92,7 @@ namespace BetterDefaultBrowser.Lib.Filters
                 return false;
 
             //Inner filter does match
-            foreach(Browser b in Browsers)
+            foreach (Browser b in Browsers)
             {
                 if (isBrowserOpen(b))
                 {
@@ -122,7 +122,7 @@ namespace BetterDefaultBrowser.Lib.Filters
         {
             var path = browser.ApplicationPath;
 
-            foreach(var p in Process.GetProcesses())
+            foreach (var p in Process.GetProcesses())
             {
                 try
                 {
@@ -131,11 +131,11 @@ namespace BetterDefaultBrowser.Lib.Filters
                         return true;
                     }
                 }
-                catch(Exception ex) when (ex is NotSupportedException | ex is InvalidOperationException)
+                catch (Exception ex) when (ex is NotSupportedException | ex is InvalidOperationException)
                 {
                     //Ignore: Some processes (System / Idle) can not be inspected
                 }
-                catch(Win32Exception ex)
+                catch (Win32Exception ex)
                 {
                     //TODO: Remove
                     Trace.WriteLine(ex);
