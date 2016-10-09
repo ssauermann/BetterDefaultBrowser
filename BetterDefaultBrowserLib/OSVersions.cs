@@ -53,7 +53,7 @@ namespace BetterDefaultBrowser.Lib
             IApplicationAssociationRegistrationUI app = (IApplicationAssociationRegistrationUI)new ApplicationAssociationRegistrationUI();
             int hr = app.LaunchAdvancedAssociationUI(appName);
             Exception error = Marshal.GetExceptionForHR(hr);
-            if(error!=null)
+            if (error != null)
             {
                 throw error;
             }

@@ -23,7 +23,7 @@ namespace BetterDefaultBrowser
             }
         }
 
-        public enum Protocols { https, http, all };
+        public enum Protocols { https, http, any };
 
         private Protocols protocol;
 
@@ -63,24 +63,31 @@ namespace BetterDefaultBrowser
 
         public MainWindowBind()
         {
-            Protocol = Protocols.all;
+            Protocol = Protocols.any;
         }
 
         public void saveCurrent()
         {
-            StringBuilder str = new StringBuilder();
-            str.Append(ProtocolRegex());
-            str.Append(@"(w{3}\.)?");
-            str.Append(Regex.Escape(url));
-            Filter filter = new PlainFilter() { RegEx = str.ToString(), AssignedBrowser = browser };
-            filter.Store();
+            if (browser != null)
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(ProtocolRegex());
+                str.Append(@"(w{3}\.)?");
+                str.Append(Regex.Escape(url));
+                Filter filter = new PlainFilter() { RegEx = str.ToString(), AssignedBrowser = browser };
+                filter.Store();
+            }
+            else
+            {
+                throw new Exception("user did not mark a browser");
+            }
         }
 
         private string ProtocolRegex()
         {
             switch (protocol)
             {
-                case Protocols.all:
+                case Protocols.any:
                     return @"((h|H)(t|T){2}(p|P)(s|S)?\://)?";
                 case Protocols.http:
                     return @"(h|H)(t|T){2}(p|P)\://";

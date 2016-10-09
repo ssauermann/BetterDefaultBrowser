@@ -77,6 +77,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Binding\AddFilterBind.cs" />
     <Compile Include="DefaultConverter.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="InvertBoolConverter.cs" />
