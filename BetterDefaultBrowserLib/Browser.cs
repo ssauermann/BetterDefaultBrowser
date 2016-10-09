@@ -8,10 +8,11 @@ using System.Diagnostics;
 using static BetterDefaultBrowser.Lib.OSVersions;
 using System.ComponentModel;
 using RegistryUtils;
+using System.Text.RegularExpressions;
 
 namespace BetterDefaultBrowser.Lib
 {
-    /// <summary>
+    /// <summary> 
     /// Browser with informationen saved in the registry.
     /// </summary>
     public class Browser : INotifyPropertyChanged, IEquatable<Browser>, IComparable<Browser>
@@ -27,7 +28,7 @@ namespace BetterDefaultBrowser.Lib
         /// <param name="keyName">Unique key as used in the registry path.</param>
         public Browser(String keyName)
         {
-            if(keyName==null || keyName == "")
+            if (keyName == null || keyName == "")
             {
                 throw new ArgumentNullException("Key must not be null or empty.");
             }
@@ -153,7 +154,15 @@ namespace BetterDefaultBrowser.Lib
                     return "microsoft-edge:";
                 }
                 var val = Registry.GetValue(path + @"\shell\open\command", null, null);
-                return (val == null) ? "" : val.ToString();
+
+                var ret = (val == null) ? "" : val.ToString();
+
+                if (ret.ElementAt(0) == '"')
+                {
+                    ret = ret.Substring(1, ret.Length - 2);
+                }
+
+                return ret;
             }
         }
 
@@ -222,7 +231,7 @@ namespace BetterDefaultBrowser.Lib
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
         #endregion
 
         #region Object Methods

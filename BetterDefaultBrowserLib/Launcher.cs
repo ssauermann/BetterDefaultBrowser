@@ -53,5 +53,6 @@ namespace BetterDefaultBrowser.Lib
             }
             Process.Start($"microsoft-edge:{uri}");
         }
+
     }
 }
