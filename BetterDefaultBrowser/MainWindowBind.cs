@@ -1,4 +1,5 @@
 ﻿using BetterDefaultBrowser.Lib;
+using BetterDefaultBrowser.Lib.Filters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,45 +10,55 @@ using System.Threading.Tasks;
 
 namespace BetterDefaultBrowser
 {
-    public class MainWindowBind:INotifyPropertyChanged
+    public class MainWindowBind : INotifyPropertyChanged
     {
         private Browser browser;
-        public Browser Browser {
+        public Browser Browser
+        {
             get { return browser; }
-            set { browser = value;
+            set
+            {
+                browser = value;
                 OnPropertyChanged(new PropertyChangedEventArgs("Browser"));
             }
         }
 
-        public enum Protocols { https, http, all};
+        public enum Protocols { https, http, all };
 
         private Protocols protocol;
 
-        public Protocols Protocol {
+        public Protocols Protocol
+        {
             get { return protocol; }
-            set { protocol = value;
+            set
+            {
+                protocol = value;
                 OnPropertyChanged(new PropertyChangedEventArgs("Protocol"));
             }
         }
 
         private string url;
-        public string Url {
+        public string Url
+        {
             get { return url; }
-            set { url = value;
+            set
+            {
+                url = value;
                 OnPropertyChanged(new PropertyChangedEventArgs("Url"));
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e) {
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
             if (PropertyChanged != null)
                 PropertyChanged(this, e);
         }
 
-        public MainWindowBind(Browser browser,Protocols protocol)
+        public MainWindowBind(Browser browser, Protocols protocol)
         {
             Browser = browser;
-            Protocol= protocol;
+            Protocol = protocol;
         }
 
         public MainWindowBind()
@@ -56,15 +67,13 @@ namespace BetterDefaultBrowser
         }
 
         public void saveCurrent()
-        {           
+        {
             StringBuilder str = new StringBuilder();
             str.Append(ProtocolRegex());
             str.Append(@"(w{3}\.)?");
             str.Append(Regex.Escape(url));
-            Filter filter = new Filter(str.ToString(), browser);
-            LinkedList<Filter> ls = Settings.Filter;
-            ls.AddFirst(filter);
-            Settings.Filter = ls;
+            Filter filter = new PlainFilter() { RegEx = str.ToString(), AssignedBrowser = browser };
+            filter.Store();
         }
 
         private string ProtocolRegex()

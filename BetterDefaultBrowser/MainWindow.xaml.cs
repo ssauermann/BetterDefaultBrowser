@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BetterDefaultBrowser.Lib;
 using System.Runtime.InteropServices;
+using BetterDefaultBrowser.Lib.Filters;
 
 namespace BetterDefaultBrowser
 {
@@ -53,7 +54,8 @@ namespace BetterDefaultBrowser
 
         private void listBoxInstalledBrowsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (listBoxInstalledBrowsers.SelectedItem != null) {
+            if (listBoxInstalledBrowsers.SelectedItem != null)
+            {
                 btnSetDefault.IsEnabled = true;
                 btnTestOpen.IsEnabled = true;
                 btnSetProxyDefault.IsEnabled = true;
@@ -71,7 +73,7 @@ namespace BetterDefaultBrowser
 
         private void btnTestOpen_Click(object sender, RoutedEventArgs e)
         {
-            Launcher.LaunchBrowser(listBoxInstalledBrowsers.SelectedItem as Browser,@"http://www.google.de");
+            Launcher.LaunchBrowser(listBoxInstalledBrowsers.SelectedItem as Browser, @"http://www.google.de");
         }
 
         private void btnSetDefault_Click(object sender, RoutedEventArgs e)
@@ -101,8 +103,9 @@ namespace BetterDefaultBrowser
         private void btnSetProxyFilter_Click(object sender, RoutedEventArgs e)
         {
             var filters = Settings.Filter;
-            filters.AddLast(new Filter(textBox.Text, listBoxInstalledBrowsers.SelectedItem as Browser));
-            Settings.Filter = filters;
+            var f = new PlainFilter() { RegEx = textBox.Text, AssignedBrowser = listBoxInstalledBrowsers.SelectedItem as Browser };
+            filters.AddLast(f);
+            f.Store();
         }
 
         private void btnSetProxyDefault_Click(object sender, RoutedEventArgs e)
@@ -112,7 +115,7 @@ namespace BetterDefaultBrowser
 
         private void btnDeleteSettings_Click(object sender, RoutedEventArgs e)
         {
-            System.IO.Directory.Delete(HardcodedValues.DATA_FOLDER,true);
+            System.IO.Directory.Delete(HardcodedValues.DATA_FOLDER, true);
             Application.Current.Shutdown();
         }
     }

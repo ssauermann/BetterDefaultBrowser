@@ -4,13 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
-namespace BetterDefaultBrowser.Lib
+namespace BetterDefaultBrowser.Lib.Filters
 {
     /// <summary>
     /// Filter which is managed with the GUI
     /// </summary>
-    public class ManagedFilter : Filter
+    public class ManagedFilter : PlainFilter
     {
         private Protocols protocol;
         private String url;
@@ -20,15 +21,17 @@ namespace BetterDefaultBrowser.Lib
         /// Create a managed filter for an assigned browser.
         /// </summary>
         /// <param name="browser">Assigned browser</param>
-        public ManagedFilter(Browser browser) : base(browser)
+        public ManagedFilter() : base()
         {
             this.Type = FType.MANAGED;
         }
 
+
+        #region Properties
         /// <summary>
         /// The matching protocols.
         /// </summary>
-        public Protocols Protocol
+        public Protocols Protocols
         {
             get
             {
@@ -81,6 +84,52 @@ namespace BetterDefaultBrowser.Lib
                 }
             }
         }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Convert this filter to an XML representation.
+        /// </summary>
+        /// <returns>XML Element</returns>
+        internal override XElement ToXML()
+        {
+            var e = base.ToXML();
+
+            e.Add(new XElement("protocols", Protocols),
+                new XElement("flags", Flags),
+                new XElement("url", URL)
+                );
+            return e;
+        }
+
+        /// <summary>
+        /// Loads values for this filter from an XML representation.
+        /// <param name="e">XML element</param>
+        /// </summary>
+        internal override void FromXML(XElement e)
+        {
+            base.FromXML(e);
+
+            URL = e.Element("url").Value;
+
+            int x = -1;
+            if (Int32.TryParse(e.Element("flags").Value, out x))
+            {
+                Flags = (Ignore)x;
+            }
+            else
+                throw new FilterInvalidException("XML parsing error. Invalid flags.");
+
+
+            if (Int32.TryParse(e.Element("protocols").Value, out x))
+            {
+                Protocols = (Protocols)x;
+            }
+            else
+                throw new FilterInvalidException("XML parsing error. Invalid protocols.");
+
+        }
+        #endregion
 
         /// <summary>
         /// Ignore flags used by managed filters.

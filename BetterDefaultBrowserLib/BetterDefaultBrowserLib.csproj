@@ -44,11 +44,12 @@
     <Compile Include="AllBrowsers.cs" />
     <Compile Include="Browser.cs" />
     <Compile Include="DebugHelper.cs" />
-    <Compile Include="Filter.cs" />
+    <Compile Include="Filters\Filter.cs" />
     <Compile Include="HardcodedValues.cs" />
     <Compile Include="Launcher.cs" />
-    <Compile Include="ManagedFilter.cs" />
-    <Compile Include="OpenFilter.cs" />
+    <Compile Include="Filters\ManagedFilter.cs" />
+    <Compile Include="Filters\OpenFilter.cs" />
+    <Compile Include="Filters\PlainFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistryMonitor.cs" />
     <Compile Include="Settings.cs" />
