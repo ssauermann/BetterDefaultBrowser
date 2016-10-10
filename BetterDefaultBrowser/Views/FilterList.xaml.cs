@@ -23,6 +23,11 @@ namespace BetterDefaultBrowser.Views
         public FilterList()
         {
             InitializeComponent();
+
+            if (browser.Items.Count > 0)
+            {
+                browser.SelectedItem = browser.Items[0];
+            }
         }
     }
 }

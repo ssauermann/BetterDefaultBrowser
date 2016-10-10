@@ -14,7 +14,15 @@
                  Height='255'
                  Margin='0,45,0,0'
                  VerticalAlignment='Top'
-                 Width='248' />
+                 Width='248'>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"
+                               HorizontalAlignment="Left"
+                               Grid.Column="0" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button x:Name='buttonUp'
                 Content='↑'
                 HorizontalAlignment='Left'
@@ -55,7 +63,14 @@
                   Margin='0,7,0,0'
                   VerticalAlignment='Top'
                   Width='133'
-                  Height='33' />
+                  Height='33'
+                  ItemsSource='{Binding Browsers}'>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text='{Binding Name}'></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
     </Grid>
 </UserControl>
