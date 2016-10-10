@@ -21,7 +21,16 @@ namespace BetterDefaultBrowser.ViewModels
 
         public PlainFilterViewModel() : base(new PlainFilter { Name = "Unnamed filter", RegEx = ".*" })
         {
-            pFilter = filter as PlainFilter;
+            pFilter = (PlainFilter)filter;
+            browser = new BrowserViewModel("");
+            browserList = new BrowserListViewModel();
+        }
+
+        /// <summary>
+        /// When Using a managed Filter this constructor should be invoked
+        /// </summary>
+        public PlainFilterViewModel(ManagedFilter mFilter) : base(mFilter)
+        {
             browser = new BrowserViewModel("");
             browserList = new BrowserListViewModel();
         }

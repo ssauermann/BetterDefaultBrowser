@@ -12,9 +12,9 @@ namespace BetterDefaultBrowser.ViewModels
     class ManagedFilterViewModel : PlainFilterViewModel
     {
         private ManagedFilter mFilter;
-        public ManagedFilterViewModel() : base()
+        public ManagedFilterViewModel() : base(new ManagedFilter())
         {
-            mFilter = new ManagedFilter();
+            mFilter = (ManagedFilter)filter;
         }
 
         #region Properties
