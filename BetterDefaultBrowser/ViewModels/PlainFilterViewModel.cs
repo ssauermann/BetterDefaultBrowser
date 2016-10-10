@@ -11,38 +11,24 @@ using System.Windows.Media;
 
 namespace BetterDefaultBrowser.ViewModels
 {
-    class PlainFilterViewModel
+    class PlainFilterViewModel : FilterViewModelBase
     {
-        private PlainFilter filter;
+        private PlainFilter pFilter;
         private BrowserViewModel browser;
         private BrowserListViewModel browserList;
         private bool validRegex = true;
         private String regex = ".*";
 
-        public PlainFilterViewModel()
+        public PlainFilterViewModel() : base(new PlainFilter { Name = "Unnamed filter", RegEx = ".*" })
         {
-            this.filter = new PlainFilter { Name = "Unnamed filter", RegEx = ".*" };
+            pFilter = filter as PlainFilter;
             browser = new BrowserViewModel("");
             browserList = new BrowserListViewModel();
         }
 
 
         #region Properties
-        public String Name
-        {
-            get
-            {
-                return filter.Name;
-            }
-            set
-            {
-                if (filter.Name != value)
-                {
-                    filter.Name = value;
-                    RaisePropertyChanged("Name");
-                }
-            }
-        }
+
 
         /// <summary>
         /// Set a regular expression for filtering requests.
@@ -60,14 +46,14 @@ namespace BetterDefaultBrowser.ViewModels
                     regex = value;
                     if (PlainFilter.IsValidRegex(value))
                     {
-                        filter.RegEx = value;
+                        pFilter.RegEx = value;
                         IsValidRegEx = true;
                     }
                     else
                     {
                         IsValidRegEx = false;
                     }
-                    RaisePropertyChanged("RegEx");
+                    OnPropertyChanged("RegEx");
                 }
             }
         }
@@ -83,8 +69,8 @@ namespace BetterDefaultBrowser.ViewModels
                 if (IsValidRegEx != value)
                 {
                     validRegex = value;
-                    RaisePropertyChanged("IsValidRegEx");
-                    RaisePropertyChanged("RegExBackground");
+                    OnPropertyChanged("IsValidRegEx");
+                    OnPropertyChanged("RegExBackground");
                 }
             }
         }
@@ -119,7 +105,7 @@ namespace BetterDefaultBrowser.ViewModels
                 if (!browser.Equals(value))
                 {
                     this.browser = value;
-                    RaisePropertyChanged("Browser");
+                    OnPropertyChanged("Browser");
                 }
             }
         }
@@ -133,32 +119,16 @@ namespace BetterDefaultBrowser.ViewModels
         }
         #endregion
 
-        #region INotifyPropertyChanged Members
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        #endregion
-
-        #region Methods
-
-        private void RaisePropertyChanged(string propertyName)
-        {
-            // take a copy to prevent thread issues
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        #endregion
 
 
         #region Commands
         void StoreFilterExecute()
         {
             //Assuming browser is valid
-            filter.AssignedBrowser = browser.Browser;
-            filter.Store();
+            pFilter.AssignedBrowser = browser.Browser;
+            pFilter.Store();
         }
 
         bool CanStoreFilterExecute()
