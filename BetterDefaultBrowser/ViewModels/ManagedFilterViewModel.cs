@@ -82,13 +82,10 @@ namespace BetterDefaultBrowser.ViewModels
             }
             set
             {
-                if (!Flags.HasFlag(Ignore.SD))
-                {
-                    if (value)
-                        Flags |= Ignore.SD;
-                    else
-                        Flags &= ~Ignore.SD;
-                }
+                if (value)
+                    Flags |= Ignore.SD;
+                else
+                    Flags &= ~Ignore.SD;
             }
         }
 
@@ -100,13 +97,10 @@ namespace BetterDefaultBrowser.ViewModels
             }
             set
             {
-                if (!Flags.HasFlag(Ignore.TLD))
-                {
-                    if (value)
-                        Flags |= Ignore.TLD;
-                    else
-                        Flags &= ~Ignore.TLD;
-                }
+                if (value)
+                    Flags |= Ignore.TLD;
+                else
+                    Flags &= ~Ignore.TLD;
             }
         }
 
@@ -118,13 +112,10 @@ namespace BetterDefaultBrowser.ViewModels
             }
             set
             {
-                if (!Flags.HasFlag(Ignore.Port))
-                {
-                    if (value)
-                        Flags |= Ignore.Port;
-                    else
-                        Flags &= ~Ignore.Port;
-                }
+                if (value)
+                    Flags |= Ignore.Port;
+                else
+                    Flags &= ~Ignore.Port;
             }
         }
 
@@ -136,13 +127,10 @@ namespace BetterDefaultBrowser.ViewModels
             }
             set
             {
-                if (!Flags.HasFlag(Ignore.Page))
-                {
-                    if (value)
-                        Flags |= Ignore.Page;
-                    else
-                        Flags &= ~Ignore.Page;
-                }
+                if (value)
+                    Flags |= Ignore.Page;
+                else
+                    Flags &= ~Ignore.Page;
             }
         }
 
@@ -154,13 +142,10 @@ namespace BetterDefaultBrowser.ViewModels
             }
             set
             {
-                if (!Flags.HasFlag(Ignore.Parameter))
-                {
-                    if (value)
-                        Flags |= Ignore.Parameter;
-                    else
-                        Flags &= ~Ignore.Parameter;
-                }
+                if (value)
+                    Flags |= Ignore.Parameter;
+                else
+                    Flags &= ~Ignore.Parameter;
             }
         }
 
@@ -172,13 +157,10 @@ namespace BetterDefaultBrowser.ViewModels
             }
             set
             {
-                if (!Protocols.HasFlag(Protocols.HTTP))
-                {
-                    if (value)
-                        Protocols |= Protocols.HTTP;
-                    else
-                        Protocols &= ~Protocols.HTTP;
-                }
+                if (value)
+                    Protocols |= Protocols.HTTP;
+                else
+                    Protocols &= ~Protocols.HTTP;
             }
         }
 
@@ -190,13 +172,10 @@ namespace BetterDefaultBrowser.ViewModels
             }
             set
             {
-                if (!Protocols.HasFlag(Protocols.HTTPS))
-                {
-                    if (value)
-                        Protocols |= Protocols.HTTPS;
-                    else
-                        Protocols &= ~Protocols.HTTPS;
-                }
+                if (value)
+                    Protocols |= Protocols.HTTPS;
+                else
+                    Protocols &= ~Protocols.HTTPS;
             }
         }
 
