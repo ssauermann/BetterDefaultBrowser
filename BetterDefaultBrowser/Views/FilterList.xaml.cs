@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BetterDefaultBrowser.Lib;
+using BetterDefaultBrowser.Lib.Filters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -24,12 +26,7 @@ namespace BetterDefaultBrowser.Views
         public FilterList()
         {
             InitializeComponent();
-	    filters.ItemsSource = Settings.Filter;
-
-            if (browser.Items.Count > 0)
-            {
-                browser.SelectedItem = browser.Items[0];
-            }
+            filters.ItemsSource = Settings.Filter;
         }
 
         private void buttonUp_Click(object sender, RoutedEventArgs e)
