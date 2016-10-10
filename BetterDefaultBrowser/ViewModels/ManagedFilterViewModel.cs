@@ -180,5 +180,20 @@ namespace BetterDefaultBrowser.ViewModels
         }
 
         #endregion
+
+        #region Commands
+        protected override void StoreFilterExecute()
+        {
+            //Assuming browser is valid
+            mFilter.AssignedBrowser = this.Browser.Browser;
+            mFilter.Store();
+        }
+
+        protected override bool CanStoreFilterExecute()
+        {
+            return Name != "" && Browser.IsAvailable && Protocols != 0 && RegexBuilder.URLIsValid(URL);
+        }
+        #endregion
+
     }
 }

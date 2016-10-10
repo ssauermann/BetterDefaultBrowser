@@ -51,7 +51,7 @@ namespace BetterDefaultBrowser
 
             browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
             comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
-            comboBoxBrowserSelectManaged.ItemsSource = AllBrowsers.InstalledBrowsers;
+            //comboBoxBrowserSelectManaged.ItemsSource = AllBrowsers.InstalledBrowsers;
 
             WinVerLabel.Content = OSVersions.getVersion().ToString();
 
@@ -120,7 +120,7 @@ namespace BetterDefaultBrowser
             {
                 case Lib.Filters.Filter.FType.MANAGED:
                     managed = new Lib.Filters.ManagedFilter();
-                    AddManagedFilterGrid.DataContext = managed;
+                    //AddManagedFilterGrid.DataContext = managed;
                     AddFilterGrid.Visibility = Visibility.Hidden;
                     AddManagedFilterGrid.Visibility = Visibility.Visible;
                     return;
@@ -197,7 +197,7 @@ namespace BetterDefaultBrowser
                     IsSubfilter = true;
 
                     managed = new Lib.Filters.ManagedFilter();
-                    AddManagedFilterGrid.DataContext = managed;
+                    //AddManagedFilterGrid.DataContext = managed;
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
                     AddManagedFilterGrid.Visibility = Visibility.Visible;
                     return;

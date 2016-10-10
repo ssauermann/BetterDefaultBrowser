@@ -127,14 +127,14 @@ namespace BetterDefaultBrowser.ViewModels
 
 
         #region Commands
-        void StoreFilterExecute()
+        protected virtual void StoreFilterExecute()
         {
             //Assuming browser is valid
             pFilter.AssignedBrowser = browser.Browser;
             pFilter.Store();
         }
 
-        bool CanStoreFilterExecute()
+        protected virtual bool CanStoreFilterExecute()
         {
             return Name != "" && IsValidRegEx && Browser.IsAvailable;
         }

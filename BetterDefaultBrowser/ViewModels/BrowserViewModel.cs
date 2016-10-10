@@ -123,6 +123,13 @@ namespace BetterDefaultBrowser.ViewModels
 
             return this.browser.Equals(other.browser);
         }
+
+        public override int GetHashCode()
+        {
+            if (isAvailable)
+                return browser.GetHashCode();
+            return 17;
+        }
         #endregion
 
     }

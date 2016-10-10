@@ -86,6 +86,9 @@
     <Compile Include="Views\BrowserList.xaml.cs">
       <DependentUpon>BrowserList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ManagedFilterPanel.xaml.cs">
+      <DependentUpon>ManagedFilterPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PlainFilterPanel.xaml.cs">
       <DependentUpon>PlainFilterPanel.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BrowserList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagedFilterPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
