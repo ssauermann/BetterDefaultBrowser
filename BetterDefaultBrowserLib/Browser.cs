@@ -15,12 +15,11 @@ namespace BetterDefaultBrowser.Lib
     /// <summary> 
     /// Browser with informationen saved in the registry.
     /// </summary>
-    public class Browser : INotifyPropertyChanged, IEquatable<Browser>, IComparable<Browser>
+    public class Browser : IEquatable<Browser>, IComparable<Browser>
     {
         #region Attributes & Constructor
 
         private String path;
-        private bool isDefault;
 
         /// <summary>
         /// Read browser information for a specific key from the registry.
@@ -42,8 +41,6 @@ namespace BetterDefaultBrowser.Lib
                     throw new ArgumentException("Browser key does not exist!");
                 }
             }
-
-            isDefault = this.Equals(AllBrowsers.Default);
         }
         #endregion
 
@@ -162,25 +159,6 @@ namespace BetterDefaultBrowser.Lib
             }
         }
 
-        /// <summary>
-        /// Is this browser currently the system default browser?
-        /// </summary>
-        public bool IsDefault
-        {
-            get
-            {
-                return isDefault;
-            }
-            internal set
-            {
-                if (isDefault != value)
-                {
-                    isDefault = value;
-                    OnPropertyChanged("IsDefault");
-                }
-            }
-        }
-
         #endregion
 
         #region Methods
@@ -217,18 +195,6 @@ namespace BetterDefaultBrowser.Lib
 
         #endregion
 
-        #region Event Handler
-        /// <summary>
-        /// Event handler to react to changes with IsDefault
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
         #region Object Methods
         public override string ToString()

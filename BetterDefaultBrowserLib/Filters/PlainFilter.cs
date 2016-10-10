@@ -37,7 +37,6 @@ namespace BetterDefaultBrowser.Lib.Filters
                     if (regex == null || !regex.Equals(value))
                     {
                         regex = new Regex(value);
-                        OnPropertyChanged("RegEx");
                     }
                 }
                 else
@@ -62,7 +61,6 @@ namespace BetterDefaultBrowser.Lib.Filters
                 if (assignedBrowser == null || !assignedBrowser.Equals(value))
                 {
                     this.assignedBrowser = value;
-                    base.OnPropertyChanged("AssignedBrowser");
                 }
             }
         }
@@ -123,7 +121,7 @@ namespace BetterDefaultBrowser.Lib.Filters
         #endregion
 
 
-        private static bool IsValidRegex(string pattern)
+        public static bool IsValidRegex(string pattern)
         {
             if (string.IsNullOrEmpty(pattern)) return false;
 

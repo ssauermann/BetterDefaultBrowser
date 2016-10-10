@@ -55,6 +55,3 @@ using System.Windows.Markup;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: Guid("231d3ae2-e22f-4b63-86a5-2b07665a5bfe")]
-
-
-[assembly: XmlnsDefinition("https://ssauermann.github.io/betterdefaultbrowser/", "BetterDefaultBrowser")]
