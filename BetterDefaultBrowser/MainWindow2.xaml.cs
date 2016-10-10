@@ -57,7 +57,7 @@ namespace BetterDefaultBrowser
 
             //Visibility Settings
             AddManagedFilterGrid.Visibility = Visibility.Hidden;
-            AddFilterGrid.Visibility = Visibility.Visible;
+            AddFilterGrid.Visibility = Visibility.Hidden;//Remove Later
             AddOpenFilterGrid.Visibility = Visibility.Hidden;
             AddPlainFilterGrid.Visibility = Visibility.Hidden;
 

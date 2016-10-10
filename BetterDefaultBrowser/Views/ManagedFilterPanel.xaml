@@ -17,7 +17,7 @@
           Grid.Row="2"
           VerticalAlignment="Top"
           Width="498"
-          Visibility="visible">
+          Visibility="Hidden">
         <Label x:Name="useBrowserLabel"
                Content="Browser to use"
                HorizontalAlignment="Left"

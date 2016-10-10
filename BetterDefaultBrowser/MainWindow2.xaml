@@ -17,16 +17,14 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="23*" />
-            <RowDefinition Height="59*" />
+            <RowDefinition Height="82*" />
             <RowDefinition Height="103*" />
         </Grid.RowDefinitions>
         <ListBox x:Name="browserList"
                  HorizontalAlignment="Stretch"
                  Height="72"
-                 Margin="10,10,10,0"
-                 VerticalAlignment="Top"
-                 Grid.Row="1">
+                 Margin="10,56,326,0"
+                 VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
@@ -78,30 +76,31 @@
         <Label x:Name="WinVerLabel"
                Content="Label"
                HorizontalAlignment="Left"
-               Margin="236,19,0,0"
+               Margin="10,24,0,0"
                VerticalAlignment="Top"
                Width="54"
                Height="26" />
         <Button x:Name="SetDefaultButton"
                 Content="Selected as default Browser"
                 HorizontalAlignment="Right"
-                Margin="0,88,10,0"
-                Grid.Row="1"
+                Margin="0,134,326,0"
                 VerticalAlignment="Top"
                 Width="182"
                 Click="SetDefaultButton_Click"
                 Height="20" />
+        <!--List of all Filters-->
+        <v:FilterList Margin="207,35,20,10" Grid.RowSpan="2"/>
         <!-- ADDING Managed Filters -->
 
         <v:ManagedFilterPanel x:Name='AddManagedFilterGrid'
                               Margin='0,10,0,0'
-                              Grid.Row='2'></v:ManagedFilterPanel>
+                              Grid.Row='1'></v:ManagedFilterPanel>
         <!-- ADDING new Filters -->
         <Grid x:Name="AddFilterGrid"
               HorizontalAlignment="Left"
               Height="186"
               Margin="10,10,0,0"
-              Grid.Row="2"
+              Grid.Row="1"
               VerticalAlignment="Top"
               Width="498"
               Visibility="Hidden">
@@ -178,7 +177,7 @@
               HorizontalAlignment="Left"
               Height="186"
               Margin="10,10,0,0"
-              Grid.Row="2"
+              Grid.Row="1"
               VerticalAlignment="Top"
               Width="498"
               Visibility="Hidden">
@@ -237,7 +236,7 @@
               HorizontalAlignment="Left"
               Height="186"
               Margin="10,10,0,0"
-              Grid.Row="2"
+              Grid.Row="1"
               VerticalAlignment="Top"
               Width="498"
               Visibility="Hidden">

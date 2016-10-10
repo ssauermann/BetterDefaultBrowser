@@ -11,10 +11,8 @@
     <Grid>
         <ListBox x:Name='filters'
                  HorizontalAlignment='Left'
-                 Height='255'
                  Margin='0,45,0,0'
-                 VerticalAlignment='Top'
-                 Width='248' />
+                 VerticalAlignment='Top' RenderTransformOrigin="0.5,0.5" Width="247" Height="245" />
         <Button x:Name='buttonUp'
                 Content='↑'
                 HorizontalAlignment='Left'
@@ -50,12 +48,22 @@
                 VerticalAlignment='Top'
                 Width='33'
                 FontSize='20' />
-        <ComboBox x:Name='browser'
+        <ComboBox x:Name='FilterType'
                   HorizontalAlignment='Left'
                   Margin='0,7,0,0'
                   VerticalAlignment='Top'
                   Width='133'
-                  Height='33' />
+                  Height='33' SelectedIndex="{Binding Path=FilterType}">
+            <ComboBoxItem Content="managed"
+                              HorizontalAlignment="Left"
+                              Width="161" IsSelected="True"/>
+            <ComboBoxItem Content="open"
+                              HorizontalAlignment="Left"
+                              Width="161" />
+            <ComboBoxItem Content="plain"
+                              HorizontalAlignment="Left"
+                              Width="161" />
+        </ComboBox>
 
     </Grid>
 </UserControl>

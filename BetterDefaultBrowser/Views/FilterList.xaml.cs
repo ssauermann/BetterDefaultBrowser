@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BetterDefaultBrowser.Lib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace BetterDefaultBrowser.Views
         public FilterList()
         {
             InitializeComponent();
+            filters.ItemsSource = Settings.Filter;
         }
     }
 }
