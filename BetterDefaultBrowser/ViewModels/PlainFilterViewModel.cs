@@ -1,4 +1,5 @@
 ﻿using BetterDefaultBrowser.Commands;
+using BetterDefaultBrowser.Lib;
 using BetterDefaultBrowser.Lib.Filters;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace BetterDefaultBrowser.ViewModels
     class PlainFilterViewModel : FilterViewModelBase
     {
         private PlainFilter pFilter;
-        private BrowserViewModel browser;
-        private BrowserListViewModel browserList;
+        private Browser browser;
+        private BindingList<Browser> browserList;
         private bool validRegex = true;
         private String regex = ".*";
 
@@ -30,8 +31,7 @@ namespace BetterDefaultBrowser.ViewModels
         public PlainFilterViewModel(PlainFilter f) : base(f)
         {
             pFilter = (PlainFilter)filter;
-            browser = new BrowserViewModel("");
-            browserList = new BrowserListViewModel();
+            browserList = AllBrowsers.InstalledBrowsers;
         }
 
         #region Properties
@@ -100,7 +100,7 @@ namespace BetterDefaultBrowser.ViewModels
         /// <summary>
         /// Assigned browser for this filter.
         /// </summary>
-        public BrowserViewModel Browser
+        public Browser Browser
         {
             get
             {
@@ -108,7 +108,7 @@ namespace BetterDefaultBrowser.ViewModels
             }
             set
             {
-                if (!browser.Equals(value))
+                if (browser == null || !browser.Equals(value))
                 {
                     this.browser = value;
                     OnPropertyChanged("Browser");
@@ -116,11 +116,11 @@ namespace BetterDefaultBrowser.ViewModels
             }
         }
 
-        public BindingList<BrowserViewModel> BrowserList
+        public BindingList<Browser> BrowserList
         {
             get
             {
-                return browserList.Browsers;
+                return browserList;
             }
         }
         #endregion
@@ -130,13 +130,13 @@ namespace BetterDefaultBrowser.ViewModels
         protected virtual void StoreFilterExecute()
         {
             //Assuming browser is valid
-            pFilter.AssignedBrowser = browser.Browser;
+            pFilter.AssignedBrowser = browser;
             pFilter.Store();
         }
 
         protected virtual bool CanStoreFilterExecute()
         {
-            return Name != "" && IsValidRegEx && Browser.IsAvailable;
+            return Name != "" && IsValidRegEx && Browser != null;
         }
 
         public ICommand StoreFilter { get { return new RelayCommand(StoreFilterExecute, CanStoreFilterExecute); } }

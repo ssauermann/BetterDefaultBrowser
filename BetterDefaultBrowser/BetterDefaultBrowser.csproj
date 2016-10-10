@@ -74,18 +74,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\BrowserListViewModel.cs" />
-    <Compile Include="ViewModels\BrowserViewModel.cs" />
     <Compile Include="ViewModels\FilterViewModelBase.cs" />
     <Compile Include="ViewModels\ManagedFilterViewModel.cs" />
     <Compile Include="ViewModels\OpenFilterViewModel.cs" />
     <Compile Include="ViewModels\PlainFilterViewModel.cs" />
-    <Compile Include="Views\BrowserList.xaml.cs">
-      <DependentUpon>BrowserList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ManagedFilterPanel.xaml.cs">
       <DependentUpon>ManagedFilterPanel.xaml</DependentUpon>
     </Compile>
@@ -112,14 +104,6 @@
     </Compile>
     <Compile Include="Helper.cs" />
     <Page Include="MainWindow2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BrowserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
