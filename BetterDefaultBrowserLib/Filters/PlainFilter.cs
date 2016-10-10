@@ -93,7 +93,7 @@ namespace BetterDefaultBrowser.Lib.Filters
         {
             var e = base.ToXML();
             e.Add(new XElement("regex", RegEx),
-                new XElement("browser", AssignedBrowser)
+                new XElement("browser", AssignedBrowser.KeyName)
                   );
             return e;
         }
