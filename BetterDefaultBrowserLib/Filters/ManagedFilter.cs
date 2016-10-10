@@ -231,8 +231,8 @@ namespace BetterDefaultBrowser.Lib.Filters
         {
             var e = base.ToXML();
 
-            e.Add(new XElement("protocols", Protocols),
-                new XElement("flags", Flags),
+            e.Add(new XElement("protocols", (int)Protocols),
+                new XElement("flags", (int)Flags),
                 new XElement("url", URL)
                 );
             return e;

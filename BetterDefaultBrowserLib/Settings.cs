@@ -32,7 +32,7 @@ namespace BetterDefaultBrowser.Lib
             path += @"settings.xml";
             if (!File.Exists(path))
             {
-                new XDocument(new XElement("settings")).Save(path);
+                new XDocument(new XElement("settings", new XElement("filters"))).Save(path);
             }
 
             loadFilters();
