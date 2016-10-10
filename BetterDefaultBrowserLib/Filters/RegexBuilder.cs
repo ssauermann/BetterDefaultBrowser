@@ -48,8 +48,11 @@ namespace BetterDefaultBrowser.Lib.Filters
                     {
                         //Use external Lib to get SD
                         var sd = getSD(domainURL);
-                        var regSD = new Regex(Regex.Escape(sd + "."));
-                        finalUrl = regSD.Replace(finalUrl, "<>", 1);
+                        if (sd != "")
+                        {
+                            var regSD = new Regex(Regex.Escape(sd + "."));
+                            finalUrl = regSD.Replace(finalUrl, "<>", 1);
+                        }
                     }
                     else if (flag == ManagedFilter.Ignore.TLD)
                     {
