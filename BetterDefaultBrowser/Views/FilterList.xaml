@@ -12,21 +12,32 @@
         <ListBox x:Name='filters'
                  HorizontalAlignment='Left'
                  Margin='0,45,0,0'
-                 VerticalAlignment='Top' RenderTransformOrigin="0.5,0.5" Width="247" Height="245" />
+                 VerticalAlignment='Top'
+                 Width='248'>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"
+                               HorizontalAlignment="Left"
+                               Grid.Column="0" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button x:Name='buttonUp'
                 Content='↑'
                 HorizontalAlignment='Left'
                 Margin='253,45,0,0'
                 VerticalAlignment='Top'
                 Width='37'
-                FontSize='20' />
+                FontSize='20'
+                Click='buttonUp_Click' />
         <Button x:Name='buttonDown'
                 Content='↓'
                 HorizontalAlignment='Left'
                 Margin='253,83,0,0'
                 VerticalAlignment='Top'
                 Width='37'
-                FontSize='20' />
+                FontSize='20'
+                Click='buttonDown_Click' />
         <Button x:Name='buttonAdd'
                 Content='➕'
                 HorizontalAlignment='Left'
@@ -40,7 +51,8 @@
                 Margin='214,7,0,0'
                 VerticalAlignment='Top'
                 Width='33'
-                FontSize='20' />
+                FontSize='20'
+                Click='buttonDelete_Click' />
         <Button x:Name='buttonEdit'
                 Content='➔'
                 HorizontalAlignment='Left'
