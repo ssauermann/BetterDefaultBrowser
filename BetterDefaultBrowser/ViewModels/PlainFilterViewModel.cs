@@ -129,9 +129,6 @@ namespace BetterDefaultBrowser.ViewModels
         #endregion
 
 
-
-
-
         #region Commands
         void StoreFilterExecute()
         {

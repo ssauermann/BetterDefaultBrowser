@@ -12,7 +12,13 @@ namespace BetterDefaultBrowser.ViewModels
     class ManagedFilterViewModel : PlainFilterViewModel
     {
         private ManagedFilter mFilter;
-        public ManagedFilterViewModel() : base(new ManagedFilter())
+        public ManagedFilterViewModel()
+            : base(new ManagedFilter
+            {
+                Name = "Unnamed filter",
+                Protocols = Protocols.HTTP | Protocols.HTTPS,
+                Flags = Ignore.Page | Ignore.Parameter | Ignore.SD
+            })
         {
             mFilter = (ManagedFilter)filter;
         }
