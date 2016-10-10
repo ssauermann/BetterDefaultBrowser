@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BetterDefaultBrowser.Lib.Filters;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +30,46 @@ namespace BetterDefaultBrowser.Views
             {
                 browser.SelectedItem = browser.Items[0];
             }
+        }
+
+        private void buttonUp_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItem(-1);
+        }
+
+        public void MoveItem(int direction)
+        {
+            // Checking selected item
+            if (filters.SelectedItem == null || filters.SelectedIndex < 0)
+                return; // No selected item - nothing to do
+
+            // Calculate new index using move direction
+            int newIndex = filters.SelectedIndex + direction;
+
+            // Checking bounds of the range
+            if (newIndex < 0 || newIndex >= filters.Items.Count)
+                return; // Index out of range - nothing to do
+
+            var selected = (Filter)filters.SelectedItem;
+            var bindlist = (BindingList<Filter>)filters.ItemsSource;
+
+            bindlist.Remove(selected);
+            bindlist.Insert(newIndex, selected);
+            filters.SelectedIndex = newIndex;
+        }
+
+        private void buttonDown_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItem(1);
+        }
+
+        private void buttonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (filters.SelectedItem == null || filters.SelectedIndex < 0)
+                return; // No selected item - nothing to do
+
+            var selected = (Filter)filters.SelectedItem;
+            selected.Delete();
         }
     }
 }
