@@ -13,14 +13,18 @@ namespace BetterDefaultBrowser.ViewModels
     {
         private ManagedFilter mFilter;
         public ManagedFilterViewModel()
-            : base(new ManagedFilter
+            : this(new ManagedFilter
             {
                 Name = "Unnamed filter",
                 Protocols = Protocols.HTTP | Protocols.HTTPS,
                 Flags = Ignore.Page | Ignore.Parameter | Ignore.SD
             })
         {
-            mFilter = (ManagedFilter)filter;
+        }
+
+        public ManagedFilterViewModel(ManagedFilter f) : base(f)
+        {
+            mFilter = (ManagedFilter)f;
         }
 
         #region Properties

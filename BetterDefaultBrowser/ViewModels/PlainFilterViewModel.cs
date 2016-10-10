@@ -19,25 +19,22 @@ namespace BetterDefaultBrowser.ViewModels
         private bool validRegex = true;
         private String regex = ".*";
 
-        public PlainFilterViewModel() : base(new PlainFilter { Name = "Unnamed filter", RegEx = ".*" })
+        public PlainFilterViewModel() : this(new PlainFilter { Name = "Unnamed filter", RegEx = ".*" })
+        {
+        }
+
+        /// <summary>
+        /// Create a new PlainFilterViewModel.
+        /// When Using a managed Filter this constructor should be invoked.
+        /// </summary>
+        public PlainFilterViewModel(PlainFilter f) : base(f)
         {
             pFilter = (PlainFilter)filter;
             browser = new BrowserViewModel("");
             browserList = new BrowserListViewModel();
         }
 
-        /// <summary>
-        /// When Using a managed Filter this constructor should be invoked
-        /// </summary>
-        public PlainFilterViewModel(ManagedFilter mFilter) : base(mFilter)
-        {
-            browser = new BrowserViewModel("");
-            browserList = new BrowserListViewModel();
-        }
-
-
         #region Properties
-
 
         /// <summary>
         /// Set a regular expression for filtering requests.
