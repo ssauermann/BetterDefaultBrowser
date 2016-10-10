@@ -65,41 +65,11 @@ namespace BetterDefaultBrowser.Lib
         /// <summary>
         /// List of filters to match for in order of priority.
         /// </summary>
-        public static LinkedList<Filter> Filter
+        public static BindingList<Filter> Filter
         {
             get
             {
-                var root = XElement.Load(path);
-                var filtersOuter = root.Element("filters");
-                if (filtersOuter == null)
-                    return new LinkedList<Filter>();
-
-                var filters = filtersOuter.Elements();
-
-                LinkedList<Filter> list = new LinkedList<Filter>();
-                foreach (var filter in filters)
-                {
-                    Filter fil;
-                    switch ((FType)Enum.Parse(typeof(FType), filter.Attribute("type").Value))
-                    {
-                        case FType.PLAIN:
-                            fil = new PlainFilter();
-                            break;
-                        case FType.MANAGED:
-                            fil = new ManagedFilter();
-                            break;
-                        case FType.OPEN:
-                            fil = new OpenFilter();
-                            break;
-                        default:
-                            throw new NotImplementedException("Filter type not implemented!");
-                    }
-                    fil.FromXML(filter);
-
-                    list.AddLast(fil);
-                }
-
-                return list;
+                return Settings.filters;
             }
         }
 
