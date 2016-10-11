@@ -281,5 +281,11 @@ namespace BetterDefaultBrowser
         }
 
         #endregion
+
+        private void bDBDefaultButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (browserList.SelectedItem != null)
+                Settings.DefaultBrowser = (Browser)browserList.SelectedItem;
+        }
     }
 }

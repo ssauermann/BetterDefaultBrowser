@@ -79,13 +79,14 @@
                Width="54"
                Height="26" />
         <Button x:Name="SetDefaultButton"
-                Content="Selected as default Browser"
+                Content="system default"
                 HorizontalAlignment="Right"
-                Margin="0,134,326,0"
+                Margin="0,134,406,0"
                 VerticalAlignment="Top"
-                Width="182"
+                Width="102"
                 Click="SetDefaultButton_Click"
                 Height="20" />
+        <Button x:Name="bDBDefaultButton" Content="BDB default" HorizontalAlignment="Left" Margin="117,134,0,0" VerticalAlignment="Top" Width="75"/>
         <!--List of all Filters aka FilterList-->
         <Grid Margin="201,27,10,0">
             <ListBox x:Name='filters'
@@ -238,5 +239,6 @@
                    Margin="295,8,0,0"
                    VerticalAlignment="Top" />
         </Grid>
+
     </Grid>
 </Window>
