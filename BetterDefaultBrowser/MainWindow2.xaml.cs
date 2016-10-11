@@ -37,6 +37,8 @@ namespace BetterDefaultBrowser
 
         private bool IsSubfilter = false;
 
+        private OpenFilterViewModel openFilterVM;
+
 
         //New Important stuff
         private ManagedFilterViewModel mFP;
@@ -190,14 +192,18 @@ namespace BetterDefaultBrowser
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            added.Add(toAddBrowserlistBox.SelectedItem as Browser);
-            toAdd.Remove(toAddBrowserlistBox.SelectedItem as Browser);
+            openFilterVM.Browsers.Add((Browser)toAddBrowserlistBox.SelectedItem);
+            //added.Add(toAddBrowserlistBox.SelectedItem as Browser);
+            openFilterVM.UsableBrowsers.Remove((Browser)toAddBrowserlistBox.SelectedItem);
+            //toAdd.Remove(toAddBrowserlistBox.SelectedItem as Browser);
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            toAdd.Add(addBrowserlistBox.SelectedItem as Browser);
-            added.Remove(addBrowserlistBox.SelectedItem as Browser);
+            openFilterVM.UsableBrowsers.Add((Browser)toAddBrowserlistBox.SelectedItem);
+            //toAdd.Add(addBrowserlistBox.SelectedItem as Browser);
+            //added.Remove(addBrowserlistBox.SelectedItem as Browser);
+            openFilterVM.Browsers.Remove((Browser)toAddBrowserlistBox.SelectedItem);
         }
 
         private void nextFilterButton_Click(object sender, RoutedEventArgs e)
@@ -234,23 +240,18 @@ namespace BetterDefaultBrowser
             switch (addBind.FilterType)
             {
                 case Lib.Filters.Filter.FType.MANAGED:
-                    AddManagedFilterGrid.DataContext = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "LOLOLO" });
+                    AddManagedFilterGrid.DataContext = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "managed filter" });
                     AddManagedFilterGrid.Visibility = Visibility.Visible;
                     return;
 
                 case Lib.Filters.Filter.FType.OPEN:
-                    open = new Lib.Filters.OpenFilter();
-                    AddOpenFilterGrid.DataContext = open;
+                    openFilterVM = new OpenFilterViewModel(new OpenFilter { Name = "open filter" });
+                    AddOpenFilterGrid.DataContext = openFilterVM;
 
-                    //Clear and copy Browserlist
-                    toAdd.Clear();
-                    added.Clear();
-
-                    toAdd = cloneList(AllBrowsers.InstalledBrowsers);
 
                     //Bind ItemSource
-                    toAddBrowserlistBox.ItemsSource = toAdd;
-                    addBrowserlistBox.ItemsSource = added;
+                    toAddBrowserlistBox.ItemsSource = openFilterVM.UsableBrowsers;
+                    addBrowserlistBox.ItemsSource = openFilterVM.Browsers;
                     AddOpenFilterGrid.Visibility = Visibility.Visible;
                     return;
 

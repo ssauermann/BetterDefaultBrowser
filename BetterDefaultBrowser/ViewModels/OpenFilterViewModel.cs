@@ -12,8 +12,8 @@ namespace BetterDefaultBrowser.ViewModels
     class OpenFilterViewModel : FilterViewModelBase
     {
         OpenFilter oFilter;
-        BindingList<Browser> Browsers;
-        BindingList<Browser> UsableBrowsers;
+        public BindingList<Browser> Browsers;
+        public BindingList<Browser> UsableBrowsers;
         public OpenFilterViewModel() : this(new OpenFilter { Name = "Unnamed filter", OnlyOpen = false })
         {
         }
@@ -22,7 +22,7 @@ namespace BetterDefaultBrowser.ViewModels
         {
             oFilter = (OpenFilter)filter;
             Browsers = oFilter.Browsers;
-            UsableBrowsers = cloneList(Browsers);
+            UsableBrowsers = cloneList(AllBrowsers.InstalledBrowsers);
         }
 
 
