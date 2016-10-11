@@ -19,7 +19,7 @@ namespace BetterDefaultBrowser.ViewModels
         private Browser browser;
         private BindingList<Browser> browserList;
         private bool validRegex = true;
-        private String regex = ".*";
+        private String regex;
 
         private OpenFilter oFilter = null;
         private bool IsSubfilter = false;
@@ -36,13 +36,18 @@ namespace BetterDefaultBrowser.ViewModels
         {
             pFilter = (PlainFilter)filter;
             browser = pFilter.AssignedBrowser;
+            regex = pFilter.RegEx;
             browserList = AllBrowsers.InstalledBrowsers;
         }
 
-        public PlainFilterViewModel(PlainFilter f, OpenFilter o) : base(f)
+        public PlainFilterViewModel(PlainFilter f, OpenFilter o) : this(f)
         {
-            pFilter = (PlainFilter)filter;
-            browserList = AllBrowsers.InstalledBrowsers;
+            oFilter = o;
+            IsSubfilter = true;
+        }
+
+        public PlainFilterViewModel(OpenFilter o) : this()
+        {
             oFilter = o;
             IsSubfilter = true;
         }

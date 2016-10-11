@@ -30,9 +30,14 @@ namespace BetterDefaultBrowser.ViewModels
             mFilter = (ManagedFilter)f;
         }
 
-        public ManagedFilterViewModel(ManagedFilter f, OpenFilter o) : base(f)
+        public ManagedFilterViewModel(ManagedFilter f, OpenFilter o) : this(f)
         {
-            mFilter = (ManagedFilter)f;
+            oFilter = o;
+            IsSubfilter = true;
+        }
+
+        public ManagedFilterViewModel(OpenFilter o) : this()
+        {
             oFilter = o;
             IsSubfilter = true;
         }

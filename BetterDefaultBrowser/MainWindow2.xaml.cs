@@ -116,12 +116,14 @@ namespace BetterDefaultBrowser
 
         private void nextFilterButton_Click(object sender, RoutedEventArgs e)
         {
-            switch (addBind.FilterType)
+            switch (addBind.FilterTypeInner)
             {
                 case Lib.Filters.Filter.FType.MANAGED:
 
-
-                    managedFilterVM = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "managed filter" }, openFilterVM.oFilter);
+                    if (openFilterVM.oFilter.InnerFilter == null)
+                        managedFilterVM = new ManagedFilterViewModel(openFilterVM.oFilter);
+                    else
+                        managedFilterVM = new ManagedFilterViewModel(openFilterVM.oFilter.InnerFilter as ManagedFilter, openFilterVM.oFilter);
                     AddManagedFilterGrid.DataContext = managedFilterVM;
 
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
@@ -132,8 +134,10 @@ namespace BetterDefaultBrowser
 
                 case Lib.Filters.Filter.FType.PLAIN:
 
-
-                    plainFilterVM = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" }, openFilterVM.oFilter);
+                    if (openFilterVM.oFilter.InnerFilter == null)
+                        plainFilterVM = new PlainFilterViewModel(openFilterVM.oFilter);
+                    else
+                        plainFilterVM = new PlainFilterViewModel(openFilterVM.oFilter.InnerFilter as PlainFilter, openFilterVM.oFilter);
                     AddPlainFilterGrid.DataContext = plainFilterVM;
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
                     plainFilterVM.MyVisibility = Visibility.Visible;
@@ -147,7 +151,7 @@ namespace BetterDefaultBrowser
             switch (addBind.FilterType)
             {
                 case Lib.Filters.Filter.FType.MANAGED:
-                    managedFilterVM = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "managed filter" });
+                    managedFilterVM = new ManagedFilterViewModel();
                     AddManagedFilterGrid.DataContext = managedFilterVM;
 
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
@@ -156,7 +160,7 @@ namespace BetterDefaultBrowser
                     return;
 
                 case Lib.Filters.Filter.FType.OPEN:
-                    openFilterVM = new OpenFilterViewModel(new OpenFilter { Name = "open filter" });
+                    openFilterVM = new OpenFilterViewModel();
                     AddOpenFilterGrid.DataContext = openFilterVM;
 
 
@@ -169,7 +173,7 @@ namespace BetterDefaultBrowser
                     return;
 
                 case Lib.Filters.Filter.FType.PLAIN:
-                    plainFilterVM = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" });
+                    plainFilterVM = new PlainFilterViewModel();
                     AddPlainFilterGrid.DataContext = plainFilterVM;
 
                     managedFilterVM.MyVisibility = Visibility.Hidden;
@@ -266,8 +270,12 @@ namespace BetterDefaultBrowser
                     return;
             }
         }
+
         #endregion
 
+        private void FilterType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
     }
 }
