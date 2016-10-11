@@ -11,9 +11,9 @@ Get your control back with simple filter lists with **Better Default Browser**!
 
  
 ##Getting the Program##
-Download the latest release **[here](http://github.com/ssauermann/betterdefaultbrowser "Release Version")**.
+Download the latest release **[here](https://github.com/ssauermann/BetterDefaultBrowser/releases "Release Version")**.
 
-Alternatively you can download the latest source [here]() and build it yourself.
+Alternatively you can download the latest source [here](https://github.com/ssauermann/BetterDefaultBrowser/releases "Latest Source") and build it yourself.
 
 
 
