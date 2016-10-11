@@ -74,9 +74,21 @@ If BDB doesn't start up any more you can delete all settings (and the log file) 
 ###I've moved the programs folder and BDB doesn't work anymore!###
 Don't panic, just uninstall and reinstall BDB via the menu.
 
+###My antivirus program says this is a virus!###
+It's not, here are virustotal scans. But you can inspect the source and build it from scratch if you wish.
 
+[BetterDefaultBrowser.exe](https://www.virustotal.com/de/file/8c0be51fc9b28e783eb7a81a7d76870c4d2df0c6649cfc2cc92fefb969a9b6bd/analysis/1476215628/ "Virustotal BetterDefaultBrowser.exe")
+ [BetterDefaultBrowser-Helper.exe](https://www.virustotal.com/de/file/52d511d619a981b4172cc5a9603726e1fcb7b3ff0c55820fa6381486bbe6828b/analysis/1476215640/ "Virustotal BetterDefaultBrowser-Helper.exe")
+[BetterDefaultBrowserLib.dll](https://www.virustotal.com/de/file/a1f8f8b7605fc12612d7a5ae378efea5710e69a39af8deeb6c6fc668ce344a4d/analysis/1476215652/ "Virustotal BetterDefaultBrowserLib.dll")
+[BetterDefaultBrowser-Proxy.exe](https://www.virustotal.com/de/file/e0ab4ae0bfd1312d754bbbe23dfb8a755704a43a8866ced594a236e2c1efbe08/analysis/1476215656/ "Virustotal BetterDefaultBrowser-Proxy.exe")
+
+You will have to exclude the files from your scan to use BDB.
 #Uninstallation#
 1. Set your system default browser to another browser.
 2. Uninstall BDB via the menu. (If you can't open the main program and want to remove BDB, run `BetterDefaultBrowser-Helper.exe -uninstall` from an eleveated command promt)
 3. Optional: Delete your settings and all log files via the menu.
 4. Now you can safely delete the program files.
+
+#Thanks to
+- Dan Esparza for the [Domainname Parser](https://github.com/danesparza/domainname-parser)
+- All people on Stackoverflow
