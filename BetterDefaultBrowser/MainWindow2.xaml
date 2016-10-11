@@ -12,7 +12,7 @@
         Width="526.164">
     <Window.Resources>
         <local:DefaultConverter x:Key="defaultConverter" />
-        <local:ProtocolConverter x:Key="protocolConverter" />
+        <!--<local:ProtocolConverter x:Key="protocolConverter" />-->
         <local:InvertBoolConverter x:Key="invertBoolConverter" />
     </Window.Resources>
     <Grid x:Name="MainGrid">

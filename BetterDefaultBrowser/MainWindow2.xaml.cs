@@ -25,7 +25,6 @@ namespace BetterDefaultBrowser
     {
 
         private Binding.AddFilterBind addBind = new Binding.AddFilterBind();
-        private MainWindowBind mainBind = new MainWindowBind();
 
 
         private Lib.Filters.ManagedFilter managed;
@@ -314,11 +313,13 @@ namespace BetterDefaultBrowser
             var selected = (Filter)filters.SelectedItem;
             selected.Delete();
         }
-        #endregion
 
         private void buttonEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            throw new NotImplementedException("You currently can not edit filter");
         }
+        #endregion
+
+
     }
 }
