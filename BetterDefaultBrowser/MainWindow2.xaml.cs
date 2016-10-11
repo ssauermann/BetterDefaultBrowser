@@ -1,4 +1,6 @@
 ﻿using BetterDefaultBrowser.Lib;
+using BetterDefaultBrowser.Lib.Filters;
+using BetterDefaultBrowser.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,43 +25,42 @@ namespace BetterDefaultBrowser
     {
 
         private Binding.AddFilterBind addBind = new Binding.AddFilterBind();
-        private MainWindowBind mainBind = new MainWindowBind();
 
 
-        private Lib.Filters.ManagedFilter managed;
-        private Lib.Filters.OpenFilter open;
-        private Lib.Filters.PlainFilter plain;
 
         private BindingList<Browser> toAdd = new BindingList<Browser>();
         private BindingList<Browser> added = new BindingList<Browser>();
 
-        private bool IsSubfilter = false;
+
+
+        private OpenFilterViewModel openFilterVM = new OpenFilterViewModel();
+        private ManagedFilterViewModel managedFilterVM = new ManagedFilterViewModel();
+        private PlainFilterViewModel plainFilterVM = new PlainFilterViewModel();
 
 
         public MainWindow2()
         {
             InitializeComponent();
 
-            #region Bindings
-            this.DataContext = mainBind;
-            AddFilterGrid.DataContext = addBind;
+            #region ContextSetting
+            FilterType.DataContext = addBind;
+            filterTypeComboBox2.DataContext = addBind;
+            filters.ItemsSource = Settings.Filter;
+            InstallMenu.DataContext = AllBrowsers.BDBInstalled.Instance;
 
             #endregion
 
-            InstallMenu.DataContext = AllBrowsers.BDBInstalled.Instance;
+
+
+
 
 
             browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
-            comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
-            comboBoxBrowserSelectManaged.ItemsSource = AllBrowsers.InstalledBrowsers;
+
 
             WinVerLabel.Content = OSVersions.getVersion().ToString();
 
-            //Visibility Settings
-            AddManagedFilterGrid.Visibility = Visibility.Hidden;
-            AddFilterGrid.Visibility = Visibility.Visible;
-            AddOpenFilterGrid.Visibility = Visibility.Hidden;
-            AddPlainFilterGrid.Visibility = Visibility.Hidden;
+
 
             //---Show UAC Admin icon in menu---
             var img = new Image();
@@ -75,21 +76,7 @@ namespace BetterDefaultBrowser
         }
 
 
-        private void Applybutton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsSubfilter)
-            {
-                managed.Store();
-            }
-            else
-            {
-                open.InnerFilter = managed;
-                open.Store();
-            }
-            IsSubfilter = false;
-            AddManagedFilterGrid.Visibility = Visibility.Hidden;
-            AddFilterGrid.Visibility = Visibility.Visible;
-        }
+
 
         private void UninstallBDBMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -103,7 +90,7 @@ namespace BetterDefaultBrowser
 
         private void deleteSettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            System.IO.Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BetterDefaultBrowser", true);
+            System.IO.Directory.Delete(HardcodedValues.DATA_FOLDER, true);
             Application.Current.Shutdown();
         }
 
@@ -114,106 +101,185 @@ namespace BetterDefaultBrowser
                 (browserList.SelectedItem as Browser).SetDefault();
         }
 
-        private void addFilterButton_Click(object sender, RoutedEventArgs e)
-        {
-            switch (addBind.FilterType)
-            {
-                case Lib.Filters.Filter.FType.MANAGED:
-                    managed = new Lib.Filters.ManagedFilter();
-                    AddManagedFilterGrid.DataContext = managed;
-                    AddFilterGrid.Visibility = Visibility.Hidden;
-                    AddManagedFilterGrid.Visibility = Visibility.Visible;
-                    return;
-                case Lib.Filters.Filter.FType.OPEN:
-                    open = new Lib.Filters.OpenFilter();
-                    AddOpenFilterGrid.DataContext = open;
-                    AddFilterGrid.Visibility = Visibility.Hidden;
-
-                    //Clear and copy Browserlist
-                    toAdd.Clear();
-                    added.Clear();
-
-                    toAdd = cloneList(AllBrowsers.InstalledBrowsers);
-
-                    //Bind ItemSource
-                    toAddBrowserlistBox.ItemsSource = toAdd;
-                    addBrowserlistBox.ItemsSource = added;
-                    AddOpenFilterGrid.Visibility = Visibility.Visible;
-                    return;
-
-                case Lib.Filters.Filter.FType.PLAIN:
-                    plain = new Lib.Filters.PlainFilter();
-                    AddPlainFilterGrid.DataContext = plain;
-                    AddFilterGrid.Visibility = Visibility.Hidden;
-                    AddPlainFilterGrid.Visibility = Visibility.Visible;
-                    return;
-            }
-        }
-
-        private void savePlainButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsSubfilter)
-            {
-                plain.Store();
-            }
-            else
-            {
-                open.InnerFilter = plain;
-                open.Store();
-            }
-            IsSubfilter = false;
-            AddPlainFilterGrid.Visibility = Visibility.Hidden;
-            AddFilterGrid.Visibility = Visibility.Visible;
-        }
-
-        private BindingList<T> cloneList<T>(BindingList<T> old)
-        {
-            BindingList<T> newer = new BindingList<T>();
-            foreach (T obj in old)
-            {
-                newer.Add(obj);
-            }
-            return newer;
-        }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            added.Add(toAddBrowserlistBox.SelectedItem as Browser);
-            toAdd.Remove(toAddBrowserlistBox.SelectedItem as Browser);
+            openFilterVM.Browsers.Add((Browser)toAddBrowserlistBox.SelectedItem);
+            openFilterVM.UsableBrowsers.Remove((Browser)toAddBrowserlistBox.SelectedItem);
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            toAdd.Add(addBrowserlistBox.SelectedItem as Browser);
-            added.Remove(addBrowserlistBox.SelectedItem as Browser);
+            openFilterVM.UsableBrowsers.Add((Browser)addBrowserlistBox.SelectedItem);
+            openFilterVM.Browsers.Remove((Browser)addBrowserlistBox.SelectedItem);
         }
 
         private void nextFilterButton_Click(object sender, RoutedEventArgs e)
         {
-            switch (addBind.FilterType)
+            switch (addBind.FilterTypeInner)
             {
                 case Lib.Filters.Filter.FType.MANAGED:
-                    //Marks the next form for the user as subfilter
-                    IsSubfilter = true;
 
-                    managed = new Lib.Filters.ManagedFilter();
-                    AddManagedFilterGrid.DataContext = managed;
+                    if (openFilterVM.oFilter.InnerFilter == null)
+                        managedFilterVM = new ManagedFilterViewModel(openFilterVM.oFilter);
+                    else
+                        managedFilterVM = new ManagedFilterViewModel(openFilterVM.oFilter.InnerFilter as ManagedFilter, openFilterVM.oFilter);
+                    AddManagedFilterGrid.DataContext = managedFilterVM;
+
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
-                    AddManagedFilterGrid.Visibility = Visibility.Visible;
+                    managedFilterVM.MyVisibility = Visibility.Visible;
                     return;
                 case Lib.Filters.Filter.FType.OPEN:
                     throw new Exception("Illegal State when using openfilter");
 
                 case Lib.Filters.Filter.FType.PLAIN:
-                    //Marks the next form for the user as subfilter
-                    IsSubfilter = true;
 
-                    plain = new Lib.Filters.PlainFilter();
-                    AddPlainFilterGrid.DataContext = plain;
+                    if (openFilterVM.oFilter.InnerFilter == null)
+                        plainFilterVM = new PlainFilterViewModel(openFilterVM.oFilter);
+                    else
+                        plainFilterVM = new PlainFilterViewModel(openFilterVM.oFilter.InnerFilter as PlainFilter, openFilterVM.oFilter);
+                    AddPlainFilterGrid.DataContext = plainFilterVM;
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
-                    AddPlainFilterGrid.Visibility = Visibility.Visible;
+                    plainFilterVM.MyVisibility = Visibility.Visible;
                     return;
             }
         }
+
+
+        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            filterTypeComboBox2.Visibility = Visibility.Visible;
+            labelUnderFilter.Visibility = Visibility.Visible;
+            switch (addBind.FilterType)
+            {
+                case Lib.Filters.Filter.FType.MANAGED:
+                    managedFilterVM = new ManagedFilterViewModel();
+                    AddManagedFilterGrid.DataContext = managedFilterVM;
+
+                    AddOpenFilterGrid.Visibility = Visibility.Hidden;
+                    plainFilterVM.MyVisibility = Visibility.Hidden;
+                    managedFilterVM.MyVisibility = Visibility.Visible;
+                    return;
+
+                case Lib.Filters.Filter.FType.OPEN:
+                    openFilterVM = new OpenFilterViewModel();
+                    AddOpenFilterGrid.DataContext = openFilterVM;
+
+
+                    //Bind ItemSource
+                    toAddBrowserlistBox.ItemsSource = openFilterVM.UsableBrowsers;
+                    addBrowserlistBox.ItemsSource = openFilterVM.Browsers;
+                    managedFilterVM.MyVisibility = Visibility.Hidden;
+                    plainFilterVM.MyVisibility = Visibility.Hidden;
+                    AddOpenFilterGrid.Visibility = Visibility.Visible;
+                    return;
+
+                case Lib.Filters.Filter.FType.PLAIN:
+                    plainFilterVM = new PlainFilterViewModel();
+                    AddPlainFilterGrid.DataContext = plainFilterVM;
+
+                    managedFilterVM.MyVisibility = Visibility.Hidden;
+                    AddOpenFilterGrid.Visibility = Visibility.Hidden;
+                    plainFilterVM.MyVisibility = Visibility.Visible;
+                    return;
+            }
+        }
+
+        #region FilterList Methods
+        private void buttonUp_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItem(-1);
+        }
+
+        public void MoveItem(int direction)
+        {
+            // Checking selected item
+            if (filters.SelectedItem == null || filters.SelectedIndex < 0)
+                return; // No selected item - nothing to do
+
+            // Calculate new index using move direction
+            int newIndex = filters.SelectedIndex + direction;
+
+            // Checking bounds of the range
+            if (newIndex < 0 || newIndex >= filters.Items.Count)
+                return; // Index out of range - nothing to do
+
+            var selected = (Filter)filters.SelectedItem;
+            var bindlist = (BindingList<Filter>)filters.ItemsSource;
+
+            bindlist.Remove(selected);
+            bindlist.Insert(newIndex, selected);
+
+            Settings.FilterOrderChanged();
+            filters.SelectedIndex = newIndex;
+        }
+
+        private void buttonDown_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItem(1);
+        }
+
+        private void buttonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (filters.SelectedItem == null || filters.SelectedIndex < 0)
+                return; // No selected item - nothing to do
+
+            var selected = (Filter)filters.SelectedItem;
+            selected.Delete();
+        }
+
+        private void buttonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedFilter = filters.SelectedItem as Filter;
+            if (selectedFilter == null)
+                return;
+
+            switch (selectedFilter.Type)
+            {
+                case Lib.Filters.Filter.FType.MANAGED:
+                    managedFilterVM = new ManagedFilterViewModel((ManagedFilter)selectedFilter);
+                    AddManagedFilterGrid.DataContext = managedFilterVM;
+
+
+                    AddOpenFilterGrid.Visibility = Visibility.Hidden;
+                    plainFilterVM.MyVisibility = Visibility.Hidden;
+                    managedFilterVM.MyVisibility = Visibility.Visible;
+                    return;
+
+                case Lib.Filters.Filter.FType.OPEN:
+                    openFilterVM = new OpenFilterViewModel((OpenFilter)selectedFilter);
+                    AddOpenFilterGrid.DataContext = openFilterVM;
+
+
+                    //Bind ItemSource
+                    toAddBrowserlistBox.ItemsSource = openFilterVM.UsableBrowsers;
+                    addBrowserlistBox.ItemsSource = openFilterVM.Browsers;
+
+
+                    managedFilterVM.MyVisibility = Visibility.Hidden;
+                    plainFilterVM.MyVisibility = Visibility.Hidden;
+                    AddOpenFilterGrid.Visibility = Visibility.Visible;
+
+
+
+                    filterTypeComboBox2.Visibility = Visibility.Hidden;
+                    filterTypeComboBox2.SelectedItem = (selectedFilter as OpenFilter).InnerFilter.Type;
+                    labelUnderFilter.Visibility = Visibility.Hidden;
+
+                    return;
+
+                case Lib.Filters.Filter.FType.PLAIN:
+                    plainFilterVM = new PlainFilterViewModel((PlainFilter)selectedFilter);
+                    AddPlainFilterGrid.DataContext = plainFilterVM;
+
+
+                    managedFilterVM.MyVisibility = Visibility.Hidden;
+                    AddOpenFilterGrid.Visibility = Visibility.Hidden;
+                    plainFilterVM.MyVisibility = Visibility.Visible;
+                    return;
+            }
+        }
+
+        #endregion
     }
 }

@@ -32,7 +32,7 @@ namespace BetterDefaultBrowser.Lib
             path += @"settings.xml";
             if (!File.Exists(path))
             {
-                new XDocument(new XElement("settings")).Save(path);
+                new XDocument(new XElement("settings", new XElement("filters"))).Save(path);
             }
 
             loadFilters();
@@ -65,41 +65,11 @@ namespace BetterDefaultBrowser.Lib
         /// <summary>
         /// List of filters to match for in order of priority.
         /// </summary>
-        public static LinkedList<Filter> Filter
+        public static BindingList<Filter> Filter
         {
             get
             {
-                var root = XElement.Load(path);
-                var filtersOuter = root.Element("filters");
-                if (filtersOuter == null)
-                    return new LinkedList<Filter>();
-
-                var filters = filtersOuter.Elements();
-
-                LinkedList<Filter> list = new LinkedList<Filter>();
-                foreach (var filter in filters)
-                {
-                    Filter fil;
-                    switch ((FType)Enum.Parse(typeof(FType), filter.Attribute("type").Value))
-                    {
-                        case FType.PLAIN:
-                            fil = new PlainFilter();
-                            break;
-                        case FType.MANAGED:
-                            fil = new ManagedFilter();
-                            break;
-                        case FType.OPEN:
-                            fil = new OpenFilter();
-                            break;
-                        default:
-                            throw new NotImplementedException("Filter type not implemented!");
-                    }
-                    fil.FromXML(filter);
-
-                    list.AddLast(fil);
-                }
-
-                return list;
+                return Settings.filters;
             }
         }
 
@@ -116,25 +86,29 @@ namespace BetterDefaultBrowser.Lib
 
             foreach (var filter in filters)
             {
-                Filter fil;
-                switch ((FType)Enum.Parse(typeof(FType), filter.Attribute("type").Value))
-                {
-                    case FType.PLAIN:
-                        fil = new PlainFilter();
-                        break;
-                    case FType.MANAGED:
-                        fil = new ManagedFilter();
-                        break;
-                    case FType.OPEN:
-                        fil = new OpenFilter();
-                        break;
-                    default:
-                        throw new NotImplementedException("Filter type not implemented!");
-                }
-                fil.FromXML(filter);
-
-                Settings.filters.Add(fil);
+                Settings.filters.Add(FilterFromElement(filter));
             }
+        }
+
+        public static Filter FilterFromElement(XElement e)
+        {
+            Filter fil;
+            switch ((FType)Enum.Parse(typeof(FType), e.Attribute("type").Value))
+            {
+                case FType.PLAIN:
+                    fil = new PlainFilter();
+                    break;
+                case FType.MANAGED:
+                    fil = new ManagedFilter();
+                    break;
+                case FType.OPEN:
+                    fil = new OpenFilter();
+                    break;
+                default:
+                    throw new NotImplementedException("Filter type not implemented!");
+            }
+            fil.FromXML(e);
+            return fil;
         }
 
         internal static void deleteFilter(Filter filter)
@@ -182,9 +156,59 @@ namespace BetterDefaultBrowser.Lib
             }
 
             root.Save(path);
-            //Add to list
-            Settings.filters.Add(filter);
 
+            //Add to list
+            if (count == 0)
+                Settings.filters.Add(filter);
+        }
+
+        public static void FilterOrderChanged()
+        {
+            //TODO: Do this right, it will work but bad style:
+            var root = XElement.Load(path);
+            var filtersOuter = root.Element("filters");
+            var filters = filtersOuter.Elements();
+
+
+
+            for (int i = 0; i < filters.Count(); i++)
+            {
+                var filter = filters.ElementAt(i);
+                var loadedFilter = Filter.ElementAt(i);
+
+                //Read filter from file:
+                Filter fil;
+                switch ((FType)Enum.Parse(typeof(FType), filter.Attribute("type").Value))
+                {
+                    case FType.PLAIN:
+                        fil = new PlainFilter();
+                        break;
+                    case FType.MANAGED:
+                        fil = new ManagedFilter();
+                        break;
+                    case FType.OPEN:
+                        fil = new OpenFilter();
+                        break;
+                    default:
+                        throw new NotImplementedException("Filter type not implemented!");
+                }
+                fil.FromXML(filter);
+
+                //Swap IDs (BAD!!!!!)
+                if (fil.ID != loadedFilter.ID)
+                {
+                    filter.Attribute("id").SetValue(loadedFilter.ID);
+                }
+            }
+
+            root.Save(path);
+
+            foreach (var f in Filter)
+            {
+                f.Store();
+            }
+
+            loadFilters();
         }
     }
 }

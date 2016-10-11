@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:BetterDefaultBrowser"
              StartupUri="MainWindow2.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>

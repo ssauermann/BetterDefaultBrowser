@@ -48,8 +48,11 @@ namespace BetterDefaultBrowser.Lib.Filters
                     {
                         //Use external Lib to get SD
                         var sd = getSD(domainURL);
-                        var regSD = new Regex(Regex.Escape(sd + "."));
-                        finalUrl = regSD.Replace(finalUrl, "<>", 1);
+                        if (sd != "")
+                        {
+                            var regSD = new Regex(Regex.Escape(sd + "."));
+                            finalUrl = regSD.Replace(finalUrl, "<>", 1);
+                        }
                     }
                     else if (flag == ManagedFilter.Ignore.TLD)
                     {
@@ -90,6 +93,7 @@ namespace BetterDefaultBrowser.Lib.Filters
         {
             var domainURL = Regex.Replace(url, ManagedFilter.Ignore.Page.Regex(), "");
             domainURL = Regex.Replace(domainURL, ManagedFilter.Ignore.Parameter.Regex(), "");
+            domainURL = Regex.Replace(domainURL, ManagedFilter.Ignore.Port.Regex(), "");
 
             DNL.DomainName dnOut;
             if (!DNL.DomainName.TryParse(domainURL, out dnOut))
@@ -103,6 +107,7 @@ namespace BetterDefaultBrowser.Lib.Filters
         {
             var domainURL = Regex.Replace(url, ManagedFilter.Ignore.Page.Regex(), "");
             domainURL = Regex.Replace(domainURL, ManagedFilter.Ignore.Parameter.Regex(), "");
+            domainURL = Regex.Replace(domainURL, ManagedFilter.Ignore.Port.Regex(), "");
 
             DNL.DomainName dnOut;
             if (!DNL.DomainName.TryParse(domainURL, out dnOut))
@@ -110,6 +115,15 @@ namespace BetterDefaultBrowser.Lib.Filters
                 throw new Filter.FilterInvalidException("URL invalid");
             }
             return dnOut.SubDomain;
+        }
+
+        public static bool URLIsValid(string url)
+        {
+            var domainURL = Regex.Replace(url, ManagedFilter.Ignore.Page.Regex(), "");
+            domainURL = Regex.Replace(domainURL, ManagedFilter.Ignore.Parameter.Regex(), "");
+            domainURL = Regex.Replace(domainURL, ManagedFilter.Ignore.Port.Regex(), "");
+            DNL.DomainName dnOut;
+            return DNL.DomainName.TryParse(domainURL, out dnOut);
         }
     }
 }

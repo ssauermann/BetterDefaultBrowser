@@ -22,7 +22,7 @@ namespace BetterDefaultBrowser.Binding
             }
         }
 
-        private FType filtertype;
+        private FType filtertype = FType.MANAGED;
         public FType FilterType
         {
             get { return filtertype; }
@@ -33,6 +33,36 @@ namespace BetterDefaultBrowser.Binding
             }
         }
 
+        private FType filtertype2 = FType.MANAGED;
+        public FType FilterTypeInner
+        {
+            get { return filtertype2; }
+            set
+            {
+                filtertype2 = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("FilterTypeInner"));
+            }
+        }
+
+        public BindingList<FType> FilterTypes
+        {
+            get
+            {
+                var types = Enum.GetValues(typeof(FType));
+                return new BindingList<FType>(types.OfType<FType>().ToList());
+            }
+        }
+
+        public BindingList<FType> FilterTypesInner
+        {
+            get
+            {
+                var l = new BindingList<FType>();
+                l.Add(FType.MANAGED);
+                l.Add(FType.PLAIN);
+                return l;
+            }
+        }
 
         #region Handler
         public event PropertyChangedEventHandler PropertyChanged;
