@@ -84,7 +84,7 @@
               VerticalAlignment="Top"
               Width="131">
             <CheckBox x:Name="sDCheckBox"
-                      Content="sub-level domain"
+                      Content="sub domain"
                       HorizontalAlignment="Left"
                       Margin="10,0,0,80"
                       VerticalAlignment="Bottom"
