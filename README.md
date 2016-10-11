@@ -24,7 +24,7 @@ Alternatively you can download the latest source [here](https://github.com/ssaue
 4. Set BDB as the system default browser so all clicked links will be redirected to BDB.
 5. Set another browser (**not BDB**) as the BDB default browser for unmatched urls.
 
-Now the configuration is completed and all links outside of other browsers should be openend with your BDB default browser.
+Now the configuration is completed and all links outside of other browsers should be opened with your BDB default browser.
 
 #Usage#
 ##Configuring filters##
@@ -42,7 +42,7 @@ This is a standard filter mapping an url to a single browser.
 - **Browser** - Select a browser to open when this filter does match an url. (**Do not select BDB**)
 - **Protocols** - Select the protocols this filter should match
 - **Ignore** - Ignore parts of the url when matching
-- **Website** - Enter an valid url that will be matched considering all other options in this filter (This has to be a valid url)
+- **Website** - Enter a valid url that will be matched considering all other options in this filter (This has to be a valid url)
 
 #### Open Filter ####
 This filter maps an url to a currently opened browser.
@@ -67,7 +67,7 @@ Depending on the issue, providing the save.xml file will help to fix it. You may
 Please also report any other bug or unexpected behavior.
 
 
-If BDB doesn't start up any more you can delete all settings (and the log file) via the menu (`File -> Delete Settings`) and beginn from scratch.
+If BDB doesn't start up any more you can delete all settings (and the log file) via the menu (`File -> Delete Settings`) and begin from scratch.
 
 
 #FAQ#
@@ -85,7 +85,7 @@ It's not, here are virustotal scans. But you can inspect the source and build it
 You will have to exclude the files from your scan to use BDB.
 #Uninstallation#
 1. Set your system default browser to another browser.
-2. Uninstall BDB via the menu. (If you can't open the main program and want to remove BDB, run `BetterDefaultBrowser-Helper.exe -uninstall` from an eleveated command promt)
+2. Uninstall BDB via the menu. (If you can't open the main program and want to remove BDB, run `BetterDefaultBrowser-Helper.exe -uninstall` from an elevated command prompt)
 3. Optional: Delete your settings and all log files via the menu.
 4. Now you can safely delete the program files.
 
