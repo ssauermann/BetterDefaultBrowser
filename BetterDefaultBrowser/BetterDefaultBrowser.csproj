@@ -78,9 +78,6 @@
     <Compile Include="ViewModels\ManagedFilterViewModel.cs" />
     <Compile Include="ViewModels\OpenFilterViewModel.cs" />
     <Compile Include="ViewModels\PlainFilterViewModel.cs" />
-    <Compile Include="Views\FilterList.xaml.cs">
-      <DependentUpon>FilterList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ManagedFilterPanel.xaml.cs">
       <DependentUpon>ManagedFilterPanel.xaml</DependentUpon>
     </Compile>
@@ -105,10 +102,6 @@
     </Compile>
     <Compile Include="Helper.cs" />
     <Page Include="MainWindow2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FilterList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
