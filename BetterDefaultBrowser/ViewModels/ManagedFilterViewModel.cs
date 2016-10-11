@@ -12,6 +12,8 @@ namespace BetterDefaultBrowser.ViewModels
     class ManagedFilterViewModel : PlainFilterViewModel
     {
         private ManagedFilter mFilter;
+        private OpenFilter oFilter = null;
+        private bool IsSubfilter = false;
         public ManagedFilterViewModel()
             : this(new ManagedFilter
             {
@@ -25,6 +27,13 @@ namespace BetterDefaultBrowser.ViewModels
         public ManagedFilterViewModel(ManagedFilter f) : base(f)
         {
             mFilter = (ManagedFilter)f;
+        }
+
+        public ManagedFilterViewModel(ManagedFilter f, OpenFilter o) : base(f)
+        {
+            mFilter = (ManagedFilter)f;
+            oFilter = o;
+            IsSubfilter = true;
         }
 
         #region Properties
@@ -186,7 +195,15 @@ namespace BetterDefaultBrowser.ViewModels
         {
             //Assuming browser is valid
             mFilter.AssignedBrowser = this.Browser;
-            mFilter.Store();
+            if (!IsSubfilter)
+            {
+                mFilter.Store();
+            }
+            else
+            {
+                oFilter.InnerFilter = mFilter;
+                oFilter.Store();
+            }
         }
 
         protected override bool CanStoreFilterExecute()

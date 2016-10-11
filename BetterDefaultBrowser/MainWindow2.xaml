@@ -163,7 +163,7 @@
 
         <v:ManagedFilterPanel x:Name='AddManagedFilterGrid'
                               Margin='0,10,0,0'
-                              Grid.Row='1' Visibility="Visible"></v:ManagedFilterPanel>
+                              Grid.Row='1' Visibility="Hidden"></v:ManagedFilterPanel>
 
 
         <!-- ADDING new Filters -->
@@ -245,7 +245,7 @@
         </Grid>
         <!-- ADDING PLAIN filters -->
 
-        <v:PlainFilterPanel x:Name="AddPlainFilterGrid" Margin="-10,10,10,0" Grid.Row="1"/>
+        <v:PlainFilterPanel x:Name="AddPlainFilterGrid" Margin="-10,10,10,0" Grid.Row="1" Visibility="Hidden"/>
         <!-- <Grid x:Name="AddPlainFilterGrid"
               HorizontalAlignment="Left"
               Height="186"

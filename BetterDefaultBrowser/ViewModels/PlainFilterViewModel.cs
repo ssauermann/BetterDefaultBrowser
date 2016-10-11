@@ -20,6 +20,9 @@ namespace BetterDefaultBrowser.ViewModels
         private bool validRegex = true;
         private String regex = ".*";
 
+        private OpenFilter oFilter = null;
+        private bool IsSubfilter = false;
+
         public PlainFilterViewModel() : this(new PlainFilter { Name = "Unnamed filter", RegEx = ".*" })
         {
         }
@@ -32,6 +35,14 @@ namespace BetterDefaultBrowser.ViewModels
         {
             pFilter = (PlainFilter)filter;
             browserList = AllBrowsers.InstalledBrowsers;
+        }
+
+        public PlainFilterViewModel(PlainFilter f, OpenFilter o) : base(f)
+        {
+            pFilter = (PlainFilter)filter;
+            browserList = AllBrowsers.InstalledBrowsers;
+            oFilter = o;
+            IsSubfilter = true;
         }
 
         #region Properties
@@ -131,7 +142,15 @@ namespace BetterDefaultBrowser.ViewModels
         {
             //Assuming browser is valid
             pFilter.AssignedBrowser = browser;
-            pFilter.Store();
+            if (!IsSubfilter)
+            {
+                pFilter.Store();
+            }
+            else
+            {
+                oFilter.InnerFilter = pFilter;
+                oFilter.Store();
+            }
         }
 
         protected virtual bool CanStoreFilterExecute()

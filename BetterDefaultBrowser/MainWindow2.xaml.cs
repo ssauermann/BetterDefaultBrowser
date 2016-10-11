@@ -50,6 +50,8 @@ namespace BetterDefaultBrowser
             mFP = new ManagedFilterViewModel();
             AddManagedFilterGrid.DataContext = mFP;
             FilterType.DataContext = addBind;
+            filterTypeComboBox2.DataContext = addBind;
+            filters.ItemsSource = Settings.Filter;
 
 
             #endregion
@@ -214,8 +216,8 @@ namespace BetterDefaultBrowser
                     //Marks the next form for the user as subfilter
                     IsSubfilter = true;
 
-                    managed = new Lib.Filters.ManagedFilter();
-                    //AddManagedFilterGrid.DataContext = managed;
+                    AddManagedFilterGrid.DataContext = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "managed filter" }, openFilterVM.oFilter);
+
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
                     AddManagedFilterGrid.Visibility = Visibility.Visible;
                     return;
@@ -226,8 +228,7 @@ namespace BetterDefaultBrowser
                     //Marks the next form for the user as subfilter
                     IsSubfilter = true;
 
-                    plain = new Lib.Filters.PlainFilter();
-                    AddPlainFilterGrid.DataContext = plain;
+                    AddPlainFilterGrid.DataContext = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" }, openFilterVM.oFilter);
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
                     AddPlainFilterGrid.Visibility = Visibility.Visible;
                     return;
@@ -257,7 +258,6 @@ namespace BetterDefaultBrowser
 
                 case Lib.Filters.Filter.FType.PLAIN:
                     AddPlainFilterGrid.DataContext = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" });
-                    AddFilterGrid.Visibility = Visibility.Hidden;
                     AddPlainFilterGrid.Visibility = Visibility.Visible;
                     return;
             }
