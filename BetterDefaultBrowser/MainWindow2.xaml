@@ -91,65 +91,70 @@
         <!--List of all Filters aka FilterList-->
         <Grid Margin="201,27,10,0">
             <ListBox x:Name='filters'
-                 HorizontalAlignment='Left'
-                 Margin='0,45,0,0'
-                 VerticalAlignment='Top'
-                 Width='248' Height="82">
+                     HorizontalAlignment='Left'
+                     Margin='0,45,0,0'
+                     VerticalAlignment='Top'
+                     Width='248'
+                     Height="82">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"
-                               HorizontalAlignment="Left"
-                               Grid.Column="0" />
+                                   HorizontalAlignment="Left"
+                                   Grid.Column="0" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             <Button x:Name='buttonUp'
-                Content='↑'
-                HorizontalAlignment='Left'
-                Margin='253,45,0,0'
-                VerticalAlignment='Top'
-                Width='37'
-                FontSize='20'
-                Click='buttonUp_Click' />
+                    Content='↑'
+                    HorizontalAlignment='Left'
+                    Margin='253,45,0,0'
+                    VerticalAlignment='Top'
+                    Width='37'
+                    FontSize='20'
+                    Click='buttonUp_Click' />
             <Button x:Name='buttonDown'
-                Content='↓'
-                HorizontalAlignment='Left'
-                Margin='253,83,0,0'
-                VerticalAlignment='Top'
-                Width='37'
-                FontSize='20'
-                Click='buttonDown_Click' />
+                    Content='↓'
+                    HorizontalAlignment='Left'
+                    Margin='253,83,0,0'
+                    VerticalAlignment='Top'
+                    Width='37'
+                    FontSize='20'
+                    Click='buttonDown_Click' />
             <Button x:Name='buttonAdd'
-                Content='➕'
-                HorizontalAlignment='Left'
-                Margin='138,7,0,0'
-                VerticalAlignment='Top'
-                Width='33'
-                FontSize='20' Click="buttonAdd_Click"/>
+                    Content='➕'
+                    HorizontalAlignment='Left'
+                    Margin='138,7,0,0'
+                    VerticalAlignment='Top'
+                    Width='33'
+                    FontSize='20'
+                    Click="buttonAdd_Click" />
             <Button x:Name='buttonDelete'
-                Content='➖'
-                HorizontalAlignment='Left'
-                Margin='214,7,0,0'
-                VerticalAlignment='Top'
-                Width='33'
-                FontSize='20'
-                Click='buttonDelete_Click' />
+                    Content='➖'
+                    HorizontalAlignment='Left'
+                    Margin='214,7,0,0'
+                    VerticalAlignment='Top'
+                    Width='33'
+                    FontSize='20'
+                    Click='buttonDelete_Click' />
             <Button x:Name='buttonEdit'
-                Content='➔'
-                HorizontalAlignment='Left'
-                Margin='176,7,0,0'
-                VerticalAlignment='Top'
-                Width='33'
-                FontSize='20' Click="buttonEdit_Click" />
+                    Content='➔'
+                    HorizontalAlignment='Left'
+                    Margin='176,7,0,0'
+                    VerticalAlignment='Top'
+                    Width='33'
+                    FontSize='20'
+                    Click="buttonEdit_Click" />
             <ComboBox x:Name='FilterType'
-                  HorizontalAlignment='Left'
-                  Margin='0,7,0,0'
-                  VerticalAlignment='Top'
-                  Width='133'
-                  Height='33' SelectedIndex="{Binding Path=FilterType}">
+                      HorizontalAlignment='Left'
+                      Margin='0,7,0,0'
+                      VerticalAlignment='Top'
+                      Width='133'
+                      Height='33'
+                      SelectedIndex="{Binding Path=FilterType}">
                 <ComboBoxItem Content="managed"
                               HorizontalAlignment="Left"
-                              Width="161" IsSelected="True"/>
+                              Width="161"
+                              IsSelected="True" />
                 <ComboBoxItem Content="open"
                               HorizontalAlignment="Left"
                               Width="161" />
@@ -163,11 +168,15 @@
 
         <v:ManagedFilterPanel x:Name='AddManagedFilterGrid'
                               Margin='0,10,0,0'
-                              Grid.Row='1' Visibility="{Binding Path=MyVisibility}"></v:ManagedFilterPanel>
+                              Grid.Row='1'
+                              Visibility="{Binding Path=MyVisibility}"></v:ManagedFilterPanel>
 
         <!-- ADDING PLAIN filters -->
 
-        <v:PlainFilterPanel x:Name="AddPlainFilterGrid" Margin="-10,10,10,0" Grid.Row="1" Visibility="{Binding Path=MyVisibility}"/>
+        <v:PlainFilterPanel x:Name="AddPlainFilterGrid"
+                            Margin="-10,10,10,0"
+                            Grid.Row="1"
+                            Visibility="{Binding Path=MyVisibility}" />
 
         <!-- ADDING OPEN filters -->
         <Grid x:Name="AddOpenFilterGrid"
@@ -236,8 +245,19 @@
                     Content="&lt;&lt;"
                     Margin="232,100,230,66"
                     Click="deleteButton_Click" />
-            <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="368,10,0,0" TextWrapping="Wrap" Text="{Binding Path=Name}" VerticalAlignment="Top" Width="120"/>
-            <Label x:Name="label" Content="FilterName" HorizontalAlignment="Left" Margin="295,8,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="textBox"
+                     HorizontalAlignment="Left"
+                     Height="23"
+                     Margin="368,10,0,0"
+                     TextWrapping="Wrap"
+                     Text="{Binding Path=Name}"
+                     VerticalAlignment="Top"
+                     Width="120" />
+            <Label x:Name="label"
+                   Content="FilterName"
+                   HorizontalAlignment="Left"
+                   Margin="295,8,0,0"
+                   VerticalAlignment="Top" />
         </Grid>
     </Grid>
 </Window>
