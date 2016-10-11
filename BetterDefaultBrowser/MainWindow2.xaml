@@ -10,7 +10,6 @@
         Title="Better Default Browser - Configurator"
         Height="401.338"
         Width="641.665"
-        WindowStyle='ToolWindow'
         ResizeMode='NoResize'>
     <Window.Resources>
         <local:DefaultConverter x:Key="defaultConverter" />
