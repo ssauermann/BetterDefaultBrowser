@@ -1,4 +1,6 @@
 ﻿using BetterDefaultBrowser.Lib;
+using BetterDefaultBrowser.Lib.Filters;
+using BetterDefaultBrowser.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,12 +38,22 @@ namespace BetterDefaultBrowser
         private bool IsSubfilter = false;
 
 
+        //New Important stuff
+        private ManagedFilterViewModel mFP;
         public MainWindow2()
         {
             InitializeComponent();
 
+            #region NewStuff
+            mFP = new ManagedFilterViewModel();
+            AddManagedFilterGrid.DataContext = mFP;
+            FilterType.DataContext = addBind;
+
+
+            #endregion
+
             #region Bindings
-            this.DataContext = mainBind;
+            //this.DataContext = mainBind;
             AddFilterGrid.DataContext = addBind;
 
             #endregion
@@ -50,15 +62,15 @@ namespace BetterDefaultBrowser
 
 
             browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
-            comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
+            //comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
             //comboBoxBrowserSelectManaged.ItemsSource = AllBrowsers.InstalledBrowsers;
 
             WinVerLabel.Content = OSVersions.getVersion().ToString();
 
             //Visibility Settings
             AddManagedFilterGrid.Visibility = Visibility.Hidden;
-            AddFilterGrid.Visibility = Visibility.Hidden;//Remove Later
-            AddOpenFilterGrid.Visibility = Visibility.Hidden;
+            //AddFilterGrid.Visibility = Visibility.Hidden;//Remove Later
+            //AddOpenFilterGrid.Visibility = Visibility.Hidden;
             AddPlainFilterGrid.Visibility = Visibility.Hidden;
 
             //---Show UAC Admin icon in menu---
@@ -215,5 +227,81 @@ namespace BetterDefaultBrowser
                     return;
             }
         }
+
+
+        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            switch (addBind.FilterType)
+            {
+                case Lib.Filters.Filter.FType.MANAGED:
+                    AddManagedFilterGrid.DataContext = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "LOLOLO" });
+                    AddManagedFilterGrid.Visibility = Visibility.Visible;
+                    return;
+
+                case Lib.Filters.Filter.FType.OPEN:
+                    open = new Lib.Filters.OpenFilter();
+                    AddOpenFilterGrid.DataContext = open;
+
+                    //Clear and copy Browserlist
+                    toAdd.Clear();
+                    added.Clear();
+
+                    toAdd = cloneList(AllBrowsers.InstalledBrowsers);
+
+                    //Bind ItemSource
+                    toAddBrowserlistBox.ItemsSource = toAdd;
+                    addBrowserlistBox.ItemsSource = added;
+                    AddOpenFilterGrid.Visibility = Visibility.Visible;
+                    return;
+
+                case Lib.Filters.Filter.FType.PLAIN:
+                    AddPlainFilterGrid.DataContext = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" });
+                    AddFilterGrid.Visibility = Visibility.Hidden;
+                    AddPlainFilterGrid.Visibility = Visibility.Visible;
+                    return;
+            }
+        }
+
+        #region FilterList Methods
+        private void buttonUp_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItem(-1);
+        }
+
+        public void MoveItem(int direction)
+        {
+            // Checking selected item
+            if (filters.SelectedItem == null || filters.SelectedIndex < 0)
+                return; // No selected item - nothing to do
+
+            // Calculate new index using move direction
+            int newIndex = filters.SelectedIndex + direction;
+
+            // Checking bounds of the range
+            if (newIndex < 0 || newIndex >= filters.Items.Count)
+                return; // Index out of range - nothing to do
+
+            var selected = (Filter)filters.SelectedItem;
+            var bindlist = (BindingList<Filter>)filters.ItemsSource;
+
+            bindlist.Remove(selected);
+            bindlist.Insert(newIndex, selected);
+            filters.SelectedIndex = newIndex;
+        }
+
+        private void buttonDown_Click(object sender, RoutedEventArgs e)
+        {
+            MoveItem(1);
+        }
+
+        private void buttonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (filters.SelectedItem == null || filters.SelectedIndex < 0)
+                return; // No selected item - nothing to do
+
+            var selected = (Filter)filters.SelectedItem;
+            selected.Delete();
+        }
+        #endregion
     }
 }

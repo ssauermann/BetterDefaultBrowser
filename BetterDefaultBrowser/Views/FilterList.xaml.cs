@@ -68,5 +68,6 @@ namespace BetterDefaultBrowser.Views
             var selected = (Filter)filters.SelectedItem;
             selected.Delete();
         }
+
     }
 }
