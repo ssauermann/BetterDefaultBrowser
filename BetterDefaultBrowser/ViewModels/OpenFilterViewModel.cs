@@ -22,7 +22,9 @@ namespace BetterDefaultBrowser.ViewModels
         {
             oFilter = (OpenFilter)filter;
             Browsers = oFilter.Browsers;
-            UsableBrowsers = cloneList(AllBrowsers.InstalledBrowsers);
+
+
+            UsableBrowsers = cloneList(AllBrowsers.InstalledBrowsers, Browsers);
         }
 
 
@@ -51,12 +53,13 @@ namespace BetterDefaultBrowser.ViewModels
         #endregion
 
 
-        private BindingList<T> cloneList<T>(BindingList<T> old)
+        private BindingList<T> cloneList<T>(BindingList<T> old, BindingList<T> excluded)
         {
             BindingList<T> newer = new BindingList<T>();
             foreach (T obj in old)
             {
-                newer.Add(obj);
+                if (!excluded.Contains(obj))
+                    newer.Add(obj);
             }
             return newer;
         }
