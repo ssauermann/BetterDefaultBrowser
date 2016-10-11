@@ -148,6 +148,8 @@ namespace BetterDefaultBrowser
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
+            filterTypeComboBox2.Visibility = Visibility.Visible;
+            labelUnderFilter.Visibility = Visibility.Visible;
             switch (addBind.FilterType)
             {
                 case Lib.Filters.Filter.FType.MANAGED:
@@ -257,6 +259,13 @@ namespace BetterDefaultBrowser
                     managedFilterVM.MyVisibility = Visibility.Hidden;
                     plainFilterVM.MyVisibility = Visibility.Hidden;
                     AddOpenFilterGrid.Visibility = Visibility.Visible;
+
+
+
+                    filterTypeComboBox2.Visibility = Visibility.Hidden;
+                    filterTypeComboBox2.SelectedItem = (selectedFilter as OpenFilter).InnerFilter.Type;
+                    labelUnderFilter.Visibility = Visibility.Hidden;
+
                     return;
 
                 case Lib.Filters.Filter.FType.PLAIN:
@@ -272,10 +281,5 @@ namespace BetterDefaultBrowser
         }
 
         #endregion
-
-        private void FilterType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
