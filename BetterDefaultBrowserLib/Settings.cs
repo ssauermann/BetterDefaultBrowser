@@ -157,5 +157,54 @@ namespace BetterDefaultBrowser.Lib
             if (count == 0)
                 Settings.filters.Add(filter);
         }
+
+        public static void FilterOrderChanged()
+        {
+            //TODO: Do this right, it will work but bad style:
+            var root = XElement.Load(path);
+            var filtersOuter = root.Element("filters");
+            var filters = filtersOuter.Elements();
+
+
+
+            for (int i = 0; i < filters.Count(); i++)
+            {
+                var filter = filters.ElementAt(i);
+                var loadedFilter = Filter.ElementAt(i);
+
+                //Read filter from file:
+                Filter fil;
+                switch ((FType)Enum.Parse(typeof(FType), filter.Attribute("type").Value))
+                {
+                    case FType.PLAIN:
+                        fil = new PlainFilter();
+                        break;
+                    case FType.MANAGED:
+                        fil = new ManagedFilter();
+                        break;
+                    case FType.OPEN:
+                        fil = new OpenFilter();
+                        break;
+                    default:
+                        throw new NotImplementedException("Filter type not implemented!");
+                }
+                fil.FromXML(filter);
+
+                //Swap IDs (BAD!!!!!)
+                if (fil.ID != loadedFilter.ID)
+                {
+                    filter.Attribute("id").SetValue(loadedFilter.ID);
+                }
+            }
+
+            root.Save(path);
+
+            foreach (var f in Filter)
+            {
+                f.Store();
+            }
+
+            loadFilters();
+        }
     }
 }

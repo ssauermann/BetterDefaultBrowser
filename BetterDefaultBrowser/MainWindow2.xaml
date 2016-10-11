@@ -150,7 +150,7 @@
                       VerticalAlignment='Top'
                       Width='133'
                       Height='33'
-                      SelectedIndex="{Binding Path=FilterType}">
+                      SelectedIndex="0">
                 <ComboBoxItem Content="managed"
                               HorizontalAlignment="Left"
                               Width="161"

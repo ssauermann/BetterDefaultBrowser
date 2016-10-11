@@ -172,7 +172,6 @@ namespace BetterDefaultBrowser
                     plainFilterVM = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" });
                     AddPlainFilterGrid.DataContext = plainFilterVM;
 
-
                     managedFilterVM.MyVisibility = Visibility.Hidden;
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
                     plainFilterVM.MyVisibility = Visibility.Visible;
@@ -204,6 +203,8 @@ namespace BetterDefaultBrowser
 
             bindlist.Remove(selected);
             bindlist.Insert(newIndex, selected);
+
+            Settings.FilterOrderChanged();
             filters.SelectedIndex = newIndex;
         }
 
