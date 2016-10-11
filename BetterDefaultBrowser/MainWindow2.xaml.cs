@@ -110,8 +110,8 @@ namespace BetterDefaultBrowser
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-            openFilterVM.UsableBrowsers.Add((Browser)toAddBrowserlistBox.SelectedItem);
-            openFilterVM.Browsers.Remove((Browser)toAddBrowserlistBox.SelectedItem);
+            openFilterVM.UsableBrowsers.Add((Browser)addBrowserlistBox.SelectedItem);
+            openFilterVM.Browsers.Remove((Browser)addBrowserlistBox.SelectedItem);
         }
 
         private void nextFilterButton_Click(object sender, RoutedEventArgs e)
