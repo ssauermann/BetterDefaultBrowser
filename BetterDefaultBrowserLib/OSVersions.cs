@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -28,6 +29,13 @@ namespace BetterDefaultBrowser.Lib
         {
             int major = System.Environment.OSVersion.Version.Major;
             int minor = System.Environment.OSVersion.Version.Minor;
+
+            //Win10 has sometimes wrong values
+            var tenVers = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentMajorVersionNumber", null);
+            if (tenVers != null && tenVers.ToString() == "10")
+            {
+                return OS.WIN10;
+            }
 
             if (major <= 5)
                 return OS.OUTDATED;
