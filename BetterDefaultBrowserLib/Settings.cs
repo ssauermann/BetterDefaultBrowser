@@ -86,25 +86,29 @@ namespace BetterDefaultBrowser.Lib
 
             foreach (var filter in filters)
             {
-                Filter fil;
-                switch ((FType)Enum.Parse(typeof(FType), filter.Attribute("type").Value))
-                {
-                    case FType.PLAIN:
-                        fil = new PlainFilter();
-                        break;
-                    case FType.MANAGED:
-                        fil = new ManagedFilter();
-                        break;
-                    case FType.OPEN:
-                        fil = new OpenFilter();
-                        break;
-                    default:
-                        throw new NotImplementedException("Filter type not implemented!");
-                }
-                fil.FromXML(filter);
-
-                Settings.filters.Add(fil);
+                Settings.filters.Add(FilterFromElement(filter));
             }
+        }
+
+        public static Filter FilterFromElement(XElement e)
+        {
+            Filter fil;
+            switch ((FType)Enum.Parse(typeof(FType), e.Attribute("type").Value))
+            {
+                case FType.PLAIN:
+                    fil = new PlainFilter();
+                    break;
+                case FType.MANAGED:
+                    fil = new ManagedFilter();
+                    break;
+                case FType.OPEN:
+                    fil = new OpenFilter();
+                    break;
+                default:
+                    throw new NotImplementedException("Filter type not implemented!");
+            }
+            fil.FromXML(e);
+            return fil;
         }
 
         internal static void deleteFilter(Filter filter)
