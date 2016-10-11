@@ -7,9 +7,11 @@
         xmlns:v="clr-namespace:BetterDefaultBrowser.Views"
         xmlns:bdb='https://ssauermann.github.io/betterdefaultbrowser/'
         mc:Ignorable="d"
-        Title="MainWindow2"
+        Title="Better Default Browser - Configurator"
         Height="401.338"
-        Width="526.164">
+        Width="641.665"
+        WindowStyle='ToolWindow'
+        ResizeMode='NoResize'>
     <Window.Resources>
         <local:DefaultConverter x:Key="defaultConverter" />
         <!--<local:ProtocolConverter x:Key="protocolConverter" />-->
@@ -22,8 +24,8 @@
         </Grid.RowDefinitions>
         <ListBox x:Name="browserList"
                  HorizontalAlignment="Stretch"
-                 Height="72"
-                 Margin="10,56,326,0"
+                 Height="111"
+                 Margin="10,24,326,0"
                  VerticalAlignment="Top">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -48,7 +50,7 @@
               HorizontalAlignment="Left"
               Height="19"
               VerticalAlignment="Top"
-              Width="518">
+              Width="634">
             <MenuItem Header="File">
                 <MenuItem x:Name="deleteSettingsMenuItem"
                           Header="Delete all settings"
@@ -84,33 +86,32 @@
         <Label x:Name="WinVerLabel"
                Content="Label"
                HorizontalAlignment="Left"
-               Margin="10,24,0,0"
+               Margin="580,178,0,0"
                VerticalAlignment="Top"
                Width="54"
-               Height="26" />
+               Height="26"
+               Grid.Row='1' />
         <Button x:Name="SetDefaultButton"
-                Content="system default"
+                Content="Set as system default"
                 HorizontalAlignment="Right"
-                Margin="0,134,406,0"
+                Margin="0,140,326,0"
                 VerticalAlignment="Top"
-                Width="102"
+                Width="120"
                 Click="SetDefaultButton_Click"
-                Height="20" />
+                Height="23" />
         <Button x:Name="bDBDefaultButton"
-                Content="BDB default"
+                Content="Set as BDB default"
                 HorizontalAlignment="Left"
-                Margin="117,134,0,0"
+                Margin="10,140,0,0"
                 VerticalAlignment="Top"
-                Width="75"
+                Width="125"
                 Click="bDBDefaultButton_Click" />
         <!--List of all Filters aka FilterList-->
-        <Grid Margin="201,27,10,0">
+        <Grid Margin="334,11,0,0">
             <ListBox x:Name='filters'
                      HorizontalAlignment='Left'
-                     Margin='0,45,0,0'
-                     VerticalAlignment='Top'
-                     Width='248'
-                     Height="82">
+                     Margin='0,45,1,0'
+                     Width='248'>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"
@@ -138,33 +139,36 @@
             <Button x:Name='buttonAdd'
                     Content='➕'
                     HorizontalAlignment='Left'
-                    Margin='138,7,0,0'
+                    Margin='139,10,0,0'
                     VerticalAlignment='Top'
                     Width='33'
                     FontSize='20'
-                    Click="buttonAdd_Click" />
+                    Click="buttonAdd_Click"
+                    Height='30' />
             <Button x:Name='buttonDelete'
                     Content='➖'
                     HorizontalAlignment='Left'
-                    Margin='214,7,0,0'
+                    Margin='215,10,0,0'
                     VerticalAlignment='Top'
                     Width='33'
                     FontSize='20'
-                    Click='buttonDelete_Click' />
+                    Click='buttonDelete_Click'
+                    Height='30' />
             <Button x:Name='buttonEdit'
                     Content='➔'
                     HorizontalAlignment='Left'
-                    Margin='176,7,0,0'
+                    Margin='177,10,0,0'
                     VerticalAlignment='Top'
                     Width='33'
                     FontSize='20'
-                    Click="buttonEdit_Click" />
+                    Click="buttonEdit_Click"
+                    Height='30' />
             <ComboBox x:Name='FilterType'
                       HorizontalAlignment='Left'
-                      Margin='0,7,0,0'
+                      Margin='1,10,0,0'
                       VerticalAlignment='Top'
                       Width='133'
-                      Height='33'
+                      Height='30'
                       SelectedItem="{Binding Path=FilterType}"
                       ItemsSource='{Binding FilterTypes}'>
             </ComboBox>
@@ -257,7 +261,7 @@
             <CheckBox x:Name="checkBox"
                       Content="Only Running"
                       HorizontalAlignment="Left"
-                      Margin="328,161,0,0"
+                      Margin="319,161,0,0"
                       VerticalAlignment="Top"
                       IsChecked="{Binding Path=OnlyOpen}" />
         </Grid>
