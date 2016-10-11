@@ -27,56 +27,40 @@ namespace BetterDefaultBrowser
         private Binding.AddFilterBind addBind = new Binding.AddFilterBind();
 
 
-        private Lib.Filters.ManagedFilter managed;
-        private Lib.Filters.OpenFilter open;
-        private Lib.Filters.PlainFilter plain;
 
         private BindingList<Browser> toAdd = new BindingList<Browser>();
         private BindingList<Browser> added = new BindingList<Browser>();
 
-        private bool IsSubfilter = false;
+
 
         private OpenFilterViewModel openFilterVM = new OpenFilterViewModel();
         private ManagedFilterViewModel managedFilterVM = new ManagedFilterViewModel();
         private PlainFilterViewModel plainFilterVM = new PlainFilterViewModel();
 
 
-        //New Important stuff
-        private ManagedFilterViewModel mFP;
         public MainWindow2()
         {
             InitializeComponent();
 
-            #region NewStuff
-            mFP = new ManagedFilterViewModel();
-            AddManagedFilterGrid.DataContext = mFP;
+            #region ContextSetting
             FilterType.DataContext = addBind;
             filterTypeComboBox2.DataContext = addBind;
             filters.ItemsSource = Settings.Filter;
-
-
-            #endregion
-
-            #region Bindings
-            //this.DataContext = mainBind;
-            AddFilterGrid.DataContext = addBind;
-
-            #endregion
-
             InstallMenu.DataContext = AllBrowsers.BDBInstalled.Instance;
+
+            #endregion
+
+
+
+
 
 
             browserList.ItemsSource = AllBrowsers.InstalledBrowsers;
-            //comboBoxBrowserSelect.ItemsSource = AllBrowsers.InstalledBrowsers;
-            //comboBoxBrowserSelectManaged.ItemsSource = AllBrowsers.InstalledBrowsers;
+
 
             WinVerLabel.Content = OSVersions.getVersion().ToString();
 
-            //Visibility Settings
-            //AddManagedFilterGrid.Visibility = Visibility.Hidden;
-            //AddFilterGrid.Visibility = Visibility.Hidden;//Remove Later
-            AddOpenFilterGrid.Visibility = Visibility.Hidden;
-            //AddPlainFilterGrid.Visibility = Visibility.Hidden;
+
 
             //---Show UAC Admin icon in menu---
             var img = new Image();
@@ -92,21 +76,7 @@ namespace BetterDefaultBrowser
         }
 
 
-        private void Applybutton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsSubfilter)
-            {
-                managed.Store();
-            }
-            else
-            {
-                open.InnerFilter = managed;
-                open.Store();
-            }
-            IsSubfilter = false;
-            AddManagedFilterGrid.Visibility = Visibility.Hidden;
-            AddFilterGrid.Visibility = Visibility.Visible;
-        }
+
 
         private void UninstallBDBMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -131,81 +101,16 @@ namespace BetterDefaultBrowser
                 (browserList.SelectedItem as Browser).SetDefault();
         }
 
-        private void addFilterButton_Click(object sender, RoutedEventArgs e)
-        {
-            switch (addBind.FilterType)
-            {
-                case Lib.Filters.Filter.FType.MANAGED:
-                    managed = new Lib.Filters.ManagedFilter();
-                    //AddManagedFilterGrid.DataContext = managed;
-                    AddFilterGrid.Visibility = Visibility.Hidden;
-                    AddManagedFilterGrid.Visibility = Visibility.Visible;
-                    return;
-                case Lib.Filters.Filter.FType.OPEN:
-                    open = new Lib.Filters.OpenFilter();
-                    AddOpenFilterGrid.DataContext = open;
-                    AddFilterGrid.Visibility = Visibility.Hidden;
-
-                    //Clear and copy Browserlist
-                    toAdd.Clear();
-                    added.Clear();
-
-                    toAdd = cloneList(AllBrowsers.InstalledBrowsers);
-
-                    //Bind ItemSource
-                    toAddBrowserlistBox.ItemsSource = toAdd;
-                    addBrowserlistBox.ItemsSource = added;
-                    AddOpenFilterGrid.Visibility = Visibility.Visible;
-                    return;
-
-                case Lib.Filters.Filter.FType.PLAIN:
-                    plain = new Lib.Filters.PlainFilter();
-                    AddPlainFilterGrid.DataContext = plain;
-                    AddFilterGrid.Visibility = Visibility.Hidden;
-                    AddPlainFilterGrid.Visibility = Visibility.Visible;
-                    return;
-            }
-        }
-
-        private void savePlainButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!IsSubfilter)
-            {
-                plain.Store();
-            }
-            else
-            {
-                open.InnerFilter = plain;
-                open.Store();
-            }
-            IsSubfilter = false;
-            AddPlainFilterGrid.Visibility = Visibility.Hidden;
-            AddFilterGrid.Visibility = Visibility.Visible;
-        }
-
-        private BindingList<T> cloneList<T>(BindingList<T> old)
-        {
-            BindingList<T> newer = new BindingList<T>();
-            foreach (T obj in old)
-            {
-                newer.Add(obj);
-            }
-            return newer;
-        }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             openFilterVM.Browsers.Add((Browser)toAddBrowserlistBox.SelectedItem);
-            //added.Add(toAddBrowserlistBox.SelectedItem as Browser);
             openFilterVM.UsableBrowsers.Remove((Browser)toAddBrowserlistBox.SelectedItem);
-            //toAdd.Remove(toAddBrowserlistBox.SelectedItem as Browser);
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
             openFilterVM.UsableBrowsers.Add((Browser)toAddBrowserlistBox.SelectedItem);
-            //toAdd.Add(addBrowserlistBox.SelectedItem as Browser);
-            //added.Remove(addBrowserlistBox.SelectedItem as Browser);
             openFilterVM.Browsers.Remove((Browser)toAddBrowserlistBox.SelectedItem);
         }
 
@@ -214,8 +119,7 @@ namespace BetterDefaultBrowser
             switch (addBind.FilterType)
             {
                 case Lib.Filters.Filter.FType.MANAGED:
-                    //Marks the next form for the user as subfilter
-                    IsSubfilter = true;
+
 
                     managedFilterVM = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "managed filter" }, openFilterVM.oFilter);
                     AddManagedFilterGrid.DataContext = managedFilterVM;
@@ -227,8 +131,7 @@ namespace BetterDefaultBrowser
                     throw new Exception("Illegal State when using openfilter");
 
                 case Lib.Filters.Filter.FType.PLAIN:
-                    //Marks the next form for the user as subfilter
-                    IsSubfilter = true;
+
 
                     plainFilterVM = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" }, openFilterVM.oFilter);
                     AddPlainFilterGrid.DataContext = plainFilterVM;

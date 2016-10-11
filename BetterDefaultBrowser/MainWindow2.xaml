@@ -88,7 +88,7 @@
                 Width="182"
                 Click="SetDefaultButton_Click"
                 Height="20" />
-        <!--List of all Filters-->
+        <!--List of all Filters aka FilterList-->
         <Grid Margin="201,27,10,0">
             <ListBox x:Name='filters'
                  HorizontalAlignment='Left'
@@ -165,145 +165,10 @@
                               Margin='0,10,0,0'
                               Grid.Row='1' Visibility="{Binding Path=MyVisibility}"></v:ManagedFilterPanel>
 
-
-        <!-- ADDING new Filters -->
-        <Grid x:Name="AddFilterGrid"
-              HorizontalAlignment="Left"
-              Height="186"
-              Margin="10,10,0,0"
-              Grid.Row="1"
-              VerticalAlignment="Top"
-              Width="498"
-              Visibility="Hidden">
-            <Label x:Name="label6"
-                   Content="FilterType"
-                   HorizontalAlignment="Left"
-                   Margin="0,56,0,0"
-                   VerticalAlignment="Top" />
-            <ComboBox x:Name="filterTypeComboBox1"
-                      HorizontalAlignment="Left"
-                      Margin="117,56,0,0"
-                      VerticalAlignment="Top"
-                      Width="163"
-                      SelectedIndex="{Binding Path=FilterType}">
-                <ComboBoxItem Content="managed"
-                              HorizontalAlignment="Left"
-                              Width="161" />
-                <ComboBoxItem Content="open"
-                              HorizontalAlignment="Left"
-                              Width="161" />
-                <ComboBoxItem Content="plain"
-                              HorizontalAlignment="Left"
-                              Width="161" />
-            </ComboBox>
-            <Button x:Name="addFilterButton"
-                    Content="Add Filter"
-                    HorizontalAlignment="Left"
-                    Margin="413,156,0,0"
-                    VerticalAlignment="Top"
-                    Width="75"
-                    Click="addFilterButton_Click" />
-            <TextBlock x:Name="textBlock"
-                       HorizontalAlignment="Left"
-                       Margin="10,124,0,0"
-                       TextWrapping="Wrap"
-                       Text="Easy to use appropriate for all users."
-                       VerticalAlignment="Top"
-                       Height="62"
-                       Width="109" />
-            <TextBlock x:Name="textBlock_Copy"
-                       HorizontalAlignment="Left"
-                       Margin="140,124,0,0"
-                       TextWrapping="Wrap"
-                       Text="Advanced. Nest multiple filters."
-                       VerticalAlignment="Top"
-                       Height="62"
-                       Width="109" />
-            <TextBlock x:Name="textBlock_Copy1"
-                       HorizontalAlignment="Left"
-                       Margin="274,124,0,0"
-                       TextWrapping="Wrap"
-                       Text="Advanced. You need to be familiar with REGEX."
-                       VerticalAlignment="Top"
-                       Height="62"
-                       Width="109" />
-            <Label x:Name="label7"
-                   Content="Managed Filter:"
-                   HorizontalAlignment="Left"
-                   Margin="10,93,0,0"
-                   VerticalAlignment="Top" />
-            <Label x:Name="label8"
-                   Content="Open Filter:"
-                   HorizontalAlignment="Left"
-                   Margin="140,93,0,0"
-                   VerticalAlignment="Top" />
-            <Label x:Name="label9"
-                   Content="Plain Filter:"
-                   HorizontalAlignment="Left"
-                   Margin="274,93,0,0"
-                   VerticalAlignment="Top" />
-        </Grid>
         <!-- ADDING PLAIN filters -->
 
         <v:PlainFilterPanel x:Name="AddPlainFilterGrid" Margin="-10,10,10,0" Grid.Row="1" Visibility="{Binding Path=MyVisibility}"/>
-        <!-- <Grid x:Name="AddPlainFilterGrid"
-              HorizontalAlignment="Left"
-              Height="186"
-              Margin="10,10,0,0"
-              Grid.Row="1"
-              VerticalAlignment="Top"
-              Width="498"
-              Visibility="Hidden">
-            <Label x:Name="label3"
-                   Content="Browser to use"
-                   HorizontalAlignment="Left"
-                   Margin="0,10,0,0"
-                   VerticalAlignment="Top"
-                   Height="26"
-                   Width="88"
-                   RenderTransformOrigin="1.084,0.743" />
-            <ComboBox x:Name="comboBoxBrowserSelect"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Top"
-                      Width="163"
-                      SelectedItem="{Binding Path=AssignedBrowser}"
-                      Margin="135,10,0,0"
-                      Height="22" />
-            <Label x:Name="label10"
-                   Content="Enter your REGEX"
-                   HorizontalAlignment="Left"
-                   Margin="0,44,0,0"
-                   VerticalAlignment="Top" />
-            <TextBox x:Name="textBox2"
-                     HorizontalAlignment="Left"
-                     Height="81"
-                     Margin="10,70,0,0"
-                     TextWrapping="Wrap"
-                     VerticalAlignment="Top"
-                     Width="478"
-                     Text="{Binding Path=RegEx}" />
-            <Button x:Name="savePlainButton"
-                    Content="Save"
-                    HorizontalAlignment="Left"
-                    Margin="413,156,0,0"
-                    VerticalAlignment="Top"
-                    Width="75"
-                    Click="savePlainButton_Click" />
-            <Label x:Name="label13"
-                   Content="Name"
-                   HorizontalAlignment="Left"
-                   Margin="321,10,0,0"
-                   VerticalAlignment="Top"
-                   RenderTransformOrigin="0.383,-0.231" />
-            <TextBox x:Name="textBox"
-                     HorizontalAlignment="Left"
-                     Height="23"
-                     Margin="364,10,0,0"
-                     TextWrapping="Wrap"
-                     Text="{Binding Path=Name}"
-                     VerticalAlignment="Top"
-                     Width="120" />
-        </Grid>-->
+
         <!-- ADDING OPEN filters -->
         <Grid x:Name="AddOpenFilterGrid"
               HorizontalAlignment="Left"
@@ -312,7 +177,7 @@
               Grid.Row="1"
               VerticalAlignment="Top"
               Width="498"
-              Visibility="Visible">
+              Visibility="Hidden">
             <ListBox x:Name="toAddBrowserlistBox"
                      HorizontalAlignment="Left"
                      Height="100"
