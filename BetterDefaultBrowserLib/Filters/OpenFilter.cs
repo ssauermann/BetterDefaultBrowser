@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BetterDefaultBrowser.Lib.Filters
 {
@@ -68,6 +69,56 @@ namespace BetterDefaultBrowser.Lib.Filters
                 OnPropertyChanged("InnerFilter");
 
             }
+        }
+
+        /// <summary>
+        /// Convert this filter to an XML representation.
+        /// </summary>
+        /// <returns>XML Element</returns>
+        internal override XElement ToXML()
+        {
+            var e = base.ToXML();
+
+            XElement[] bElements = new XElement[Browsers.Count];
+
+            int i = 0;
+            foreach (var b in Browsers)
+            {
+                bElements[i] = new XElement("browser", b.KeyName);
+                i++;
+            }
+
+            e.Add(new XElement("onlyOpen", OnlyOpen),
+                new XElement("browsers", bElements),
+                new XElement("inner", InnerFilter.ToXML())
+                );
+            return e;
+        }
+
+        /// <summary>
+        /// Loads values for this filter from an XML representation.
+        /// <param name="e">XML element</param>
+        /// </summary>
+        internal override void FromXML(XElement e)
+        {
+            base.FromXML(e);
+            bool onop;
+            Boolean.TryParse(e.Element("onlyOpen").Value, out onop);
+            OnlyOpen = onop;
+
+            var inner = e.Element("inner").FirstNode as XElement;
+
+            if (inner != null)
+            {
+                InnerFilter = Settings.FilterFromElement(inner);
+            }
+
+            var browsers = e.Element("browsers");
+            foreach (var b in browsers.Elements())
+            {
+                this.browsers.Add(new Browser(b.Value));
+            }
+
         }
 
         /// <summary>

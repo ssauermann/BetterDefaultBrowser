@@ -149,8 +149,7 @@
                       Width='133'
                       Height='33'
                       SelectedItem="{Binding Path=FilterType}"
-                      ItemsSource='{Binding FilterTypes}'
-                      SelectionChanged='FilterType_SelectionChanged'>
+                      ItemsSource='{Binding FilterTypes}'>
             </ComboBox>
 
         </Grid>
@@ -209,7 +208,7 @@
                       SelectedItem="{Binding Path=FilterTypeInner}"
                       ItemsSource='{Binding FilterTypesInner}'>
             </ComboBox>
-            <Label x:Name="label12"
+            <Label x:Name="labelUnderFilter"
                    Content="Underlying Filter"
                    HorizontalAlignment="Left"
                    Margin="10,156,0,0"
