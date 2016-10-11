@@ -4,6 +4,7 @@ using BetterDefaultBrowser.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -286,6 +287,21 @@ namespace BetterDefaultBrowser
         {
             if (browserList.SelectedItem != null)
                 Settings.DefaultBrowser = (Browser)browserList.SelectedItem;
+        }
+
+        private void MenuItemIssue_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"https://gitreports.com/issue/ssauermann/BetterDefaultBrowser");
+        }
+
+        private void MenuItemReadme_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"https://github.com/ssauermann/BetterDefaultBrowser/tree/master#better-default-browser---bdb");
+        }
+
+        private void MenuItemLog_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(HardcodedValues.DATA_FOLDER);
         }
     }
 }

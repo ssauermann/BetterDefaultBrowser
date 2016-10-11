@@ -72,6 +72,14 @@
                           Click="UninstallBDBMenuItem_Click"
                           IsEnabled="{Binding Path=IsBDBInstalled}" />
             </MenuItem>
+            <MenuItem Header='Help'>
+                <MenuItem Header='Readme'
+                          Click='MenuItemReadme_Click'></MenuItem>
+                <MenuItem Header='Report an Issue'
+                          Click='MenuItemIssue_Click'></MenuItem>
+                <MenuItem Header='Open log folder'
+                          Click='MenuItemLog_Click'></MenuItem>
+            </MenuItem>
         </Menu>
         <Label x:Name="WinVerLabel"
                Content="Label"

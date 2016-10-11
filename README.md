@@ -59,7 +59,13 @@ This is a standard filter mapping an url to a single browser.
 
 
 # Help #
-This is an alpha version so it may crash. If the program crashes you can find a log file in **`%appdata%\Better Default Browser`**. Please report crashes via the **[Issue Tracker](https://github.com/ssauermann/BetterDefaultBrowser/issues "Issue tracker")** and provide this log file in addition to a short explanation what you tried to do.
+This is an alpha version so it may crash. If the program crashes you can find a log file in **`%appdata%\Better Default Browser`** or via the menu. Please report crashes via the **[Issue Tracker](https://github.com/ssauermann/BetterDefaultBrowser/issues "Issue tracker")** or **[report anonymously](https://gitreports.com/issue/ssauermann/BetterDefaultBrowser "gitreports.com")** and provide this log file in addition to a short explanation what you tried to do.
+
+Depending on the issue, providing the save.xml file will help to fix it. You may want to remove private information before submitting.
+
+
+Please also report any other bug or unexpected behavior.
+
 
 If BDB doesn't start up any more you can delete all settings (and the log file) via the menu (`File -> Delete Settings`) and beginn from scratch.
 
