@@ -7,50 +7,49 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using System.IO;
+using BetterDefaultBrowser.Lib.Filters;
+using static BetterDefaultBrowser.Lib.Filters.Filter;
+using System.ComponentModel;
 
-namespace BetterDefaultBrowserLib
+namespace BetterDefaultBrowser.Lib
 {
-    public class Settings
+    /// <summary>
+    /// Read and write settings to a XML file.
+    /// </summary>
+    public static class Settings
     {
-        private String path;
+        private static String path;
+        private static BindingList<Filter> filters = new BindingList<Filter>();
 
-        public Settings()
+        /// <summary>
+        /// Create folder and settings file if not existing.
+        /// </summary>
+        static Settings()
         {
-            this.path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\BetterDefaultBrowser";
+            path = HardcodedValues.DATA_FOLDER;
             Directory.CreateDirectory(path);
 
-            this.path += @"\settings.xml";
+            path += @"settings.xml";
             if (!File.Exists(path))
             {
-                new XDocument(new XElement("settings")).Save(path);
+                new XDocument(new XElement("settings", new XElement("filters"))).Save(path);
             }
-        }
 
-        public Browser OriginalDefaultBrowser
-        {
-            get
-            {
-                var root = XElement.Load(path);
-                var originalDefault = root.Element("originalDefault");
-
-                return new Browser(originalDefault.Value);
-            }
-            set
-            {
-                var root = XElement.Load(path);
-                root.SetElementValue("originalDefault", value.KeyName);
-                
-                root.Save(path);
-            }
+            loadFilters();
         }
 
         //TODO List
-        public Browser DefaultBrowser
+        /// <summary>
+        /// The browser the requests should be send to which are not matched by a filter.
+        /// </summary>
+        public static Browser DefaultBrowser
         {
             get
             {
                 var root = XElement.Load(path);
                 var @default = root.Element("default");
+                if (@default == null)
+                    return null;
 
                 return new Browser(@default.Value);
             }
@@ -58,50 +57,158 @@ namespace BetterDefaultBrowserLib
             {
                 var root = XElement.Load(path);
                 root.SetElementValue("default", value.KeyName);
-                
+
                 root.Save(path);
             }
         }
-        
-        public LinkedList<Filter> Filter
+
+        /// <summary>
+        /// List of filters to match for in order of priority.
+        /// </summary>
+        public static BindingList<Filter> Filter
         {
             get
             {
-                var root = XElement.Load(path);
-                var filtersOuter = root.Element("filters");
-                if (filtersOuter == null)
-                    return new LinkedList<Filter>();
-
-                var filters = filtersOuter.Elements();
-
-                LinkedList<Filter> list = new LinkedList<Filter>();
-                foreach(var filter in filters)
-                {
-                    list.AddLast(new Filter(Regex.Unescape(filter.Element("regex").Value), filter.Element("browser").Value));
-                }
-
-                return list;
-            }
-            set
-            {
-                var root = XElement.Load(path);
-                root.SetElementValue("filters", "");
-                var filtersOuter = root.Element("filters");
-                
-
-                foreach(var filter in value)
-                {
-                    var fNode = new XElement("filter",
-                        new XElement("regex", Regex.Escape(filter.RegEx)),
-                        new XElement("browser", filter.AssignedBrowser)
-                        );
-                    filtersOuter.Add(fNode);
-                }
-
-
-                root.Save(path);
+                return Settings.filters;
             }
         }
 
+        internal static void loadFilters()
+        {
+            Settings.filters.Clear();
+
+            var root = XElement.Load(path);
+            var filtersOuter = root.Element("filters");
+            if (filtersOuter == null)
+                return;
+
+            var filters = filtersOuter.Elements();
+
+            foreach (var filter in filters)
+            {
+                Settings.filters.Add(FilterFromElement(filter));
+            }
+        }
+
+        public static Filter FilterFromElement(XElement e)
+        {
+            Filter fil;
+            switch ((FType)Enum.Parse(typeof(FType), e.Attribute("type").Value))
+            {
+                case FType.PLAIN:
+                    fil = new PlainFilter();
+                    break;
+                case FType.MANAGED:
+                    fil = new ManagedFilter();
+                    break;
+                case FType.OPEN:
+                    fil = new OpenFilter();
+                    break;
+                default:
+                    throw new NotImplementedException("Filter type not implemented!");
+            }
+            fil.FromXML(e);
+            return fil;
+        }
+
+        internal static void deleteFilter(Filter filter)
+        {
+            var root = XElement.Load(path);
+            var filtersOuter = root.Element("filters");
+
+            var thisFilter = from f in filtersOuter.Elements()
+                             where f.Attribute("id").Value == filter.ID
+                             select f;
+
+            thisFilter.Remove();
+            root.Save(path);
+
+            Settings.filters.Remove(filter);
+        }
+
+        internal static void saveFilter(Filter filter)
+        {
+            var root = XElement.Load(path);
+            var filtersOuter = root.Element("filters");
+
+            var thisFilter = from f in filtersOuter.Elements()
+                             where f.Attribute("id").Value == filter.ID
+                             select f;
+            var count = thisFilter.Count();
+            if (count > 1)
+            {
+                //User must had edited the list manually -> so remove the duplicate? Give them a new ID? [currently first]
+                for (int i = 1; i < count; i++)
+                {
+                    thisFilter.ElementAt(i).Remove();
+                }
+            }
+
+            if (count == 0)
+            {
+                //Add the filter to the list and the xml file
+                filtersOuter.Add(filter.ToXML());
+            }
+            else //Count is 1
+            {
+                //Replace information of this filter with the new one
+                thisFilter.First().ReplaceWith(filter.ToXML());
+            }
+
+            root.Save(path);
+
+            //Add to list
+            if (count == 0)
+                Settings.filters.Add(filter);
+        }
+
+        public static void FilterOrderChanged()
+        {
+            //TODO: Do this right, it will work but bad style:
+            var root = XElement.Load(path);
+            var filtersOuter = root.Element("filters");
+            var filters = filtersOuter.Elements();
+
+
+
+            for (int i = 0; i < filters.Count(); i++)
+            {
+                var filter = filters.ElementAt(i);
+                var loadedFilter = Filter.ElementAt(i);
+
+                //Read filter from file:
+                Filter fil;
+                switch ((FType)Enum.Parse(typeof(FType), filter.Attribute("type").Value))
+                {
+                    case FType.PLAIN:
+                        fil = new PlainFilter();
+                        break;
+                    case FType.MANAGED:
+                        fil = new ManagedFilter();
+                        break;
+                    case FType.OPEN:
+                        fil = new OpenFilter();
+                        break;
+                    default:
+                        throw new NotImplementedException("Filter type not implemented!");
+                }
+                fil.FromXML(filter);
+
+                //Swap IDs (BAD!!!!!)
+                if (fil.ID != loadedFilter.ID)
+                {
+                    filter.Attribute("id").SetValue(loadedFilter.ID);
+                }
+            }
+
+            root.Save(path);
+
+            foreach (var f in Filter)
+            {
+                f.Store();
+            }
+
+            loadFilters();
+        }
     }
 }

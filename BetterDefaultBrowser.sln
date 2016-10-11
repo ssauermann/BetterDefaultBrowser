@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterDefaultBrowser", "BetterDefaultBrowser\BetterDefaultBrowser.csproj", "{C5285A02-BB9B-422D-B664-E90CDDA9BFC6}"
 	ProjectSection(ProjectDependencies) = postProject
+		{98BBA331-8C13-4F6A-9E19-0576EDA44DE5} = {98BBA331-8C13-4F6A-9E19-0576EDA44DE5}
 		{2950E43C-EB29-47DD-AE58-90175164B8B6} = {2950E43C-EB29-47DD-AE58-90175164B8B6}
-		{086CB689-B6D8-4D64-B34E-4970D75EDB03} = {086CB689-B6D8-4D64-B34E-4970D75EDB03}
 		{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C} = {5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}
 	EndProjectSection
 EndProject
@@ -15,12 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterDefaultBrowser-Helper
 		{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C} = {5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterDefaultBrowser-Proxy", "BetterDefaultBrowser-Proxy\BetterDefaultBrowser-Proxy.csproj", "{086CB689-B6D8-4D64-B34E-4970D75EDB03}"
-	ProjectSection(ProjectDependencies) = postProject
-		{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C} = {5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterDefaultBrowserLib", "BetterDefaultBrowserLib\BetterDefaultBrowserLib.csproj", "{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterDefaultBrowser-Proxy", "BetterDefaultBrowser-Proxy\BetterDefaultBrowser-Proxy.csproj", "{98BBA331-8C13-4F6A-9E19-0576EDA44DE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,14 +33,14 @@ Global
 		{2950E43C-EB29-47DD-AE58-90175164B8B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2950E43C-EB29-47DD-AE58-90175164B8B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2950E43C-EB29-47DD-AE58-90175164B8B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{086CB689-B6D8-4D64-B34E-4970D75EDB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{086CB689-B6D8-4D64-B34E-4970D75EDB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{086CB689-B6D8-4D64-B34E-4970D75EDB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{086CB689-B6D8-4D64-B34E-4970D75EDB03}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98BBA331-8C13-4F6A-9E19-0576EDA44DE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98BBA331-8C13-4F6A-9E19-0576EDA44DE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98BBA331-8C13-4F6A-9E19-0576EDA44DE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98BBA331-8C13-4F6A-9E19-0576EDA44DE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

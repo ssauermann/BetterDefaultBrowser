@@ -9,17 +9,17 @@ using System.Windows.Media.Imaging;
 
 namespace BetterDefaultBrowser
 {
-    class UACIcon
+    static class UACIcon
     {
         //http://ithoughthecamewithyou.com/post/uac-shield-icon-in-wpf
-        private BitmapSource shieldSource = null;
+        private static BitmapSource shieldSource = null;
 
-        public BitmapSource ShieldSource
+        public static BitmapSource ShieldSource
         {
             get { return shieldSource; }
         }
 
-        public UACIcon()
+        static UACIcon()
         {
             if (Environment.OSVersion.Version.Major >= 6)
             {

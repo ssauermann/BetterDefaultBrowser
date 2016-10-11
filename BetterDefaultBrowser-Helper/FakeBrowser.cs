@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using BetterDefaultBrowser.Lib;
 
-namespace BetterDefaultBrowser
+namespace BetterDefaultBrowser.Helper
 {
 
     class FakeBrowser
     {
 
-        private static readonly String keyId = "Better Default Browser";
-        private static readonly String name = "BDB Proxy";
-        private static readonly String progId = "BetterDefaultBrowserFake";
+        private static readonly String keyId = HardcodedValues.APP_NAME;
+        private static readonly String name = HardcodedValues.APP_NAME;
+        private static readonly String progId = HardcodedValues.PROG_ID;
+        private static readonly String appDesc = HardcodedValues.APP_DESC;
 
-        public static void InstallFakeBrowser(String helperPath, String proxyPath)
+        public static void InstallFakeBrowser(String helperPath, String proxyPath, String appPath)
         {
             //TODO: Test key existance
             //Set ProgID
@@ -25,16 +27,18 @@ namespace BetterDefaultBrowser
             progKey.CreateSubKey("DefaultIcon").SetValue(null, proxyPath + ",0");
             progKey.CreateSubKey("shell").CreateSubKey("open").CreateSubKey("command").SetValue(null, proxyPath + " \"%1\"");
 
-
             //Set browser settings
-           var myKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true).CreateSubKey(keyId);
+            var myKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true).CreateSubKey(keyId);
             //Set name
             myKey.SetValue(null, keyId);
 
             var cap = myKey.CreateSubKey("Capabilities");
-            cap.SetValue("ApplicationDescription", "Fake browser entry for 'Better Default Browser' proxy.");
-            cap.SetValue("ApplicationIcon", proxyPath + ",0");  //Check this
+            cap.SetValue("ApplicationDescription", appDesc);
+            cap.SetValue("ApplicationIcon", proxyPath + ",0");
             cap.SetValue("ApplicationName", name);
+
+            //THIS ONE IS FOR FINDING THE MAIN APPFLICATION FROM PROXY
+            cap.SetValue("ApplicationMainExe", appPath);
 
             var fa = cap.CreateSubKey("FileAssociations");
             fa.SetValue(".htm", progId);
@@ -72,15 +76,52 @@ namespace BetterDefaultBrowser
 
         public static void UninstallFakeBrowser()
         {
-            Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true).DeleteSubKeyTree(keyId);
-            
-            //Remove installed program
-            Registry.LocalMachine.OpenSubKey(@"SOFTWARE\RegisteredApplications", true).DeleteValue(keyId);
+            Exception caughtException = null;
+            try
+            {
+                var k = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true);
+                if (k != null)
+                    if (k.OpenSubKey(keyId) != null)
+                        k.DeleteSubKeyTree(keyId);
 
-            //Remove ProgId
-            Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes", true).DeleteSubKeyTree(progId);
+            }
+            catch (Exception ex)
+            {
+                caughtException = ex;
+            }
+
+            try
+            {
+                //Remove installed program
+                var k = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\RegisteredApplications", true);
+                if (k != null)
+                    if (k.OpenSubKey(keyId) != null)
+                        k.DeleteSubKeyTree(keyId);
+            }
+            catch (Exception ex)
+            {
+                caughtException = ex;
+            }
+
+            try
+            {
+                //Remove ProgId
+                var k = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes", true);
+                if (k != null)
+                    if (k.OpenSubKey(progId) != null)
+                        k.DeleteSubKeyTree(progId);
+            }
+            catch (Exception ex)
+            {
+                caughtException = ex;
+            }
 
             ChangeNotify.NotifySystemOfNewRegistration();
+
+            if (caughtException != null)
+            {
+                throw caughtException;
+            }
         }
 
     }

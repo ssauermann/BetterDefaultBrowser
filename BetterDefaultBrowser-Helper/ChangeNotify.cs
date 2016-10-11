@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BetterDefaultBrowser
+namespace BetterDefaultBrowser.Helper
 {
     internal class ChangeNotify
     {

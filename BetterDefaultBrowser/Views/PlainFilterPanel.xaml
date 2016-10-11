@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="BetterDefaultBrowser.Views.PlainFilterPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:BetterDefaultBrowser.Views"
+             xmlns:vm="clr-namespace:BetterDefaultBrowser.ViewModels"
+             mc:Ignorable="d"
+             d:DesignHeight='210'
+             d:DesignWidth='520'>
+    <UserControl.DataContext>
+        <vm:PlainFilterViewModel />
+    </UserControl.DataContext>
+    <Grid HorizontalAlignment="Left"
+          Height="186"
+          Margin="10,10,0,0"
+          Grid.Row="2"
+          VerticalAlignment="Top"
+          Width="498">
+        <Label Content="Browser to use"
+               HorizontalAlignment="Left"
+               Margin="0,10,0,0"
+               VerticalAlignment="Top"
+               Height="26"
+               Width="88"
+               RenderTransformOrigin="1.084,0.743" />
+        <ComboBox x:Name='BrowserComboBox'
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Width="163"
+                  ItemsSource='{Binding BrowserList}'
+                  SelectedItem="{Binding Browser}"
+                  Margin="135,10,0,0"
+                  Height="22">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text='{Binding Name}'></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="Enter your REGEX"
+               HorizontalAlignment="Left"
+               Margin="0,44,0,0"
+               VerticalAlignment="Top" />
+        <TextBox HorizontalAlignment="Left"
+                 Height="81"
+                 Margin="10,70,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="478"
+                 Text="{Binding Path=RegEx}"
+                 Background='{Binding RegExBackground}' />
+        <Button Content="Save"
+                HorizontalAlignment="Left"
+                Margin="413,156,0,0"
+                VerticalAlignment="Top"
+                Width="75"
+                Command='{Binding StoreFilter}' />
+        <Label Content="Name"
+               Margin="321,9,0,0"
+               VerticalAlignment="Top"
+               HorizontalAlignment='Left' />
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="364,10,0,0"
+                 TextWrapping="Wrap"
+                 Text="{Binding Path=Name}"
+                 VerticalAlignment="Top"
+                 Width="120" />
+    </Grid>
+</UserControl>
