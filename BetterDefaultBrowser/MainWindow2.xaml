@@ -86,7 +86,7 @@
                 Width="102"
                 Click="SetDefaultButton_Click"
                 Height="20" />
-        <Button x:Name="bDBDefaultButton" Content="BDB default" HorizontalAlignment="Left" Margin="117,134,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="bDBDefaultButton" Content="BDB default" HorizontalAlignment="Left" Margin="117,134,0,0" VerticalAlignment="Top" Width="75" Click="bDBDefaultButton_Click"/>
         <!--List of all Filters aka FilterList-->
         <Grid Margin="201,27,10,0">
             <ListBox x:Name='filters'
@@ -238,6 +238,7 @@
                    HorizontalAlignment="Left"
                    Margin="295,8,0,0"
                    VerticalAlignment="Top" />
+            <CheckBox x:Name="checkBox" Content="OnlyOpen" HorizontalAlignment="Left" Margin="328,161,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=OnlyOpen}"/>
         </Grid>
 
     </Grid>
