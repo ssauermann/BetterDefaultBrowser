@@ -152,9 +152,10 @@ namespace BetterDefaultBrowser.Lib
             }
 
             root.Save(path);
-            //Add to list
-            Settings.filters.Add(filter);
 
+            //Add to list
+            if (count == 0)
+                Settings.filters.Add(filter);
         }
     }
 }

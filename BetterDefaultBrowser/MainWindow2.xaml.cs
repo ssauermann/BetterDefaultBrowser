@@ -36,9 +36,9 @@ namespace BetterDefaultBrowser
 
         private bool IsSubfilter = false;
 
-        private OpenFilterViewModel openFilterVM;
-        private ManagedFilterViewModel managedFilterVM;
-        private PlainFilterViewModel plainFilterVM;
+        private OpenFilterViewModel openFilterVM = new OpenFilterViewModel();
+        private ManagedFilterViewModel managedFilterVM = new ManagedFilterViewModel();
+        private PlainFilterViewModel plainFilterVM = new PlainFilterViewModel();
 
 
         //New Important stuff
@@ -316,7 +316,49 @@ namespace BetterDefaultBrowser
 
         private void buttonEdit_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException("You currently can not edit filter");
+            var selectedFilter = filters.SelectedItem as Filter;
+            if (selectedFilter == null)
+                return;
+
+            switch (selectedFilter.Type)
+            {
+                case Lib.Filters.Filter.FType.MANAGED:
+                    managedFilterVM = new ManagedFilterViewModel((ManagedFilter)selectedFilter);
+                    AddManagedFilterGrid.DataContext = managedFilterVM;
+
+                    //AddManagedFilterGrid.Visibility = Visibility.Visible;
+
+                    openFilterVM.MyVisibility = Visibility.Hidden;
+                    plainFilterVM.MyVisibility = Visibility.Hidden;
+                    managedFilterVM.MyVisibility = Visibility.Visible;
+                    return;
+
+                case Lib.Filters.Filter.FType.OPEN:
+                    openFilterVM = new OpenFilterViewModel((OpenFilter)selectedFilter);
+                    AddOpenFilterGrid.DataContext = openFilterVM;
+
+
+                    //Bind ItemSource
+                    toAddBrowserlistBox.ItemsSource = openFilterVM.UsableBrowsers;
+                    addBrowserlistBox.ItemsSource = openFilterVM.Browsers;
+
+
+                    managedFilterVM.MyVisibility = Visibility.Hidden;
+                    plainFilterVM.MyVisibility = Visibility.Hidden;
+                    openFilterVM.MyVisibility = Visibility.Visible;
+                    return;
+
+                case Lib.Filters.Filter.FType.PLAIN:
+                    plainFilterVM = new PlainFilterViewModel((PlainFilter)selectedFilter);
+                    AddPlainFilterGrid.DataContext = plainFilterVM;
+
+
+                    //AddPlainFilterGrid.Visibility = Visibility.Visible;
+                    managedFilterVM.MyVisibility = Visibility.Hidden;
+                    openFilterVM.MyVisibility = Visibility.Hidden;
+                    plainFilterVM.MyVisibility = Visibility.Visible;
+                    return;
+            }
         }
         #endregion
 

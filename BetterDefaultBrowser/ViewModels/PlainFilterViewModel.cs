@@ -35,6 +35,7 @@ namespace BetterDefaultBrowser.ViewModels
         public PlainFilterViewModel(PlainFilter f) : base(f)
         {
             pFilter = (PlainFilter)filter;
+            browser = pFilter.AssignedBrowser;
             browserList = AllBrowsers.InstalledBrowsers;
         }
 
