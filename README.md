@@ -42,7 +42,7 @@ This is a standard filter mapping an url to a single browser.
 - **Browser** - Select a browser to open when this filter does match an url. (**Do not select BDB**)
 - **Protocols** - Select the protocols this filter should match
 - **Ignore** - Ignore parts of the url when matching
-- **Website** - Enter a valid url that will be matched considering all other options in this filter (This has to be a valid url)
+- **Website** - Enter a valid url that will be matched considering all other options in this filter. Please use an url with an subdomain if you want to ignore subdomains: `www.example.com` instead `example.com`.
 
 #### Open Filter ####
 This filter maps an url to a currently opened browser.
