@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -134,6 +135,8 @@ namespace BetterDefaultBrowser.ViewModels
                 return browserList;
             }
         }
+
+
         #endregion
 
 
@@ -151,6 +154,7 @@ namespace BetterDefaultBrowser.ViewModels
                 oFilter.InnerFilter = pFilter;
                 oFilter.Store();
             }
+            MyVisibility = Visibility.Hidden;
         }
 
         protected virtual bool CanStoreFilterExecute()

@@ -38,6 +38,8 @@ namespace BetterDefaultBrowser
         private bool IsSubfilter = false;
 
         private OpenFilterViewModel openFilterVM;
+        private ManagedFilterViewModel managedFilterVM;
+        private PlainFilterViewModel plainFilterVM;
 
 
         //New Important stuff
@@ -72,10 +74,10 @@ namespace BetterDefaultBrowser
             WinVerLabel.Content = OSVersions.getVersion().ToString();
 
             //Visibility Settings
-            AddManagedFilterGrid.Visibility = Visibility.Hidden;
+            //AddManagedFilterGrid.Visibility = Visibility.Hidden;
             //AddFilterGrid.Visibility = Visibility.Hidden;//Remove Later
-            //AddOpenFilterGrid.Visibility = Visibility.Hidden;
-            AddPlainFilterGrid.Visibility = Visibility.Hidden;
+            AddOpenFilterGrid.Visibility = Visibility.Hidden;
+            //AddPlainFilterGrid.Visibility = Visibility.Hidden;
 
             //---Show UAC Admin icon in menu---
             var img = new Image();
@@ -216,10 +218,11 @@ namespace BetterDefaultBrowser
                     //Marks the next form for the user as subfilter
                     IsSubfilter = true;
 
-                    AddManagedFilterGrid.DataContext = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "managed filter" }, openFilterVM.oFilter);
+                    managedFilterVM = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "managed filter" }, openFilterVM.oFilter);
+                    AddManagedFilterGrid.DataContext = managedFilterVM;
 
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
-                    AddManagedFilterGrid.Visibility = Visibility.Visible;
+                    managedFilterVM.MyVisibility = Visibility.Visible;
                     return;
                 case Lib.Filters.Filter.FType.OPEN:
                     throw new Exception("Illegal State when using openfilter");
@@ -228,9 +231,10 @@ namespace BetterDefaultBrowser
                     //Marks the next form for the user as subfilter
                     IsSubfilter = true;
 
-                    AddPlainFilterGrid.DataContext = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" }, openFilterVM.oFilter);
+                    plainFilterVM = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" }, openFilterVM.oFilter);
+                    AddPlainFilterGrid.DataContext = plainFilterVM;
                     AddOpenFilterGrid.Visibility = Visibility.Hidden;
-                    AddPlainFilterGrid.Visibility = Visibility.Visible;
+                    plainFilterVM.MyVisibility = Visibility.Visible;
                     return;
             }
         }
@@ -241,8 +245,11 @@ namespace BetterDefaultBrowser
             switch (addBind.FilterType)
             {
                 case Lib.Filters.Filter.FType.MANAGED:
-                    AddManagedFilterGrid.DataContext = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "managed filter" });
-                    AddManagedFilterGrid.Visibility = Visibility.Visible;
+                    managedFilterVM = new ManagedFilterViewModel(new Lib.Filters.ManagedFilter { Name = "managed filter" });
+                    AddManagedFilterGrid.DataContext = managedFilterVM;
+
+                    //AddManagedFilterGrid.Visibility = Visibility.Visible;
+                    managedFilterVM.MyVisibility = Visibility.Visible;
                     return;
 
                 case Lib.Filters.Filter.FType.OPEN:
@@ -257,8 +264,12 @@ namespace BetterDefaultBrowser
                     return;
 
                 case Lib.Filters.Filter.FType.PLAIN:
-                    AddPlainFilterGrid.DataContext = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" });
-                    AddPlainFilterGrid.Visibility = Visibility.Visible;
+                    plainFilterVM = new PlainFilterViewModel(new Lib.Filters.PlainFilter { Name = "plain filter" });
+                    AddPlainFilterGrid.DataContext = plainFilterVM;
+
+
+                    //AddPlainFilterGrid.Visibility = Visibility.Visible;
+                    plainFilterVM.MyVisibility = Visibility.Visible;
                     return;
             }
         }
@@ -304,5 +315,10 @@ namespace BetterDefaultBrowser
             selected.Delete();
         }
         #endregion
+
+        private void buttonEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

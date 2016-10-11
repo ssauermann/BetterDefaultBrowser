@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using static BetterDefaultBrowser.Lib.Filters.ManagedFilter;
 
 namespace BetterDefaultBrowser.ViewModels
@@ -204,6 +205,7 @@ namespace BetterDefaultBrowser.ViewModels
                 oFilter.InnerFilter = mFilter;
                 oFilter.Store();
             }
+            MyVisibility = Visibility.Hidden;
         }
 
         protected override bool CanStoreFilterExecute()

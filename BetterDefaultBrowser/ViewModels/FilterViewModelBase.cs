@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using static BetterDefaultBrowser.Lib.Filters.Filter;
 
 namespace BetterDefaultBrowser.ViewModels
@@ -25,6 +26,17 @@ namespace BetterDefaultBrowser.ViewModels
             {
                 filter.Name = value;
                 OnPropertyChanged("Name");
+            }
+        }
+
+        private Visibility myVisibility = Visibility.Hidden;
+        public Visibility MyVisibility
+        {
+            get { return myVisibility; }
+            set
+            {
+                myVisibility = value;
+                OnPropertyChanged("MyVisibility");
             }
         }
 
