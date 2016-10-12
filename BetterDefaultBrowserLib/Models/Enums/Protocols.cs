@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BetterDefaultBrowser.Lib.Enums
+namespace BetterDefaultBrowser.Lib.Models
 {
     /// <summary>
     /// Supported Protocols.

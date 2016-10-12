@@ -61,8 +61,8 @@
     <Compile Include="AllBrowsers.cs" />
     <Compile Include="Browser.cs" />
     <Compile Include="DebugHelper.cs" />
-    <Compile Include="Enums\Ignore.cs" />
-    <Compile Include="Enums\Protocols.cs" />
+    <Compile Include="Models\Enums\Ignore.cs" />
+    <Compile Include="Models\Enums\Protocols.cs" />
     <Compile Include="Filters\Filter.cs" />
     <Compile Include="Filters\RegexBuilder.cs" />
     <Compile Include="HardcodedValues.cs" />
@@ -73,7 +73,7 @@
     <Compile Include="Filters\PlainFilter.cs" />
     <Compile Include="Models\Browser.cs" />
     <Compile Include="Models\Filter.cs" />
-    <Compile Include="Models\FilterType.cs" />
+    <Compile Include="Models\Enums\FilterType.cs" />
     <Compile Include="Models\ManagedFilter.cs" />
     <Compile Include="Models\OpenFIlter.cs" />
     <Compile Include="Models\PlainFilter.cs" />

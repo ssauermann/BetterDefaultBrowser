@@ -1,5 +1,4 @@
 ﻿using System;
-using BetterDefaultBrowser.Lib.Enums;
 
 namespace BetterDefaultBrowser.Lib.Models
 {
