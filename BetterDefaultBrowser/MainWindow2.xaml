@@ -80,6 +80,8 @@
                           Click='MenuItemIssue_Click'></MenuItem>
                 <MenuItem Header='Open log folder'
                           Click='MenuItemLog_Click'></MenuItem>
+                <MenuItem Header='Registry dump'
+                          Click='MenuItemRegDump_Click'></MenuItem>
             </MenuItem>
         </Menu>
         <Label x:Name="WinVerLabel"
@@ -96,7 +98,7 @@
                 Margin="0,137,326,0"
                 VerticalAlignment="Top"
                 Width="128"
-                Click="SetDefaultButton_Click"/>
+                Click="SetDefaultButton_Click" />
         <Button x:Name="bDBDefaultButton"
                 Content="Set as BDB default"
                 HorizontalAlignment="Left"

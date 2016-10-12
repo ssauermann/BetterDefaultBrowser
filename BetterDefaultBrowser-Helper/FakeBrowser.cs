@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using BetterDefaultBrowser.Lib;
+using System.Diagnostics;
+using BetterDefaultBrowser.Lib.Debug;
 
 namespace BetterDefaultBrowser.Helper
 {
@@ -19,6 +21,11 @@ namespace BetterDefaultBrowser.Helper
 
         public static void InstallFakeBrowser(String helperPath, String proxyPath, String appPath)
         {
+
+            DebugHelper.WriteLine("Helper path: " + helperPath);
+            DebugHelper.WriteLine("Proxy path: " + proxyPath);
+            DebugHelper.WriteLine("App path: " + appPath);
+
             //TODO: Test key existance
             //Set ProgID
             var classKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes", true);

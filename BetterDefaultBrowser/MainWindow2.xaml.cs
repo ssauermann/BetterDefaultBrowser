@@ -1,4 +1,5 @@
 ﻿using BetterDefaultBrowser.Lib;
+using BetterDefaultBrowser.Lib.Debug;
 using BetterDefaultBrowser.Lib.Filters;
 using BetterDefaultBrowser.ViewModels;
 using System;
@@ -302,6 +303,11 @@ namespace BetterDefaultBrowser
         private void MenuItemLog_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(HardcodedValues.DATA_FOLDER);
+        }
+
+        private void MenuItemRegDump_Click(object sender, RoutedEventArgs e)
+        {
+            DebugHelper.PrintRegistryDump();
         }
     }
 }

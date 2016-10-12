@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -39,11 +40,57 @@ namespace BetterDefaultBrowser.Lib.Debug
             var path = HardcodedValues.DATA_FOLDER + "log.txt";
             Directory.CreateDirectory(HardcodedValues.DATA_FOLDER);
             //Setup listener:
-            var listener = new TextWriterTraceListener(path);
+            var listener = new TextWriterTraceListener(path) { TraceOutputOptions = TraceOptions.DateTime | TraceOptions.Callstack };
             Trace.Listeners.Add(listener);
             Trace.AutoFlush = true;
             Trace.IndentSize = 4;
             //
+        }
+
+        public static void WriteLine(String msg, bool noTime = false)
+        {
+            if (!noTime)
+                msg = "[" + DateTime.Now + "] " + msg;
+            Trace.WriteLine(msg);
+        }
+
+        public static void PrintRegistryDump()
+        {
+            WriteLine("");
+            WriteLine("----------------------------Registry Dump-------------------------------", true);
+            WriteLine(Dump(Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet\" + HardcodedValues.APP_NAME)), true);
+            WriteLine(Dump(Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\" + HardcodedValues.PROG_ID)), true);
+            WriteLine(Dump(Registry.LocalMachine.OpenSubKey(@"SOFTWARE\RegisteredApplications\" + HardcodedValues.APP_NAME)), true);
+            WriteLine(Dump(Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\Shell\Associations\UrlAssociations")), true);
+            WriteLine("------------------------------------------------------------------------", true);
+        }
+
+        private static String Dump(RegistryKey obj)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (obj == null)
+                return string.Empty;
+            else
+            {
+                sb.AppendFormat("[{0}]", obj.ToString());
+                sb.AppendLine();
+                //Values
+                foreach (var val in obj.GetValueNames())
+                {
+                    sb.AppendFormat("{0} = {1}", (val != null && val != "") ? val : "@", obj.GetValue(val));
+                    sb.AppendLine();
+                }
+                sb.AppendLine();
+
+                //Subkeys
+                foreach (var key in obj.GetSubKeyNames())
+                {
+                    sb.Append(Dump(obj.OpenSubKey(key)));
+                    sb.AppendLine();
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }
