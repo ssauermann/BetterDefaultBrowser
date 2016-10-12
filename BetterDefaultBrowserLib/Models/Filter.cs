@@ -34,5 +34,31 @@ namespace BetterDefaultBrowser.Lib.Models
         /// Gets or sets the filter type.
         /// </summary>
         public FilterTypes Type { get; protected set; }
+
+        /// <summary>
+        /// Test equality of two objects.
+        /// </summary>
+        /// <param name="obj">Object to compare</param>
+        /// <returns>Are they equal?</returns>
+        public override bool Equals(object obj)
+        {
+            var other = obj as Filter;
+
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.ID == other.ID;
+        }
+
+        /// <summary>
+        /// Generate a hash code for this object.
+        /// </summary>
+        /// <returns>Calculated hash code</returns>
+        public override int GetHashCode()
+        {
+            return string.IsNullOrEmpty(this.ID) ? 0 : this.ID.GetHashCode();
+        }
     }
 }
