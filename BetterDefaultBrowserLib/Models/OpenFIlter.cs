@@ -20,7 +20,8 @@ namespace BetterDefaultBrowser.Lib.Models
         }
 
         /// <summary>
-        /// Gets or set if no new browser should be opened.
+        /// Gets or sets a value indicating whether only currently running browsers should be used
+        /// or a new browser should be opened if no running one matches.
         /// </summary>
         public bool OnlyOpen { get; set; }
 
@@ -31,7 +32,7 @@ namespace BetterDefaultBrowser.Lib.Models
         {
             get
             {
-                return browsers;
+                return this.browsers;
             }
         }
 
@@ -39,6 +40,5 @@ namespace BetterDefaultBrowser.Lib.Models
         /// Gets or sets the inner filter.
         /// </summary>
         public Filter InnerFilter { get; set; }
-
     }
 }
