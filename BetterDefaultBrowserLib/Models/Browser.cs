@@ -1,16 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BetterDefaultBrowser.Lib.Models
+﻿namespace BetterDefaultBrowser.Lib.Models
 {
     /// <summary>
     /// Model of a browser.
     /// </summary>
     public class Browser
     {
+        /// <summary>
+        /// String builder helper
+        /// </summary>
+        private static readonly Chillitom.ToStringBuilder<Browser> StringBuilder = new Chillitom.ToStringBuilder<Browser>().IncludeAllPublic().OrderAlphabetically(true).MultiLine(true).Compile();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Browser" /> class.
+        /// </summary>
+        /// <param name="key">Browser key</param>
+        public Browser(string key)
+        {
+            this.Key = key;
+        }
+
         /// <summary>
         /// Gets the browsers key identifying it.
         /// </summary>
@@ -35,6 +43,15 @@ namespace BetterDefaultBrowser.Lib.Models
         /// Gets the path to this browsers executable.
         /// </summary>
         public string ApplicationPath { get; internal set; }
+
+        /// <summary>
+        /// Create a string of this object.
+        /// </summary>
+        /// <returns>String representation</returns>
+        public override string ToString()
+        {
+            return Browser.StringBuilder.Stringify(this);
+        }
 
         /// <summary>
         /// Test equality of two objects.
