@@ -15,6 +15,10 @@ namespace BetterDefaultBrowser.ViewModels
         private ManagedFilter mFilter;
         private OpenFilter oFilter = null;
         private bool IsSubfilter = false;
+
+        /// <summary>
+        /// Sets default values for a new managed filter
+        /// </summary>
         public ManagedFilterViewModel()
             : this(new ManagedFilter
             {
@@ -30,12 +34,23 @@ namespace BetterDefaultBrowser.ViewModels
             mFilter = (ManagedFilter)f;
         }
 
+
+        /// <summary>
+        /// Is used to load the managedfilter as subfilter of the given openfilter
+        /// </summary>
+        /// <param name="f"></param>
+        /// <param name="o"></param>
         public ManagedFilterViewModel(ManagedFilter f, OpenFilter o) : this(f)
         {
             oFilter = o;
             IsSubfilter = true;
         }
 
+
+        /// <summary>
+        /// Constructor is used when using a managed filter as subfilter for an openfilter
+        /// </summary>
+        /// <param name="o"></param>
         public ManagedFilterViewModel(OpenFilter o) : this()
         {
             oFilter = o;
