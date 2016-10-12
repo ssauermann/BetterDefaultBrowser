@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static BetterDefaultBrowser.Lib.Filters.Filter;
 
 namespace BetterDefaultBrowser.ViewModels
 {
@@ -52,6 +53,27 @@ namespace BetterDefaultBrowser.ViewModels
 
         #endregion
 
+        public BindingList<FType> InnerFilterTypes
+        {
+            get
+            {
+                var l = new BindingList<FType>();
+                l.Add(FType.MANAGED);
+                l.Add(FType.PLAIN);
+                return l;
+            }
+        }
+
+        private FType innerFilterType = FType.MANAGED;
+        public FType InnerFilterType
+        {
+            get { return innerFilterType; }
+            set
+            {
+                innerFilterType = value;
+                OnPropertyChanged("FilterTypeInner");
+            }
+        }
 
         private BindingList<T> cloneList<T>(BindingList<T> old, BindingList<T> excluded)
         {
