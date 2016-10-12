@@ -61,6 +61,9 @@
     <Compile Include="AllBrowsers.cs" />
     <Compile Include="Browser.cs" />
     <Compile Include="DebugHelper.cs" />
+    <Compile Include="Gateways\BrowserGateway.cs" />
+    <Compile Include="Gateways\IBrowserGateway.cs" />
+    <Compile Include="Gateways\NotifyPropertyChangedBase.cs" />
     <Compile Include="Models\Enums\Ignore.cs" />
     <Compile Include="Models\Enums\Protocols.cs" />
     <Compile Include="Filters\Filter.cs" />
