@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BetterDefaultBrowser.Lib.Models
 {
@@ -10,7 +11,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Priority list of assigned browsers.
         /// </summary>
-        private BindingList<Browser> browsers = new BindingList<Browser>();
+        private LinkedList<Browser> browsers = new LinkedList<Browser>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenFilter" /> class.
@@ -28,7 +29,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Gets the list of the browser priority list.
         /// </summary>
-        public BindingList<Browser> Browsers
+        public LinkedList<Browser> Browsers
         {
             get
             {
