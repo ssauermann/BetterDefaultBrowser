@@ -71,6 +71,7 @@
     <Compile Include="Filters\ManagedFilter.cs" />
     <Compile Include="Filters\OpenFilter.cs" />
     <Compile Include="Filters\PlainFilter.cs" />
+    <Compile Include="Models\Browser.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\FilterType.cs" />
     <Compile Include="Models\ManagedFilter.cs" />
