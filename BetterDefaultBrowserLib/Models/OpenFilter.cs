@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using YAXLib;
 
 namespace BetterDefaultBrowser.Lib.Models
 {
@@ -24,11 +25,14 @@ namespace BetterDefaultBrowser.Lib.Models
         /// Gets or sets a value indicating whether only currently running browsers should be used
         /// or a new browser should be opened if no running one matches.
         /// </summary>
+        [YAXSerializeAs("OnlyOpen")]
         public bool OnlyOpen { get; set; }
 
         /// <summary>
         /// Gets the list of the browser priority list.
         /// </summary>
+        [YAXSerializeAs("Browsers")]
+        [YAXCollection(YAXCollectionSerializationTypes.Recursive, EachElementName = "Browser")]
         public LinkedList<Browser> Browsers
         {
             get
@@ -40,6 +44,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Gets or sets the inner filter.
         /// </summary>
+        [YAXSerializeAs("InnerFilter")]
         public Filter InnerFilter { get; set; }
     }
 }

@@ -1,8 +1,11 @@
-﻿namespace BetterDefaultBrowser.Lib.Models
+﻿using YAXLib;
+
+namespace BetterDefaultBrowser.Lib.Models
 {
     /// <summary>
     /// Model of a browser.
     /// </summary>
+    [YAXSerializableType(FieldsToSerialize = YAXSerializationFields.AttributedFieldsOnly)]
     public class Browser
     {
         /// <summary>
@@ -22,6 +25,10 @@
         /// <summary>
         /// Gets the browsers key identifying it.
         /// </summary>
+        /// 
+        [YAXAttributeForClass()]
+        [YAXSerializeAs("Key")]
+        [YAXSerializableField]
         public string Key { get; private set; }
 
         /// <summary>
@@ -32,6 +39,9 @@
         /// <summary>
         /// Gets the browsers name for display.
         /// </summary>
+        [YAXAttributeForClass()]
+        [YAXSerializeAs("Name")]
+        [YAXSerializableField]
         public string Name { get; internal set; }
 
         /// <summary>

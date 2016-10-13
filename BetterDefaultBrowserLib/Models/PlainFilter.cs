@@ -1,5 +1,6 @@
 ﻿using System;
 using BetterDefaultBrowser.Lib.Helpers;
+using YAXLib;
 
 namespace BetterDefaultBrowser.Lib.Models
 {
@@ -23,6 +24,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Gets or sets the regex string.
         /// </summary>
+        [YAXSerializeAs("Regex")]
         public string Regex
         {
             get
@@ -46,6 +48,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Gets or sets the assigned browser.
         /// </summary>
+        [YAXSerializeAs("Browser")]
         public Browser Browser { get; set; }
     }
 }

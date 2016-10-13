@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YAXLib;
 
 namespace BetterDefaultBrowser.Lib.Models
 {
@@ -12,9 +13,8 @@ namespace BetterDefaultBrowser.Lib.Models
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Filter" /> class.
-        /// <para> Sets the type of the child filter.</para>
+        /// <para> Sets the type of the filter.</para>
         /// </summary>
-        /// <param name="type">Type of filter</param>
         public Filter(FilterTypes type)
         {
             this.Type = type;
@@ -23,16 +23,22 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Gets or sets the display name.
         /// </summary>
+        [YAXAttributeForClass()]
+        [YAXSerializeAs("Name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets the internal id.
         /// </summary>
+        [YAXAttributeForClass()]
+        [YAXSerializeAs("ID")]
         public string ID { get; internal set; }
 
         /// <summary>
         /// Gets or sets the filter type.
         /// </summary>
+        [YAXAttributeForClass()]
+        [YAXSerializeAs("Type")]
         public FilterTypes Type { get; protected set; }
 
         /// <summary>
