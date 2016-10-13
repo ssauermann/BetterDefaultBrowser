@@ -17,7 +17,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="PlainFilter" /> class.
         /// </summary>
-        public PlainFilter() : base(FilterTypes.PLAIN)
+        public PlainFilter() : base()
         {
         }
 

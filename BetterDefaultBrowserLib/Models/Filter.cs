@@ -15,9 +15,8 @@ namespace BetterDefaultBrowser.Lib.Models
         /// Initializes a new instance of the <see cref="Filter" /> class.
         /// <para> Sets the type of the filter.</para>
         /// </summary>
-        public Filter(FilterTypes type)
+        public Filter()
         {
-            this.Type = type;
         }
 
         /// <summary>
@@ -33,13 +32,6 @@ namespace BetterDefaultBrowser.Lib.Models
         [YAXAttributeForClass()]
         [YAXSerializeAs("ID")]
         public string ID { get; internal set; }
-
-        /// <summary>
-        /// Gets or sets the filter type.
-        /// </summary>
-        [YAXAttributeForClass()]
-        [YAXSerializeAs("Type")]
-        public FilterTypes Type { get; protected set; }
 
         /// <summary>
         /// Test equality of two objects.

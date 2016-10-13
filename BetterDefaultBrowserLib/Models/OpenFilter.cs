@@ -17,7 +17,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenFilter" /> class.
         /// </summary>
-        public OpenFilter() : base(FilterTypes.OPEN)
+        public OpenFilter() : base()
         {
         }
 

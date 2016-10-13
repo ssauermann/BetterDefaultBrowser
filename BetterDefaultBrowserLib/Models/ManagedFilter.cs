@@ -13,7 +13,6 @@ namespace BetterDefaultBrowser.Lib.Models
         /// </summary>
         public ManagedFilter() : base()
         {
-            this.Type = FilterTypes.MANAGED;
         }
 
         /// <summary>
