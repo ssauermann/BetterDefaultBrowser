@@ -82,8 +82,12 @@
     <Compile Include="Models\OpenFIlter.cs" />
     <Compile Include="Models\PlainFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistryMonitor.cs" />
-    <Compile Include="Resources\ToStringBuilder.cs" />
+    <Compile Include="Frameworks\RegistryMonitor.cs">
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Frameworks\ToStringBuilder.cs">
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="OSVersions.cs" />
     <Compile Include="WindowNotification.cs" />
