@@ -8,7 +8,8 @@ using RegistryUtils;
 namespace BetterDefaultBrowser.Lib.Gateways
 {
     using Models;
-    using static OSVersions;
+    using Helpers;
+    using static Helpers.OSVersions;
 
     /// <summary>
     /// Gateway to load all browser information from the registry.
@@ -208,7 +209,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
         /// <param name="newDefault">New default browser</param>
         private static void SetDefaultBrowser(Browser newDefault)
         {
-            var version = OSVersions.getVersion();
+            var version = OSVersions.GetVersion();
             if (version.HasFlag(OS.VISTA) || version.HasFlag(OS.WIN7))
             {
                 Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", "ProgId", newDefault.ProgId);
@@ -217,7 +218,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
             }
             else if (version.HasFlag(OS.WIN8))
             {
-                OSVersions.openBrowserSelectWindow(newDefault.Name);
+                OSVersions.OpenBrowserSelectWindow(newDefault.Name);
             }
             else if (version.HasFlag(OS.WIN10) || version.HasFlag(OS.NEWER))
             {
@@ -297,7 +298,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
 
                 // MS Edge is not listed in this registry key
                 // Only add if OS is Windows10 or newer
-                var version = OSVersions.getVersion();
+                var version = OSVersions.GetVersion();
                 if (version.HasFlag(OSVersions.OS.WIN10) || version.HasFlag(OSVersions.OS.NEWER))
                 {
                     this.installedBrowsers.Add(SpecialBrowsers.Map["MSEDGE"]);

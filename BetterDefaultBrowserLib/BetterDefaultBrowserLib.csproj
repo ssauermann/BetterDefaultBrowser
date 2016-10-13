@@ -95,7 +95,7 @@
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="OSVersions.cs" />
+    <Compile Include="Helpers\OSVersions.cs" />
     <Compile Include="WindowNotification.cs" />
   </ItemGroup>
   <ItemGroup>
