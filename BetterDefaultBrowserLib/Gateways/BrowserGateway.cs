@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using Microsoft.Win32;
+using RegistryUtils;
 
 namespace BetterDefaultBrowser.Lib.Gateways
 {
     using Models;
+    using static OSVersions;
 
     /// <summary>
     /// Gateway to load all browser information from the registry.
@@ -19,9 +22,9 @@ namespace BetterDefaultBrowser.Lib.Gateways
         private static BrowserGateway instance;
 
         /// <summary>
-        /// Dictionary for storing data which can't be found at the normal location in the registry.
+        /// Context for inter thread communication.
         /// </summary>
-        private static Dictionary<string, Browser> specialBrowsers = new Dictionary<string, Browser>();
+        private static SynchronizationContext synchronizationContext;
 
         /// <summary>
         /// List of installed browsers
@@ -34,31 +37,28 @@ namespace BetterDefaultBrowser.Lib.Gateways
         private Browser defaultBrowser;
         #endregion
 
-        #region Special Browsers
+        #region Static constructor
         /// <summary>
         /// Initializes static members of the <see cref="BrowserGateway" /> class.
         /// </summary>
         static BrowserGateway()
         {
-            specialBrowsers["MSEDGE"] = new Browser("MSEDGE")
-            {
-                Name = "Microsoft Edge",
-                ProgId = "AppXq0fevzme2pys62n3e0fbqa7peapykr8v",
-                IconPath = @"%windir%\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe,0",
-                ApplicationPath = "microsoft-edge:"
-            };
+            // Registry Monitors
+            RegistryMonitor defaultBrowserMonitor = new RegistryMonitor(RegistryHive.CurrentUser, @"Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice");
+            RegistryMonitor installedBrowsersMonitor = new RegistryMonitor(RegistryHive.LocalMachine, @"SOFTWARE\Clients\StartMenuInternet");
 
-            specialBrowsers["IEXPLORE.EXE"] = new Browser("IEXPLORE.EXE")
-            {
-                Name = "Internet Explorer",
-                ProgId = "IE.HTTP"
-            };
+            defaultBrowserMonitor.RegChanged += new EventHandler(OnDefaultBrowserChanged);
+            installedBrowsersMonitor.RegChanged += new EventHandler(OnInstalledBrowsersChanged);
 
-            specialBrowsers["VMWAREHOSTOPEN.EXE"] = new Browser("VMWAREHOSTOPEN.EXE")
-            {
-                Name = "VMware Host Open",
-                ProgId = "VMwareHostOpen.AssocUrl"
-            };
+            defaultBrowserMonitor.Start();
+            installedBrowsersMonitor.Start();
+
+            // Context for main thread
+            synchronizationContext = SynchronizationContext.Current;
+
+            // Initial loading
+            BrowserGateway.Instance.LoadBrowsers();
+            BrowserGateway.Instance.LoadDefault();
         }
         #endregion
 
@@ -101,7 +101,15 @@ namespace BetterDefaultBrowser.Lib.Gateways
 
             set
             {
-                throw new NotImplementedException();
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Can't unset the default browser.");
+                }
+
+                if (!value.Equals(this.defaultBrowser))
+                {
+                    BrowserGateway.SetDefaultBrowser(value);
+                }
             }
         }
 
@@ -135,7 +143,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
 
             // Try to find a special browser entry.
             Browser specialBrowser;
-            if (BrowserGateway.specialBrowsers.TryGetValue(key, out specialBrowser))
+            if (SpecialBrowsers.Map.TryGetValue(key, out specialBrowser))
             {
                 // Use value if not null or dictionary value
                 retBrowser = new Browser(key)
@@ -193,6 +201,65 @@ namespace BetterDefaultBrowser.Lib.Gateways
             // Value not found
             return null;
         }
+
+        /// <summary>
+        /// Sets the default browser or opens a user window to do so.
+        /// </summary>
+        /// <param name="newDefault">New default browser</param>
+        private static void SetDefaultBrowser(Browser newDefault)
+        {
+            var version = OSVersions.getVersion();
+            if (version.HasFlag(OS.VISTA) || version.HasFlag(OS.WIN7))
+            {
+                Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", "ProgId", newDefault.ProgId);
+                Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice", "ProgId", newDefault.ProgId);
+                Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\ftp\UserChoice", "ProgId", newDefault.ProgId);
+            }
+            else if (version.HasFlag(OS.WIN8))
+            {
+                OSVersions.openBrowserSelectWindow(newDefault.Name);
+            }
+            else if (version.HasFlag(OS.WIN10) || version.HasFlag(OS.NEWER))
+            {
+                Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\AppData\Local\Packages\windows.immersivecontrolpanel_cw5n1h2txyewy\LocalState\Indexed\Settings\de-DE\AAA_SettingsPageAppsDefaults.settingcontent-ms");
+            }
+            else
+            {
+                throw new ApplicationException("Your OS is not supported. Sorry :(");
+            }
+        }
+        #endregion
+
+        #region Event handlers
+        /// <summary>
+        /// Event handler for default browser changes.
+        /// </summary>
+        /// <param name="sender">Event sender</param>
+        /// <param name="e">Event arguments</param>
+        private static void OnDefaultBrowserChanged(object sender, EventArgs e)
+        {
+            synchronizationContext.Post(
+            delegate
+            {
+                BrowserGateway.Instance.LoadDefault();
+            },
+            null);
+        }
+
+        /// <summary>
+        /// Event handler for installed browser changes.
+        /// </summary>
+        /// <param name="sender">Event sender</param>
+        /// <param name="e">Event arguments</param>
+        private static void OnInstalledBrowsersChanged(object sender, EventArgs e)
+        {
+            synchronizationContext.Post(
+            delegate
+            {
+                BrowserGateway.Instance.LoadBrowsers();
+            },
+            null);
+        }
         #endregion
 
         #region Loaders
@@ -233,9 +300,42 @@ namespace BetterDefaultBrowser.Lib.Gateways
                 var version = OSVersions.getVersion();
                 if (version.HasFlag(OSVersions.OS.WIN10) || version.HasFlag(OSVersions.OS.NEWER))
                 {
-                    this.installedBrowsers.Add(BrowserGateway.specialBrowsers["MSEDGE"]);
+                    this.installedBrowsers.Add(SpecialBrowsers.Map["MSEDGE"]);
                 }
             }
+
+            // Trigger change event
+            this.RaisePropertyChanged("InstalledBrowsers");
+        }
+
+        /// <summary>
+        /// Loads the default browser from the registry. Should be called after <see cref="LoadBrowsers"/>.
+        /// </summary>
+        private void LoadDefault()
+        {
+            var regValue = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice", "ProgId", null);
+
+            // System currently has no default browser -> null will stay.
+            // Else: Loop below will find a matching browser and set it.
+            this.defaultBrowser = null;
+
+            if (regValue != null)
+            {
+                // Set default browser
+                var id = regValue.ToString();
+
+                foreach (Browser b in this.InstalledBrowsers)
+                {
+                    if (b.ProgId == id)
+                    {
+                        this.defaultBrowser = b;
+                        break;
+                    }
+                }
+            }
+
+            // Trigger change event
+            this.RaisePropertyChanged("DefaultBrowser");
         }
         #endregion
     }
