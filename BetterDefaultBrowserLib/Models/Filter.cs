@@ -33,6 +33,13 @@ namespace BetterDefaultBrowser.Lib.Models
         [YAXSerializeAs("ID")]
         public string ID { get; internal set; }
 
+        [YAXAttributeForClass()]
+        [YAXSerializeAs("Priority")]
+        /// <summary>
+        /// Gets or sets the filters priority.
+        /// </summary>
+        public int Priority { get; set; }
+
         /// <summary>
         /// Test equality of two objects.
         /// </summary>

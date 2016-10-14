@@ -126,6 +126,18 @@ namespace BetterDefaultBrowser.Lib.Gateways
         }
         #endregion Properties
 
+        #region Methods
+        /// <summary>
+        /// Gets a specific installed browser by key.
+        /// </summary>
+        /// <param name="key">Browser key</param>
+        /// <returns>Browser or null</returns>
+        public Browser GetBrowser(string key)
+        {
+            return InstalledBrowsers.Find(b => b.Key == key);
+        }
+        #endregion
+
         #region Static Methods
         /// <summary>
         /// Loads the values for a specific browser referenced by its id from the registry and creates a browser object.

@@ -44,7 +44,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// </summary>
         /// <param name="flag">Ignore flag</param>
         /// <returns>Regex string</returns>
-        public static String Regex(Ignore flag)
+        public static String Regex(this Ignore flag)
         {
             switch (flag)
             {
