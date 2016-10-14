@@ -8,15 +8,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" Width="524.385">
     <UserControl.DataContext>
-        <vm:OpenFilterViewModel />
+        <vm:OpenFilterViewModel/>
     </UserControl.DataContext>
     <Grid HorizontalAlignment="Left"
               Height="186"
               Margin="10,10,0,0"
               Grid.Row="1"
               VerticalAlignment="Top"
-              Width="498"
-              Visibility="Visible">
+              Width="498">
         <ListBox x:Name="toAddBrowserlistBox"
                      HorizontalAlignment="Left"
                      Height="100"
@@ -50,7 +49,7 @@
                       Margin="147,156,0,0"
                       VerticalAlignment="Top"
                       Width="163"
-                      SelectedItem="{Binding Path=innerFilterType}"
+                      SelectedItem="{Binding Path=InnerFilterType}"
                       ItemsSource='{Binding InnerFilterTypes}'>
         </ComboBox>
         <Label x:Name="labelUnderFilter"

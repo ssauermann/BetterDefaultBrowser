@@ -24,29 +24,32 @@ namespace BetterDefaultBrowser.ViewModels
         MainWindow2 window;
 
 
-        public OpenFilterViewModel() : this(new OpenFilter { Name = "Unnamed filter", OnlyOpen = false })
+        //Nasic constructor for xaml to call
+        public OpenFilterViewModel() : this(new OpenFilter(), null)
         {
         }
 
-        /// <summary>
-        /// To give a reference to the window in order to set the data context
-        /// </summary>
-        /// <param name="window"></param>
-        public OpenFilterViewModel(MainWindow2 window) : this()
-        {
-            this.window = window;
 
-            Browsers = new BindingList<Browser>();
-            UsableBrowsers = cloneList(AllBrowsers.InstalledBrowsers, new BindingList<Browser>());
+        //call this constructor to create a new Openfilter
+        public OpenFilterViewModel(MainWindow2 window) : this((new OpenFilter { Name = "Unnamed filter", OnlyOpen = false }), window)
+        {
         }
 
-        public OpenFilterViewModel(OpenFilter f) : base(f)
+
+
+        public OpenFilterViewModel(OpenFilter f, MainWindow2 window) : base(f)
         {
             oFilter = (OpenFilter)filter;
             Browsers = oFilter.Browsers;
 
 
             UsableBrowsers = cloneList(AllBrowsers.InstalledBrowsers, Browsers);
+
+
+            //Set the inner filter in case an existent filter is loaded
+            this.window = window;
+            if (oFilter.InnerFilter != null)
+                innerFilterType = oFilter.InnerFilter.Type;
         }
 
 
@@ -81,7 +84,7 @@ namespace BetterDefaultBrowser.ViewModels
         #endregion
 
 
-        //Check which Browsers are selected in the listbox
+        //Check which Browsers are selected in the listbox for usable Browsers
         private Browser usableBrowsersSelected;
         public Browser UsableBrowsersSelected
         {
@@ -93,6 +96,8 @@ namespace BetterDefaultBrowser.ViewModels
             }
         }
 
+
+        //Check which Browsers are selected in the listbox for added browsers
         private Browser browsersSelected;
         public Browser BrowsersSelected
         {
@@ -122,7 +127,7 @@ namespace BetterDefaultBrowser.ViewModels
             set
             {
                 innerFilterType = value;
-                OnPropertyChanged("FilterTypeInner");
+                OnPropertyChanged("InnerFilterType");
             }
         }
 

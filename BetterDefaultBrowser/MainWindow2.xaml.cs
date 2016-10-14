@@ -35,7 +35,7 @@ namespace BetterDefaultBrowser
 
 
 
-        private OpenFilterViewModel openFilterVM = new OpenFilterViewModel();
+        private OpenFilterViewModel openFilterVM;
         private ManagedFilterViewModel managedFilterVM = new ManagedFilterViewModel();
         private PlainFilterViewModel plainFilterVM = new PlainFilterViewModel();
 
@@ -43,6 +43,7 @@ namespace BetterDefaultBrowser
         public MainWindow2()
         {
             InitializeComponent();
+            openFilterVM = new OpenFilterViewModel(this);
 
             #region ContextSetting
             FilterType.DataContext = addBind;
@@ -247,7 +248,7 @@ namespace BetterDefaultBrowser
                     return;
 
                 case Lib.Filters.Filter.FType.OPEN:
-                    openFilterVM = new OpenFilterViewModel((OpenFilter)selectedFilter);
+                    openFilterVM = new OpenFilterViewModel((OpenFilter)selectedFilter, this);
                     AddOpenFilterGrid.DataContext = openFilterVM;
 
 
