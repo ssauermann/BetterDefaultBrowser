@@ -8,6 +8,7 @@ namespace BetterDefaultBrowser.Lib.Helpers
     /// <summary>
     /// Containing static helper methods to validate the OS Version.
     /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.OrderingRules", "*", Justification = "Copied code below")]
     public static class OSVersions
     {
         /// <summary>

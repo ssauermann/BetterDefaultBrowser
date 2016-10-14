@@ -7,8 +7,8 @@ using RegistryUtils;
 
 namespace BetterDefaultBrowser.Lib.Gateways
 {
-    using Models;
     using Helpers;
+    using Models;
     using static Helpers.OSVersions;
 
     /// <summary>
@@ -134,7 +134,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
         /// <returns>Browser or null</returns>
         public Browser GetBrowser(string key)
         {
-            return InstalledBrowsers.Find(b => b.Key == key);
+            return this.InstalledBrowsers.Find(b => b.Key == key);
         }
         #endregion
 

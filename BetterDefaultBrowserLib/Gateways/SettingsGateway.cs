@@ -1,25 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BetterDefaultBrowser.Lib.Models;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
+using BetterDefaultBrowser.Lib.Models;
 using YAXLib;
 
 namespace BetterDefaultBrowser.Lib.Gateways
 {
-    class SettingsGateway : ISettingsGateway
+    /// <summary>
+    /// Gateway to access settings file.
+    /// </summary>
+    public class SettingsGateway : ISettingsGateway
     {
-        private List<Filter> filters = new List<Filter>();
+        /// <summary>
+        /// Instance of SettingsGateway
+        /// </summary>
         private static SettingsGateway instance;
+
+        /// <summary>
+        /// Path to the settings file.
+        /// </summary>
         private static String path;
 
-        private SettingsGateway()
-        {
-        }
+        /// <summary>
+        /// List of filters
+        /// </summary>
+        private List<Filter> filters = new List<Filter>();
 
+        /// <summary>
+        /// Initializes static members of the <see cref="SettingsGateway" /> class.
+        /// </summary>
         static SettingsGateway()
         {
             SettingsGateway.path = HardcodedValues.DATA_FOLDER;
@@ -34,6 +45,16 @@ namespace BetterDefaultBrowser.Lib.Gateways
             SettingsGateway.Instance.LoadFilters();
         }
 
+        /// <summary>
+        /// Prevents a default instance of the <see cref="SettingsGateway" /> class from being created.
+        /// </summary>
+        private SettingsGateway()
+        {
+        }
+
+        /// <summary>
+        /// Gets an SettingsGateway instance.
+        /// </summary>
         public static SettingsGateway Instance
         {
             get
@@ -42,10 +63,14 @@ namespace BetterDefaultBrowser.Lib.Gateways
                 {
                     instance = new SettingsGateway();
                 }
+
                 return instance;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the internal default browser.
+        /// </summary>
         public Browser DefaultBrowser
         {
             get
@@ -59,6 +84,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
 
                 return BrowserGateway.Instance.GetBrowser(@default.Value);
             }
+
             set
             {
                 var root = XElement.Load(path);
@@ -68,14 +94,21 @@ namespace BetterDefaultBrowser.Lib.Gateways
             }
         }
 
+        /// <summary>
+        /// Gets the list of saved filters.
+        /// </summary>
         public List<Filter> Filters
         {
             get
             {
-                return filters;
+                return this.filters;
             }
         }
 
+        /// <summary>
+        /// Updates a filter in the save file or adds it if it doesn't exist.
+        /// </summary>
+        /// <param name="filter">Filter with new information</param>
         public void UpdateOrAddFilter(Filter filter)
         {
             var root = XElement.Load(path);
@@ -102,10 +135,11 @@ namespace BetterDefaultBrowser.Lib.Gateways
             {
                 // Add the filter to the list and the xml file
                 filtersOuter.Add(this.SerializeOneFilter(filter));
-                filters.Add(filter);
+                this.filters.Add(filter);
             }
-            else //Count is 1
+            else
             {
+                // Count is 1
                 // Replace information of this filter with the new one
                 thisFilter.First().ReplaceWith(this.SerializeOneFilter(filter));
             }
@@ -113,9 +147,13 @@ namespace BetterDefaultBrowser.Lib.Gateways
             root.Save(path);
 
             // Sort for priorities (Descending)
-            filters.Sort((a, b) => b.Priority.CompareTo(a.Priority));
+            this.filters.Sort((a, b) => b.Priority.CompareTo(a.Priority));
         }
 
+        /// <summary>
+        /// Removes a filter from the save file.
+        /// </summary>
+        /// <param name="filter">Filter to remove</param>
         public void RemoveFilter(Filter filter)
         {
             // Remove from file
@@ -130,9 +168,12 @@ namespace BetterDefaultBrowser.Lib.Gateways
             root.Save(path);
 
             // Remove from internal list
-            filters.Remove(filter);
+            this.filters.Remove(filter);
         }
 
+        /// <summary>
+        /// Loads the filter list from the settings file.
+        /// </summary>
         private void LoadFilters()
         {
             // Clear list
@@ -149,17 +190,22 @@ namespace BetterDefaultBrowser.Lib.Gateways
             // Deserialize each child and add if valid
             foreach (var node in filterEle.Elements())
             {
-                var f = DeserializeOneFilter(node);
+                var f = this.DeserializeOneFilter(node);
                 if (f != null)
                 {
-                    filters.Add(f);
+                    this.filters.Add(f);
                 }
             }
 
             // Sort for priorities (Descending)
-            filters.Sort((a, b) => b.Priority.CompareTo(a.Priority));
+            this.filters.Sort((a, b) => b.Priority.CompareTo(a.Priority));
         }
 
+        /// <summary>
+        /// Deserializes xml to a filter.
+        /// </summary>
+        /// <param name="filterElement">XML element</param>
+        /// <returns>Filter object</returns>
         private Filter DeserializeOneFilter(XElement filterElement)
         {
             YAXSerializer ser = new YAXSerializer(typeof(Filter));
@@ -183,6 +229,11 @@ namespace BetterDefaultBrowser.Lib.Gateways
             }
         }
 
+        /// <summary>
+        /// Serializes a filter to xml.
+        /// </summary>
+        /// <param name="filter">Filter object</param>
+        /// <returns>XML element</returns>
         private XElement SerializeOneFilter(Filter filter)
         {
             YAXSerializer ser = new YAXSerializer(typeof(Filter));

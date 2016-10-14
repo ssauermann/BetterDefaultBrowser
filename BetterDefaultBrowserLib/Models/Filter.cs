@@ -22,22 +22,22 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Gets or sets the display name.
         /// </summary>
-        [YAXAttributeForClass()]
+        [YAXAttributeForClass]
         [YAXSerializeAs("Name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets the internal id.
         /// </summary>
-        [YAXAttributeForClass()]
+        [YAXAttributeForClass]
         [YAXSerializeAs("ID")]
         public string ID { get; internal set; }
 
-        [YAXAttributeForClass()]
-        [YAXSerializeAs("Priority")]
         /// <summary>
         /// Gets or sets the filters priority.
         /// </summary>
+        [YAXAttributeForClass]
+        [YAXSerializeAs("Priority")]
         public int Priority { get; set; }
 
         /// <summary>

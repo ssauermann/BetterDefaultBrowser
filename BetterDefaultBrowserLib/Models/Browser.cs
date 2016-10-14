@@ -25,8 +25,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Gets the browsers key identifying it.
         /// </summary>
-        /// 
-        [YAXAttributeForClass()]
+        [YAXAttributeForClass]
         [YAXSerializeAs("Key")]
         [YAXSerializableField]
         public string Key { get; private set; }
@@ -39,7 +38,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Gets the browsers name for display.
         /// </summary>
-        [YAXAttributeForClass()]
+        [YAXAttributeForClass]
         [YAXSerializeAs("Name")]
         [YAXSerializableField]
         public string Name { get; internal set; }
