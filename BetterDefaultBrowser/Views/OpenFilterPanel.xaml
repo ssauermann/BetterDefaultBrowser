@@ -22,13 +22,17 @@
                      Height="100"
                      Margin="10,40,0,0"
                      VerticalAlignment="Top"
-                     Width="215" />
+                     Width="215"
+                 ItemsSource="{Binding UsableBrowsers}"
+                 SelectedItem="{Binding UsableBrowsersSelected}"/>
         <ListBox x:Name="addBrowserlistBox"
                      HorizontalAlignment="Left"
                      Height="100"
                      Margin="273,40,0,0"
                      VerticalAlignment="Top"
-                     Width="215" />
+                     Width="215"
+                 ItemsSource="{Binding Browsers}"
+                 SelectedItem="{Binding BrowsersSelected}"/>
         <Button x:Name="nextFilterButton"
                     Content="Next"
                     HorizontalAlignment="Left"
@@ -36,7 +40,7 @@
                     VerticalAlignment="Top"
                     Width="75"
                     RenderTransformOrigin="-0.363,0.143"
-                    Click="nextFilterButton_Click" />
+                    Command="{Binding NextFilter}"/>
         <Label x:Name="label11"
                    Content="Add additional browsers"
                    HorizontalAlignment="Left"
@@ -46,8 +50,8 @@
                       Margin="147,156,0,0"
                       VerticalAlignment="Top"
                       Width="163"
-                      SelectedItem="{Binding Path=FilterTypeInner}"
-                      ItemsSource='{Binding FilterTypesInner}'>
+                      SelectedItem="{Binding Path=innerFilterType}"
+                      ItemsSource='{Binding InnerFilterTypes}'>
         </ComboBox>
         <Label x:Name="labelUnderFilter"
                    Content="Underlying Filter"
@@ -60,11 +64,11 @@
                     Margin="232,68,0,0"
                     VerticalAlignment="Top"
                     Width="36"
-                    Click="addButton_Click" />
+                    Command="{Binding AddButton}"/>
         <Button x:Name="deleteButton"
                     Content="&lt;&lt;"
                     Margin="232,100,230,66"
-                    Click="deleteButton_Click" />
+                    Command="{Binding DeleteButton}" />
         <TextBox x:Name="textBox"
                      HorizontalAlignment="Left"
                      Height="23"

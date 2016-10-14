@@ -16,8 +16,8 @@ namespace BetterDefaultBrowser.ViewModels
     class OpenFilterViewModel : FilterViewModelBase
     {
         public OpenFilter oFilter;
-        public BindingList<Browser> Browsers;
-        public BindingList<Browser> UsableBrowsers;
+        //public BindingList<Browser> Browsers;
+        //public BindingList<Browser> UsableBrowsers;
 
 
         //reference to the main window
@@ -51,6 +51,12 @@ namespace BetterDefaultBrowser.ViewModels
 
 
         #region Properties
+        private BindingList<Browser> browsers;
+        public BindingList<Browser> Browsers { get { return browsers; } set { browsers = value; } }
+        private BindingList<Browser> usableBrowsers;
+        public BindingList<Browser> UsableBrowsers { get { return usableBrowsers; } set { usableBrowsers = value; } }
+
+
         public bool OnlyOpen
         {
             get { return oFilter.OnlyOpen; }
@@ -74,6 +80,30 @@ namespace BetterDefaultBrowser.ViewModels
 
         #endregion
 
+
+        //Check which Browsers are selected in the listbox
+        private Browser usableBrowsersSelected;
+        public Browser UsableBrowsersSelected
+        {
+            get { return usableBrowsersSelected; }
+            set
+            {
+                usableBrowsersSelected = value;
+                OnPropertyChanged("UsableBrowsersSelected");
+            }
+        }
+
+        private Browser browsersSelected;
+        public Browser BrowsersSelected
+        {
+            get { return browsersSelected; }
+            set
+            {
+                browsersSelected = value;
+                OnPropertyChanged("BrowsersSelected");
+            }
+        }
+
         public BindingList<FType> InnerFilterTypes
         {
             get
@@ -85,7 +115,7 @@ namespace BetterDefaultBrowser.ViewModels
             }
         }
 
-        private FType innerFilterType = FType.MANAGED;
+        private FType innerFilterType;
         public FType InnerFilterType
         {
             get { return innerFilterType; }
@@ -145,10 +175,37 @@ namespace BetterDefaultBrowser.ViewModels
 
         protected virtual bool CanNextFilterExecute()
         {
-            return false;
+            return Browsers.Count > 0;
         }
 
-        public ICommand StoreFilter { get { return new RelayCommand(NextFilterExecute, CanNextFilterExecute); } }
+        public ICommand NextFilter { get { return new RelayCommand(NextFilterExecute, CanNextFilterExecute); } }
+
+
+
+        protected virtual void AddButtonExecute()
+        {
+            Browsers.Add(usableBrowsersSelected);
+            UsableBrowsers.Remove(usableBrowsersSelected);
+        }
+
+        protected virtual bool CanAddButtonExecute()
+        {
+            return usableBrowsersSelected != null && (UsableBrowsers.Count > 0);
+        }
+        public ICommand AddButton { get { return new RelayCommand(AddButtonExecute, CanAddButtonExecute); } }
+
+        protected virtual void DeleteButtonExecute()
+        {
+            UsableBrowsers.Add(browsersSelected);
+            Browsers.Remove(browsersSelected);
+        }
+
+        protected virtual bool CanDeleteButtonExecute()
+        {
+            return browsersSelected != null && (Browsers.Count > 0);
+        }
+        public ICommand DeleteButton { get { return new RelayCommand(DeleteButtonExecute, CanDeleteButtonExecute); } }
         #endregion
+
     }
 }
