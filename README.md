@@ -11,9 +11,9 @@ Get your control back with simple filter lists with **Better Default Browser**!
 
  
 ##Getting the Program##
-Download the latest release **[here](http://github.com/ssauermann/betterdefaultbrowser "Release Version")**.
+Download the latest release **[here](https://github.com/ssauermann/BetterDefaultBrowser/releases "Release Version")**.
 
-Alternatively you can download the latest source [here]() and build it yourself.
+Alternatively you can download the latest source [here](https://github.com/ssauermann/BetterDefaultBrowser/releases "Latest Source") and build it yourself.
 
 
 
@@ -24,7 +24,7 @@ Alternatively you can download the latest source [here]() and build it yourself.
 4. Set BDB as the system default browser so all clicked links will be redirected to BDB.
 5. Set another browser (**not BDB**) as the BDB default browser for unmatched urls.
 
-Now the configuration is completed and all links outside of other browsers should be openend with your BDB default browser.
+Now the configuration is completed and all links outside of other browsers should be opened with your BDB default browser.
 
 #Usage#
 ##Configuring filters##
@@ -42,7 +42,7 @@ This is a standard filter mapping an url to a single browser.
 - **Browser** - Select a browser to open when this filter does match an url. (**Do not select BDB**)
 - **Protocols** - Select the protocols this filter should match
 - **Ignore** - Ignore parts of the url when matching
-- **Website** - Enter an valid url that will be matched considering all other options in this filter (This has to be a valid url)
+- **Website** - Enter a valid url that will be matched considering all other options in this filter. Please use an url with an subdomain if you want to ignore subdomains: `www.example.com` instead `example.com`.
 
 #### Open Filter ####
 This filter maps an url to a currently opened browser.
@@ -67,16 +67,28 @@ Depending on the issue, providing the save.xml file will help to fix it. You may
 Please also report any other bug or unexpected behavior.
 
 
-If BDB doesn't start up any more you can delete all settings (and the log file) via the menu (`File -> Delete Settings`) and beginn from scratch.
+If BDB doesn't start up any more you can delete all settings (and the log file) via the menu (`File -> Delete Settings`) and begin from scratch.
 
 
 #FAQ#
 ###I've moved the programs folder and BDB doesn't work anymore!###
 Don't panic, just uninstall and reinstall BDB via the menu.
 
+###My antivirus program says this is a virus!###
+It's not, here are virustotal scans. But you can inspect the source and build it from scratch if you wish.
 
+[BetterDefaultBrowser.exe](https://www.virustotal.com/de/file/8c0be51fc9b28e783eb7a81a7d76870c4d2df0c6649cfc2cc92fefb969a9b6bd/analysis/1476215628/ "Virustotal BetterDefaultBrowser.exe")
+ [BetterDefaultBrowser-Helper.exe](https://www.virustotal.com/de/file/52d511d619a981b4172cc5a9603726e1fcb7b3ff0c55820fa6381486bbe6828b/analysis/1476215640/ "Virustotal BetterDefaultBrowser-Helper.exe")
+[BetterDefaultBrowserLib.dll](https://www.virustotal.com/de/file/a1f8f8b7605fc12612d7a5ae378efea5710e69a39af8deeb6c6fc668ce344a4d/analysis/1476215652/ "Virustotal BetterDefaultBrowserLib.dll")
+[BetterDefaultBrowser-Proxy.exe](https://www.virustotal.com/de/file/e0ab4ae0bfd1312d754bbbe23dfb8a755704a43a8866ced594a236e2c1efbe08/analysis/1476215656/ "Virustotal BetterDefaultBrowser-Proxy.exe")
+
+You will have to exclude the files from your scan to use BDB.
 #Uninstallation#
 1. Set your system default browser to another browser.
-2. Uninstall BDB via the menu. (If you can't open the main program and want to remove BDB, run `BetterDefaultBrowser-Helper.exe -uninstall` from an eleveated command promt)
+2. Uninstall BDB via the menu. (If you can't open the main program and want to remove BDB, run `BetterDefaultBrowser-Helper.exe -uninstall` from an elevated command prompt)
 3. Optional: Delete your settings and all log files via the menu.
 4. Now you can safely delete the program files.
+
+#Thanks to
+- Dan Esparza for the [Domainname Parser](https://github.com/danesparza/domainname-parser)
+- All people on Stackoverflow
