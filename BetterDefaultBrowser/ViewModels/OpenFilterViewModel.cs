@@ -133,10 +133,13 @@ namespace BetterDefaultBrowser.ViewModels
 
         private BindingList<T> cloneList<T>(BindingList<T> old, BindingList<T> excluded)
         {
+            //exclude BDB from list of usable Browsers
+            Browser BDB = new Browser(HardcodedValues.APP_NAME);
+
             BindingList<T> newer = new BindingList<T>();
             foreach (T obj in old)
             {
-                if (!excluded.Contains(obj))
+                if (!excluded.Contains(obj) && !obj.Equals(BDB))
                     newer.Add(obj);
             }
             return newer;
