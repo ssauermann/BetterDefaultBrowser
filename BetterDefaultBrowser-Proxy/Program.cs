@@ -24,6 +24,7 @@ namespace BetterDefaultBrowser.Proxy
             try
             {
                 DebugHelper.SetUpListener();
+                Debug.WriteLine("Proxy was started!");
 
                 //Process command line arguments
                 string[] args = Environment.GetCommandLineArgs();

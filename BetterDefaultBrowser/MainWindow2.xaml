@@ -80,6 +80,8 @@
                           Click='MenuItemIssue_Click'></MenuItem>
                 <MenuItem Header='Open log folder'
                           Click='MenuItemLog_Click'></MenuItem>
+                <MenuItem Header='Registry dump'
+                          Click='MenuItemRegDump_Click'></MenuItem>
             </MenuItem>
         </Menu>
         <Label x:Name="WinVerLabel"
@@ -96,7 +98,7 @@
                 Margin="0,137,326,0"
                 VerticalAlignment="Top"
                 Width="128"
-                Click="SetDefaultButton_Click"/>
+                Click="SetDefaultButton_Click" />
         <Button x:Name="bDBDefaultButton"
                 Content="Set as BDB default"
                 HorizontalAlignment="Left"
@@ -135,23 +137,32 @@
                     FontSize='20'
                     Click='buttonDown_Click' />
             <Button x:Name='buttonAdd'
-                    Content='➕'
                     HorizontalAlignment='Left'
                     Margin='139,10,0,0'
                     VerticalAlignment='Top'
                     Width='33'
                     FontSize='20'
                     Click="buttonAdd_Click"
-                    Height='30' />
+                    Height='30'>
+                <TextBlock FontSize='24'
+                           HorizontalAlignment='Center'
+                           VerticalAlignment='Bottom'
+                           Height='32'
+                           Width='15'>+</TextBlock>
+            </Button>
             <Button x:Name='buttonDelete'
-                    Content='➖'
                     HorizontalAlignment='Left'
                     Margin='215,10,0,0'
                     VerticalAlignment='Top'
                     Width='33'
-                    FontSize='20'
+                    FontSize='24'
                     Click='buttonDelete_Click'
-                    Height='30' />
+                    Height='30'>
+                <TextBlock FontSize='36'
+                           HorizontalAlignment='Center'
+                           VerticalAlignment='Center'
+                           Height='57'>-</TextBlock>
+            </Button>
             <Button x:Name='buttonEdit'
                     Content='➔'
                     HorizontalAlignment='Left'
