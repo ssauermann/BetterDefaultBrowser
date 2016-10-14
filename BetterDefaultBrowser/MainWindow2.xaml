@@ -198,82 +198,10 @@
                             Visibility="{Binding Path=MyVisibility}" />
 
         <!-- ADDING OPEN filters -->
-        <Grid x:Name="AddOpenFilterGrid"
-              HorizontalAlignment="Left"
-              Height="186"
-              Margin="10,10,0,0"
-              Grid.Row="1"
-              VerticalAlignment="Top"
-              Width="498"
-              Visibility="Hidden">
-            <ListBox x:Name="toAddBrowserlistBox"
-                     HorizontalAlignment="Left"
-                     Height="100"
-                     Margin="10,40,0,0"
-                     VerticalAlignment="Top"
-                     Width="215" />
-            <ListBox x:Name="addBrowserlistBox"
-                     HorizontalAlignment="Left"
-                     Height="100"
-                     Margin="273,40,0,0"
-                     VerticalAlignment="Top"
-                     Width="215" />
-            <Button x:Name="nextFilterButton"
-                    Content="Next"
-                    HorizontalAlignment="Left"
-                    Margin="413,156,0,0"
-                    VerticalAlignment="Top"
-                    Width="75"
-                    RenderTransformOrigin="-0.363,0.143"
-                    Click="nextFilterButton_Click" />
-            <Label x:Name="label11"
-                   Content="Add additional browsers"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top" />
-            <ComboBox x:Name="filterTypeComboBox2"
-                      HorizontalAlignment="Left"
-                      Margin="147,156,0,0"
-                      VerticalAlignment="Top"
-                      Width="163"
-                      SelectedItem="{Binding Path=FilterTypeInner}"
-                      ItemsSource='{Binding FilterTypesInner}'>
-            </ComboBox>
-            <Label x:Name="labelUnderFilter"
-                   Content="Underlying Filter"
-                   HorizontalAlignment="Left"
-                   Margin="10,156,0,0"
-                   VerticalAlignment="Top" />
-            <Button x:Name="addButton"
-                    Content="&gt;&gt;"
-                    HorizontalAlignment="Left"
-                    Margin="232,68,0,0"
-                    VerticalAlignment="Top"
-                    Width="36"
-                    Click="addButton_Click" />
-            <Button x:Name="deleteButton"
-                    Content="&lt;&lt;"
-                    Margin="232,100,230,66"
-                    Click="deleteButton_Click" />
-            <TextBox x:Name="textBox"
-                     HorizontalAlignment="Left"
-                     Height="23"
-                     Margin="368,10,0,0"
-                     TextWrapping="Wrap"
-                     Text="{Binding Path=Name}"
-                     VerticalAlignment="Top"
-                     Width="120" />
-            <Label x:Name="label"
-                   Content="FilterName"
-                   HorizontalAlignment="Left"
-                   Margin="295,8,0,0"
-                   VerticalAlignment="Top" />
-            <CheckBox x:Name="checkBox"
-                      Content="Only Running"
-                      HorizontalAlignment="Left"
-                      Margin="319,161,0,0"
-                      VerticalAlignment="Top"
-                      IsChecked="{Binding Path=OnlyOpen}" />
-        </Grid>
+        <v:OpenFilterPanel x:Name="AddOpenFilterGrid"
+                       Margin="-10,10,10,0"
+                       Grid.Row="1"
+                       Visibility="{Binding Path=MyVisibility}" />
 
     </Grid>
 </Window>
