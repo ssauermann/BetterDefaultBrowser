@@ -7,6 +7,10 @@ using System.Diagnostics;
 using BetterDefaultBrowser.Lib.Debug;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using BetterDefaultBrowser.Lib.Gateways;
+using BetterDefaultBrowser.Lib.Models;
+using BetterDefaultBrowser.Lib.Logic;
+using BetterDefaultBrowser.Lib.Helpers;
 
 namespace BetterDefaultBrowser.Proxy
 {
@@ -42,12 +46,12 @@ namespace BetterDefaultBrowser.Proxy
                 Debug.WriteLine("Information: " + "Url to open: '" + url + "'");
 
 
-                var filters = Settings.Filter;
+                var filters = SettingsGateway.Instance.Filters;
 
                 //Mustn't be null
                 Debug.Assert(filters != null, "Filter list is null");
 
-                var defBrowser = Settings.DefaultBrowser;
+                var defBrowser = SettingsGateway.Instance.DefaultBrowser;
 
                 if (defBrowser == null)
                 {
@@ -59,7 +63,7 @@ namespace BetterDefaultBrowser.Proxy
 
                 foreach (var filter in filters)
                 {
-                    if (filter.Match(url, out selBrowser))
+                    if (FilterMatcher.Match(filter, url, out selBrowser))
                     {
                         break;
                     }
@@ -80,7 +84,7 @@ namespace BetterDefaultBrowser.Proxy
 
                 //Start browser
                 //Edge is special
-                if (selBrowser.KeyName == "MSEDGE")
+                if (selBrowser.Key == "MSEDGE")
                     Launcher.RunEdge(url);
                 else
                     Launcher.Launch(selBrowser.ApplicationPath, url);
