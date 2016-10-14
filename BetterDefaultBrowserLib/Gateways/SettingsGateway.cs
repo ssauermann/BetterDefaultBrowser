@@ -215,7 +215,17 @@ namespace BetterDefaultBrowser.Lib.Gateways
                 if (o != null)
                 {
                     // means that the XML input has been deserialized successfully
-                    return (Filter)o;
+                    var f = (Filter)o;
+
+                    if (f is PlainFilter)
+                    {
+                        var pf = (PlainFilter)f;
+
+                        // Load browser based on deserialized key or create 'unknown browser" object.
+                        pf.Browser = BrowserGateway.Instance.GetBrowser(pf.Browser.Key);
+                    }
+
+                    return f;
                 }
                 else
                 {
