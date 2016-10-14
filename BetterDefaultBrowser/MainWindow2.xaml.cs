@@ -1,4 +1,5 @@
 ﻿using BetterDefaultBrowser.Lib;
+using BetterDefaultBrowser.Lib.Debug;
 using BetterDefaultBrowser.Lib.Filters;
 using BetterDefaultBrowser.ViewModels;
 using System;
@@ -34,7 +35,7 @@ namespace BetterDefaultBrowser
 
 
 
-        private OpenFilterViewModel openFilterVM = new OpenFilterViewModel();
+        private OpenFilterViewModel openFilterVM;
         private ManagedFilterViewModel managedFilterVM = new ManagedFilterViewModel();
         private PlainFilterViewModel plainFilterVM = new PlainFilterViewModel();
 
@@ -42,10 +43,11 @@ namespace BetterDefaultBrowser
         public MainWindow2()
         {
             InitializeComponent();
+            openFilterVM = new OpenFilterViewModel(this);
 
             #region ContextSetting
             FilterType.DataContext = addBind;
-            filterTypeComboBox2.DataContext = addBind;
+            //filterTypeComboBox2.DataContext = addBind;
             filters.ItemsSource = Settings.Filter;
             InstallMenu.DataContext = AllBrowsers.BDBInstalled.Instance;
 
@@ -103,17 +105,17 @@ namespace BetterDefaultBrowser
         }
 
 
-        private void addButton_Click(object sender, RoutedEventArgs e)
-        {
-            openFilterVM.Browsers.Add((Browser)toAddBrowserlistBox.SelectedItem);
-            openFilterVM.UsableBrowsers.Remove((Browser)toAddBrowserlistBox.SelectedItem);
-        }
+        //private void addButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    openFilterVM.Browsers.Add((Browser)toAddBrowserlistBox.SelectedItem);
+        //    openFilterVM.UsableBrowsers.Remove((Browser)toAddBrowserlistBox.SelectedItem);
+        //}
 
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            openFilterVM.UsableBrowsers.Add((Browser)addBrowserlistBox.SelectedItem);
-            openFilterVM.Browsers.Remove((Browser)addBrowserlistBox.SelectedItem);
-        }
+        //private void deleteButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    openFilterVM.UsableBrowsers.Add((Browser)addBrowserlistBox.SelectedItem);
+        //    openFilterVM.Browsers.Remove((Browser)addBrowserlistBox.SelectedItem);
+        //}
 
         private void nextFilterButton_Click(object sender, RoutedEventArgs e)
         {
@@ -149,8 +151,8 @@ namespace BetterDefaultBrowser
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            filterTypeComboBox2.Visibility = Visibility.Visible;
-            labelUnderFilter.Visibility = Visibility.Visible;
+            //filterTypeComboBox2.Visibility = Visibility.Visible;
+            //labelUnderFilter.Visibility = Visibility.Visible;
             switch (addBind.FilterType)
             {
                 case Lib.Filters.Filter.FType.MANAGED:
@@ -163,13 +165,11 @@ namespace BetterDefaultBrowser
                     return;
 
                 case Lib.Filters.Filter.FType.OPEN:
-                    openFilterVM = new OpenFilterViewModel();
+                    openFilterVM = new OpenFilterViewModel(this);
                     AddOpenFilterGrid.DataContext = openFilterVM;
 
 
                     //Bind ItemSource
-                    toAddBrowserlistBox.ItemsSource = openFilterVM.UsableBrowsers;
-                    addBrowserlistBox.ItemsSource = openFilterVM.Browsers;
                     managedFilterVM.MyVisibility = Visibility.Hidden;
                     plainFilterVM.MyVisibility = Visibility.Hidden;
                     AddOpenFilterGrid.Visibility = Visibility.Visible;
@@ -248,13 +248,13 @@ namespace BetterDefaultBrowser
                     return;
 
                 case Lib.Filters.Filter.FType.OPEN:
-                    openFilterVM = new OpenFilterViewModel((OpenFilter)selectedFilter);
+                    openFilterVM = new OpenFilterViewModel((OpenFilter)selectedFilter, this);
                     AddOpenFilterGrid.DataContext = openFilterVM;
 
 
                     //Bind ItemSource
-                    toAddBrowserlistBox.ItemsSource = openFilterVM.UsableBrowsers;
-                    addBrowserlistBox.ItemsSource = openFilterVM.Browsers;
+                    //toAddBrowserlistBox.ItemsSource = openFilterVM.UsableBrowsers;
+                    //addBrowserlistBox.ItemsSource = openFilterVM.Browsers;
 
 
                     managedFilterVM.MyVisibility = Visibility.Hidden;
@@ -263,9 +263,9 @@ namespace BetterDefaultBrowser
 
 
 
-                    filterTypeComboBox2.Visibility = Visibility.Hidden;
-                    filterTypeComboBox2.SelectedItem = (selectedFilter as OpenFilter).InnerFilter.Type;
-                    labelUnderFilter.Visibility = Visibility.Hidden;
+                    //filterTypeComboBox2.Visibility = Visibility.Hidden;
+                    //filterTypeComboBox2.SelectedItem = (selectedFilter as OpenFilter).InnerFilter.Type;
+                    //labelUnderFilter.Visibility = Visibility.Hidden;
 
                     return;
 
@@ -302,6 +302,11 @@ namespace BetterDefaultBrowser
         private void MenuItemLog_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(HardcodedValues.DATA_FOLDER);
+        }
+
+        private void MenuItemRegDump_Click(object sender, RoutedEventArgs e)
+        {
+            DebugHelper.PrintRegistryDump();
         }
     }
 }

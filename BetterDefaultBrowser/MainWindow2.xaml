@@ -80,6 +80,8 @@
                           Click='MenuItemIssue_Click'></MenuItem>
                 <MenuItem Header='Open log folder'
                           Click='MenuItemLog_Click'></MenuItem>
+                <MenuItem Header='Registry dump'
+                          Click='MenuItemRegDump_Click'></MenuItem>
             </MenuItem>
         </Menu>
         <Label x:Name="WinVerLabel"
@@ -96,7 +98,7 @@
                 Margin="0,137,326,0"
                 VerticalAlignment="Top"
                 Width="128"
-                Click="SetDefaultButton_Click"/>
+                Click="SetDefaultButton_Click" />
         <Button x:Name="bDBDefaultButton"
                 Content="Set as BDB default"
                 HorizontalAlignment="Left"
@@ -135,23 +137,32 @@
                     FontSize='20'
                     Click='buttonDown_Click' />
             <Button x:Name='buttonAdd'
-                    Content='➕'
                     HorizontalAlignment='Left'
                     Margin='139,10,0,0'
                     VerticalAlignment='Top'
                     Width='33'
                     FontSize='20'
                     Click="buttonAdd_Click"
-                    Height='30' />
+                    Height='30'>
+                <TextBlock FontSize='24'
+                           HorizontalAlignment='Center'
+                           VerticalAlignment='Bottom'
+                           Height='32'
+                           Width='15'>+</TextBlock>
+            </Button>
             <Button x:Name='buttonDelete'
-                    Content='➖'
                     HorizontalAlignment='Left'
                     Margin='215,10,0,0'
                     VerticalAlignment='Top'
                     Width='33'
-                    FontSize='20'
+                    FontSize='24'
                     Click='buttonDelete_Click'
-                    Height='30' />
+                    Height='30'>
+                <TextBlock FontSize='36'
+                           HorizontalAlignment='Center'
+                           VerticalAlignment='Center'
+                           Height='57'>-</TextBlock>
+            </Button>
             <Button x:Name='buttonEdit'
                     Content='➔'
                     HorizontalAlignment='Left'
@@ -187,82 +198,10 @@
                             Visibility="{Binding Path=MyVisibility}" />
 
         <!-- ADDING OPEN filters -->
-        <Grid x:Name="AddOpenFilterGrid"
-              HorizontalAlignment="Left"
-              Height="186"
-              Margin="10,10,0,0"
-              Grid.Row="1"
-              VerticalAlignment="Top"
-              Width="498"
-              Visibility="Hidden">
-            <ListBox x:Name="toAddBrowserlistBox"
-                     HorizontalAlignment="Left"
-                     Height="100"
-                     Margin="10,40,0,0"
-                     VerticalAlignment="Top"
-                     Width="215" />
-            <ListBox x:Name="addBrowserlistBox"
-                     HorizontalAlignment="Left"
-                     Height="100"
-                     Margin="273,40,0,0"
-                     VerticalAlignment="Top"
-                     Width="215" />
-            <Button x:Name="nextFilterButton"
-                    Content="Next"
-                    HorizontalAlignment="Left"
-                    Margin="413,156,0,0"
-                    VerticalAlignment="Top"
-                    Width="75"
-                    RenderTransformOrigin="-0.363,0.143"
-                    Click="nextFilterButton_Click" />
-            <Label x:Name="label11"
-                   Content="Add additional browsers"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top" />
-            <ComboBox x:Name="filterTypeComboBox2"
-                      HorizontalAlignment="Left"
-                      Margin="147,156,0,0"
-                      VerticalAlignment="Top"
-                      Width="163"
-                      SelectedItem="{Binding Path=FilterTypeInner}"
-                      ItemsSource='{Binding FilterTypesInner}'>
-            </ComboBox>
-            <Label x:Name="labelUnderFilter"
-                   Content="Underlying Filter"
-                   HorizontalAlignment="Left"
-                   Margin="10,156,0,0"
-                   VerticalAlignment="Top" />
-            <Button x:Name="addButton"
-                    Content="&gt;&gt;"
-                    HorizontalAlignment="Left"
-                    Margin="232,68,0,0"
-                    VerticalAlignment="Top"
-                    Width="36"
-                    Click="addButton_Click" />
-            <Button x:Name="deleteButton"
-                    Content="&lt;&lt;"
-                    Margin="232,100,230,66"
-                    Click="deleteButton_Click" />
-            <TextBox x:Name="textBox"
-                     HorizontalAlignment="Left"
-                     Height="23"
-                     Margin="368,10,0,0"
-                     TextWrapping="Wrap"
-                     Text="{Binding Path=Name}"
-                     VerticalAlignment="Top"
-                     Width="120" />
-            <Label x:Name="label"
-                   Content="FilterName"
-                   HorizontalAlignment="Left"
-                   Margin="295,8,0,0"
-                   VerticalAlignment="Top" />
-            <CheckBox x:Name="checkBox"
-                      Content="Only Running"
-                      HorizontalAlignment="Left"
-                      Margin="319,161,0,0"
-                      VerticalAlignment="Top"
-                      IsChecked="{Binding Path=OnlyOpen}" />
-        </Grid>
+        <v:OpenFilterPanel x:Name="AddOpenFilterGrid"
+                       Margin="-10,10,10,0"
+                       Grid.Row="1"
+                       Visibility="{Binding Path=MyVisibility}" />
 
     </Grid>
 </Window>
