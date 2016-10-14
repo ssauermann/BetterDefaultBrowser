@@ -21,6 +21,9 @@ namespace BetterDefaultBrowser.Helper
 
         public static void InstallFakeBrowser(String helperPath, String proxyPath, String appPath)
         {
+            helperPath = "\"" + helperPath + "\"";
+            proxyPath = "\"" + proxyPath + "\"";
+            appPath = "\"" + appPath + "\"";
 
             DebugHelper.WriteLine("Helper path: " + helperPath);
             DebugHelper.WriteLine("Proxy path: " + proxyPath);
