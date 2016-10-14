@@ -164,7 +164,7 @@ namespace BetterDefaultBrowser
                     return;
 
                 case Lib.Filters.Filter.FType.OPEN:
-                    openFilterVM = new OpenFilterViewModel();
+                    openFilterVM = new OpenFilterViewModel(this);
                     AddOpenFilterGrid.DataContext = openFilterVM;
 
 

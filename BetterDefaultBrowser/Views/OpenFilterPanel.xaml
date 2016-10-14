@@ -10,8 +10,7 @@
     <UserControl.DataContext>
         <vm:OpenFilterViewModel />
     </UserControl.DataContext>
-    <Grid x:Name="AddOpenFilterGrid"
-              HorizontalAlignment="Left"
+    <Grid HorizontalAlignment="Left"
               Height="186"
               Margin="10,10,0,0"
               Grid.Row="1"
