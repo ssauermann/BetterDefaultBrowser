@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("Better Default Brauser Proxy")]
+[assembly: AssemblyTitle("Better Default Browser")]
 [assembly: AssemblyDescription("Better Default Browser proxy application which will process the url opening request.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("S. Sauermann & A. Frank")]
-[assembly: AssemblyProduct("Better Default Brauser")]
+[assembly: AssemblyProduct("Better Default Browser")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

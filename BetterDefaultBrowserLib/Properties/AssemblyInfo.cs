@@ -6,11 +6,11 @@ using System.Windows.Markup;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("Better Default Brauser Library")]
+[assembly: AssemblyTitle("Better Default Browser Library")]
 [assembly: AssemblyDescription("Library for Better Default Brauser")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("S. Sauermann & A. Frank")]
-[assembly: AssemblyProduct("Better Default Brauser")]
+[assembly: AssemblyProduct("Better Default Browser")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
