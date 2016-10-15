@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BetterDefaultBrowser.Views"
-        xmlns:vm="clr-namespace:BetterDefaultBrowser.ViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Better Default Browser"
@@ -39,21 +38,20 @@
                   Height='30'>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width='Auto' />
-                    <ColumnDefinition Width='Auto' />
                     <ColumnDefinition Width='*' />
                     <ColumnDefinition Width='Auto' />
                 </Grid.ColumnDefinitions>
-                <Label  Grid.Column='1'>
+                <Label Grid.Column='0'>
                     Hello
                 </Label>
-                <DockPanel Grid.Column='2'>
+                <DockPanel Grid.Column='1'>
                     <local:Menu></local:Menu>
                     <Canvas PreviewMouseDown='Drag_MouseDown'
                             Background='Transparent'>
 
                     </Canvas>
                 </DockPanel>
-                <DockPanel Grid.Column='4'>
+                <DockPanel Grid.Column='2'>
                     <Button Command="{x:Static SystemCommands.MinimizeWindowCommand}">
                         <materialDesign:PackIcon Kind="WindowMinimize" />
                     </Button>
