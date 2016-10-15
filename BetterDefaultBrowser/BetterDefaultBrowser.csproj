@@ -121,10 +121,16 @@
     <Compile Include="ViewModels\PlainFilterViewModel.cs" />
     <Compile Include="Views\ManagedFilterPanel.xaml.cs">
       <DependentUpon>ManagedFilterPanel.xaml</DependentUpon>
+    <Compile Include="Interface\Wrappers.cs" />
+    <Compile Include="Interface\FilterTree.cs" />
+    <Compile Include="Interface\IFilterTreeElement.cs" />
+    <Compile Include="Interface\FilterTreeView.xaml.cs">
+      <DependentUpon>FilterTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OpenFilterPanel.xaml.cs">
       <DependentUpon>OpenFilterPanel.xaml</DependentUpon>
     </Compile>    
+    <Compile Include="Interface\FilterTreeViewModel.cs" />
     <Compile Include="Views\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
@@ -156,6 +162,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ManagedFilterPanel.xaml">
+    <Page Include="Interface\FilterTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

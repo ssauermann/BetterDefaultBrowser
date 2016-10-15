@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BetterDefaultBrowser.Views"
+        xmlns:interface='clr-namespace:BetterDefaultBrowser.Interface'
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Better Default Browser"
@@ -64,7 +65,10 @@
                     </Button>
                 </DockPanel>
             </Grid>
-            <DockPanel DockPanel.Dock='Bottom'></DockPanel>
+            <DockPanel DockPanel.Dock='Bottom'>
+                <interface:FilterTreeView />
+            </DockPanel>
         </DockPanel>
     </materialDesign:DialogHost>
 </Window>
+
