@@ -1,11 +1,7 @@
-﻿using BetterDefaultBrowser.Lib;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static BetterDefaultBrowser.Lib.Filters.Filter;
+using BetterDefaultBrowser.Lib.Models;
 
 namespace BetterDefaultBrowser.Binding
 {

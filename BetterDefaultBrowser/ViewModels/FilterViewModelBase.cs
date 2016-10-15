@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using BetterDefaultBrowser.Lib.Models;
 using static BetterDefaultBrowser.Lib.Filters.Filter;
 
 namespace BetterDefaultBrowser.ViewModels

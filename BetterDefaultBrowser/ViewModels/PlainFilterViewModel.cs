@@ -1,15 +1,10 @@
 ﻿using BetterDefaultBrowser.Commands;
-using BetterDefaultBrowser.Lib;
-using BetterDefaultBrowser.Lib.Filters;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using BetterDefaultBrowser.Lib.Models;
 
 namespace BetterDefaultBrowser.ViewModels
 {
@@ -24,7 +19,7 @@ namespace BetterDefaultBrowser.ViewModels
         private OpenFilter oFilter = null;
         private bool IsSubfilter = false;
 
-        public PlainFilterViewModel() : this(new PlainFilter { Name = "Unnamed filter", RegEx = ".*" })
+        public PlainFilterViewModel() : this(new PlainFilter { Name = "Unnamed filter", Regex = ".*" })
         {
         }
 
@@ -35,8 +30,8 @@ namespace BetterDefaultBrowser.ViewModels
         public PlainFilterViewModel(PlainFilter f) : base(f)
         {
             pFilter = (PlainFilter)filter;
-            browser = pFilter.AssignedBrowser;
-            regex = pFilter.RegEx;
+            browser = pFilter.Browser;
+            regex = pFilter.Regex;
             browserList = AllBrowsers.InstalledBrowsers;
         }
 
@@ -70,7 +65,7 @@ namespace BetterDefaultBrowser.ViewModels
                     regex = value;
                     if (PlainFilter.IsValidRegex(value))
                     {
-                        pFilter.RegEx = value;
+                        pFilter.Regex = value;
                         IsValidRegEx = true;
                     }
                     else
@@ -150,7 +145,7 @@ namespace BetterDefaultBrowser.ViewModels
         protected virtual void StoreFilterExecute()
         {
             //Assuming browser is valid
-            pFilter.AssignedBrowser = browser;
+            pFilter.Browser = browser;
             if (!IsSubfilter)
             {
                 pFilter.Store();

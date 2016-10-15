@@ -1,15 +1,10 @@
 ﻿using BetterDefaultBrowser.Commands;
 using BetterDefaultBrowser.Lib;
-using BetterDefaultBrowser.Lib.Filters;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using static BetterDefaultBrowser.Lib.Filters.Filter;
+using BetterDefaultBrowser.Lib.Models;
 
 namespace BetterDefaultBrowser.ViewModels
 {

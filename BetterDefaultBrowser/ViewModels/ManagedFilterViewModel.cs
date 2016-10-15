@@ -1,12 +1,6 @@
-﻿using BetterDefaultBrowser.Lib.Filters;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using static BetterDefaultBrowser.Lib.Filters.ManagedFilter;
+﻿using System.Windows;
+using BetterDefaultBrowser.Lib.Logic;
+using BetterDefaultBrowser.Lib.Models;
 
 namespace BetterDefaultBrowser.ViewModels
 {
