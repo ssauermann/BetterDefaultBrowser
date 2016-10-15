@@ -21,17 +21,20 @@ namespace BetterDefaultBrowser.Helper
                 DebugHelper.SetUpListener();
 
                 string[] args = Environment.GetCommandLineArgs();
+                Debug.WriteLine("Helper was started!");
+
                 //Usage: <EXE> -install <ProxyPath> <MainAppPath>
                 if (args[1] == "-install")
                 {
                     if (args.Length <= 3)
                         return;
-                    String appPath = System.Reflection.Assembly.GetEntryAssembly().CodeBase;
-                    FakeBrowser.InstallFakeBrowser(appPath, args[2], args[3]);
+                    FakeBrowser.InstallFakeBrowser(args[0], args[2], args[3]);
+                    DebugHelper.WriteLine("BDB was installed.");
                 }
                 else if (args[1] == "-uninstall")
                 {
                     FakeBrowser.UninstallFakeBrowser();
+                    DebugHelper.WriteLine("BDB was uninstalled.");
                 }
                 else if (args[1] == "-iconhide")
                 {
