@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using YAXLib;
 
 namespace BetterDefaultBrowser.Lib.Models
@@ -9,11 +11,6 @@ namespace BetterDefaultBrowser.Lib.Models
     /// </summary>
     public class OpenFilter : Filter
     {
-        /// <summary>
-        /// Priority list of assigned browsers.
-        /// </summary>
-        private LinkedList<Browser> browsers = new LinkedList<Browser>();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenFilter" /> class.
         /// </summary>
@@ -33,18 +30,57 @@ namespace BetterDefaultBrowser.Lib.Models
         /// </summary>
         [YAXSerializeAs("Browsers")]
         [YAXCollection(YAXCollectionSerializationTypes.Recursive, EachElementName = "Browser")]
-        public LinkedList<Browser> Browsers
-        {
-            get
-            {
-                return this.browsers;
-            }
-        }
+        public LinkedList<Browser> Browsers { get; } = new LinkedList<Browser>();
 
         /// <summary>
         /// Gets or sets the inner filter.
         /// </summary>
         [YAXSerializeAs("InnerFilter")]
         public Filter InnerFilter { get; set; }
+
+        #region Validation
+
+        private static readonly string[] ValidatedProperties =
+        {
+            "Browsers",
+        };
+
+        protected override string GetValidationError(string propertyName)
+        {
+            string parentError = base.GetValidationError(propertyName);
+            if (parentError != null)
+            {
+                return parentError;
+            }
+
+            if (Array.IndexOf(ValidatedProperties, propertyName) < 0)
+                return null;
+
+            string error = null;
+
+            switch (propertyName)
+            {
+                case "Browsers":
+                    error = this.ValidateBrowsers();
+                    break;
+
+                default:
+                    System.Diagnostics.Debug.Fail("Unexpected property being validated on OpenFilter: " + propertyName);
+                    break;
+            }
+
+            return error;
+        }
+
+        private string ValidateBrowsers()
+        {
+            if (Browsers.Any(browser => !browser.IsValid))
+            {
+                return "Browser list contains invalid browsers.";
+            }
+            return null;
+        }
+
+        #endregion
     }
 }

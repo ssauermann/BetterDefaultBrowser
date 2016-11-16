@@ -25,7 +25,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
         /// <summary>
         /// Context for inter thread communication.
         /// </summary>
-        private static SynchronizationContext synchronizationContext;
+        private static readonly SynchronizationContext synchronizationContext;
 
         /// <summary>
         /// List of installed browsers
@@ -161,10 +161,10 @@ namespace BetterDefaultBrowser.Lib.Gateways
                 // Use value if not null or dictionary value
                 retBrowser = new Browser(key)
                 {
-                    Name = (name != null) ? name : specialBrowser.Name,
-                    IconPath = (iconPath != null) ? iconPath : specialBrowser.IconPath,
-                    ApplicationPath = (applicationPath != null) ? applicationPath : specialBrowser.ApplicationPath,
-                    ProgId = (progId != null) ? progId : specialBrowser.ProgId
+                    Name = name ?? specialBrowser.Name,
+                    IconPath = iconPath ?? specialBrowser.IconPath,
+                    ApplicationPath = applicationPath ?? specialBrowser.ApplicationPath,
+                    ProgId = progId ?? specialBrowser.ProgId
                 };
             }
             else
@@ -205,14 +205,8 @@ namespace BetterDefaultBrowser.Lib.Gateways
             var path = @"HKEY_LOCAL_MACHINE\SOFTWARE\Clients\StartMenuInternet\" + browserKey;
             var val = Registry.GetValue(path + registryPath, registryValue, null);
 
-            // If value is set, return it
-            if (val != null)
-            {
-                return val.ToString();
-            }
-
-            // Value not found
-            return null;
+            // If value is set, return it else null
+            return val?.ToString();
         }
 
         /// <summary>

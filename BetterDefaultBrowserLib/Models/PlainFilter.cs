@@ -12,7 +12,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Regex string
         /// </summary>
-        private string regex;
+        private string _regex;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlainFilter" /> class.
@@ -29,14 +29,14 @@ namespace BetterDefaultBrowser.Lib.Models
         {
             get
             {
-                return this.regex;
+                return _regex;
             }
 
             set
             {
                 if (RegexHelper.IsValid(value))
                 {
-                    this.regex = value;
+                    _regex = value;
                 }
                 else
                 {
@@ -50,5 +50,54 @@ namespace BetterDefaultBrowser.Lib.Models
         /// </summary>
         [YAXSerializeAs("Browser")]
         public Browser Browser { get; set; }
+
+        #region Validation
+
+        private static readonly string[] ValidatedProperties =
+        {
+            "Regex",
+        };
+
+        protected override string GetValidationError(string propertyName)
+        {
+            string parentError = base.GetValidationError(propertyName);
+            if (parentError != null)
+            {
+                return parentError;
+            }
+
+            if (Array.IndexOf(ValidatedProperties, propertyName) < 0)
+                return null;
+
+            string error = null;
+
+            switch (propertyName)
+            {
+                case "Regex":
+                    error = ValidateRegex();
+                    break;
+
+                default:
+                    System.Diagnostics.Debug.Fail("Unexpected property being validated on PlainFilter: " + propertyName);
+                    break;
+            }
+
+            return error;
+        }
+
+        private string ValidateRegex()
+        {
+            if (Validator.IsStringMissing(Regex))
+            {
+                return "Regex must not be empty. Use .* to match any url.";
+            }
+            if (!RegexHelper.IsValid(Regex))
+            {
+                return "Regex is invalid.";
+            }
+            return null;
+        }
+
+        #endregion
     }
 }

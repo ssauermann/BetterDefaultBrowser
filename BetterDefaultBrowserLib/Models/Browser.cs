@@ -1,4 +1,8 @@
-﻿using YAXLib;
+﻿using System;
+using System.ComponentModel;
+using BetterDefaultBrowser.Lib.Gateways;
+using BetterDefaultBrowser.Lib.Helpers;
+using YAXLib;
 
 namespace BetterDefaultBrowser.Lib.Models
 {
@@ -19,7 +23,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <param name="key">Browser key</param>
         public Browser(string key)
         {
-            this.Key = key;
+            Key = key;
         }
 
         /// <summary>
@@ -28,7 +32,7 @@ namespace BetterDefaultBrowser.Lib.Models
         [YAXAttributeForClass]
         [YAXSerializeAs("Key")]
         [YAXSerializableField]
-        public string Key { get; private set; }
+        public string Key { get; }
 
         /// <summary>
         /// Gets the program id for the connected program registration and url associations.
@@ -59,7 +63,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <returns>String representation</returns>
         public override string ToString()
         {
-            return Browser.StringBuilder.Stringify(this);
+            return StringBuilder.Stringify(this);
         }
 
         /// <summary>
@@ -76,7 +80,7 @@ namespace BetterDefaultBrowser.Lib.Models
                 return false;
             }
 
-            return this.Key == other.Key;
+            return Key == other.Key;
         }
 
         /// <summary>
@@ -85,7 +89,61 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <returns>Calculated hash code</returns>
         public override int GetHashCode()
         {
-            return string.IsNullOrEmpty(this.Key) ? 0 : this.Key.GetHashCode();
+            return string.IsNullOrEmpty(Key) ? 0 : Key.GetHashCode();
         }
+
+        #region Validation
+
+        private static readonly string[] ValidatedProperties =
+        {
+            "Key",
+        };
+
+        private string GetValidationError(string propertyName)
+        {
+            if (Array.IndexOf(ValidatedProperties, propertyName) < 0)
+                return null;
+
+            string error = null;
+
+            switch (propertyName)
+            {
+                case "Key":
+                    error = ValidateKey();
+                    break;
+
+                default:
+                    System.Diagnostics.Debug.Fail("Unexpected property being validated on OpenFilter: " + propertyName);
+                    break;
+            }
+
+            return error;
+        }
+
+        private string ValidateKey()
+        {
+            if (Validator.IsStringMissing(Key) || BrowserGateway.Instance.GetBrowser(Key) == null)
+            {
+                return "Browser is not installed.";
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns true if this object has no validation errors.
+        /// </summary>
+        public bool IsValid
+        {
+            get
+            {
+                foreach (string property in ValidatedProperties)
+                    if (GetValidationError(property) != null)
+                        return false;
+
+                return true;
+            }
+        }
+
+        #endregion
     }
 }

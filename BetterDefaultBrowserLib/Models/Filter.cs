@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using BetterDefaultBrowser.Lib.Helpers;
 using YAXLib;
 
 namespace BetterDefaultBrowser.Lib.Models
@@ -9,13 +11,13 @@ namespace BetterDefaultBrowser.Lib.Models
     /// <summary>
     /// Abstract model of a filter.
     /// </summary>
-    public abstract class Filter
+    public abstract class Filter : IDataErrorInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Filter" /> class.
         /// <para> Sets the type of the filter.</para>
         /// </summary>
-        public Filter()
+        protected Filter()
         {
         }
 
@@ -39,6 +41,12 @@ namespace BetterDefaultBrowser.Lib.Models
         [YAXAttributeForClass]
         [YAXSerializeAs("Priority")]
         public int Priority { get; set; }
+
+        #region IDataErrorInfo
+        public string Error => string.Empty;
+
+        public string this[string columnName] => this.GetValidationError(columnName);
+        #endregion
 
         /// <summary>
         /// Test equality of two objects.
@@ -65,5 +73,78 @@ namespace BetterDefaultBrowser.Lib.Models
         {
             return string.IsNullOrEmpty(this.ID) ? 0 : this.ID.GetHashCode();
         }
+
+        #region Validation
+
+        private static readonly string[] ValidatedProperties =
+        {
+            "Name",
+            "Priority",
+        };
+
+        /// <summary>
+        /// Validates the given property name and returns an error message if invalid.
+        /// Must call the parent implementation when overwritten.
+        /// </summary>
+        /// <param name="propertyName">Property string</param>
+        /// <returns>Error message</returns>
+        protected virtual string GetValidationError(string propertyName)
+        {
+            if (Array.IndexOf(ValidatedProperties, propertyName) < 0)
+                return null;
+
+            string error = null;
+
+            switch (propertyName)
+            {
+                case "Name":
+                    error = this.ValidateName();
+                    break;
+
+                case "Priority":
+                    error = this.ValidatePriority();
+                    break;
+
+                default:
+                    System.Diagnostics.Debug.Fail("Unexpected property being validated on Filter: " + propertyName);
+                    break;
+            }
+
+            return error;
+        }
+
+        private string ValidateName()
+        {
+            if (Validator.IsStringMissing(this.Name))
+            {
+                return "Name must not be empty.";
+            }
+            return null;
+        }
+
+        private string ValidatePriority()
+        {
+            if (this.Priority >= 0)
+            {
+                return "Priority must not be negative.";
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns true if this object has no validation errors.
+        /// </summary>
+        public bool IsValid
+        {
+            get
+            {
+                foreach (string property in ValidatedProperties)
+                    if (GetValidationError(property) != null)
+                        return false;
+
+                return true;
+            }
+        }
+        #endregion
     }
 }
