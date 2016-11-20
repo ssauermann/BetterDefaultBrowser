@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.IO;
 using BetterDefaultBrowser.Lib.Gateways;
 using BetterDefaultBrowser.Lib.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace UnitTests.Lib
 {
     [TestClass]
     public class SettingsGatewayTest
@@ -21,7 +20,7 @@ namespace UnitTests
         [TestCleanup]
         public void CleanUp()
         {
-            // File.Delete(_path);
+            File.Delete(_path);
         }
 
         [TestMethod]
