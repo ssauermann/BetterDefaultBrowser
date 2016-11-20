@@ -8,6 +8,7 @@ namespace BetterDefaultBrowser.Lib.Models
     /// <summary>
     /// Abstract model of a filter.
     /// </summary>
+    [YAXSerializableType(FieldsToSerialize = YAXSerializationFields.AttributedFieldsOnly)]
     public abstract class Filter : IDataErrorInfo
     {
         protected Filter()
@@ -20,6 +21,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// </summary>
         [YAXAttributeForClass]
         [YAXSerializeAs("Name")]
+        [YAXSerializableField]
         public string Name { get; set; }
 
         /// <summary>
@@ -27,13 +29,15 @@ namespace BetterDefaultBrowser.Lib.Models
         /// </summary>
         [YAXAttributeForClass]
         [YAXSerializeAs("ID")]
-        public string Id { get; }
+        [YAXSerializableField]
+        public string Id { get; protected set; }
 
         /// <summary>
         /// Gets or sets the filters priority.
         /// </summary>
         [YAXAttributeForClass]
         [YAXSerializeAs("Priority")]
+        [YAXSerializableField]
         public int Priority { get; set; }
 
         #region IDataErrorInfo
