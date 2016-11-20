@@ -115,70 +115,52 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="ViewModels\FilterViewModelBase.cs" />
-    <Compile Include="ViewModels\ManagedFilterViewModel.cs" />
-    <Compile Include="ViewModels\OpenFilterViewModel.cs" />
-    <Compile Include="ViewModels\PlainFilterViewModel.cs" />
-    <Compile Include="Views\ManagedFilterPanel.xaml.cs">
-      <DependentUpon>ManagedFilterPanel.xaml</DependentUpon>
     <Compile Include="Interface\Wrappers.cs" />
     <Compile Include="Interface\FilterTree.cs" />
     <Compile Include="Interface\IFilterTreeElement.cs" />
     <Compile Include="Interface\FilterTreeView.xaml.cs">
       <DependentUpon>FilterTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OpenFilterPanel.xaml.cs">
-      <DependentUpon>OpenFilterPanel.xaml</DependentUpon>
-    </Compile>    
     <Compile Include="Interface\FilterTreeViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OuterWindow.xaml.cs">
       <DependentUpon>OuterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlainFilterPanel.xaml.cs">
-      <DependentUpon>PlainFilterPanel.xaml</DependentUpon>
-    </Compile>
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Binding\AddFilterBind.cs" />
-    <Compile Include="DefaultConverter.cs" />
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="InvertBoolConverter.cs" />
-    <Compile Include="MainWindow2.xaml.cs">
-      <DependentUpon>MainWindow2.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UACIcon.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helper.cs" />
-    <Page Include="MainWindow2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ManagedFilterPanel.xaml">
     <Page Include="Interface\FilterTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <None Include="Resources\code.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\eye.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\gear.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
     <Page Include="Views\Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OuterWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page> 
-    <Page Include="Views\OpenFilterPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PlainFilterPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

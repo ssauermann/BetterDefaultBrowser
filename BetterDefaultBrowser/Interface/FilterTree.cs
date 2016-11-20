@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using BetterDefaultBrowser.Lib;
 using BetterDefaultBrowser.Lib.Gateways;
 using BetterDefaultBrowser.Lib.Models;
 
@@ -33,7 +34,7 @@ namespace BetterDefaultBrowser.Interface
     {
         public ManagedFilterTree(ManagedFilter filter) : base(filter, "managed")
         {
-            Attributes.Add(new StringWrapper("URL", filter.URL));
+            Attributes.Add(new StringWrapper("URL", filter.Url));
             Attributes.Add(new StringWrapper("Protocols", filter.Protocols.ToString()));
             Attributes.Add(new StringWrapper("Ignore", filter.Flags.ToString()));
         }
@@ -44,7 +45,7 @@ namespace BetterDefaultBrowser.Interface
         public OpenFilterTree(OpenFilter filter) : base(filter, "open")
         {
             Attributes.Add(new StringWrapper("Only running?", filter.OnlyOpen.ToString()));
-            Attributes.Add(new BrowserWrapper(filter.Browsers));
+            //Attributes.Add(new BrowserWrapper(filter.Browsers));
 
             // Add attributes from inner filter:
             var inner = filter.InnerFilter;

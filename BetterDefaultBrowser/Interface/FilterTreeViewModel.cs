@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BetterDefaultBrowser.Lib.Models;
+using BetterDefaultBrowser.Lib.Models.Enums;
 
 namespace BetterDefaultBrowser.Interface
 {
@@ -18,13 +19,13 @@ namespace BetterDefaultBrowser.Interface
                 {
                     Name = "My plain filter",
                     Regex = "I'm Regex",
-                    Browser = new Browser("My fake browser")
+                    //Browser = new Browser("My fake browser")
                 });
 
             var y = new ManagedFilterTree(new ManagedFilter()
             {
-                Browser = new Browser("ABC"),
-                URL = "www.foo.bar.com",
+                //Browser = new Browser("ABC"),
+                Url = "www.foo.bar.com",
                 Name = "My managed filter",
                 Protocols = Protocols.HTTP,
                 Flags = Ignore.Parameter | Ignore.Page
@@ -37,11 +38,11 @@ namespace BetterDefaultBrowser.Interface
                 {
                     Name = "My inner plain filter",
                     Regex = "I'm Legend",
-                    Browser = new Browser("My new browser")
+                    //Browser = new Browser("My new browser")
                 }
             };
-            of.Browsers.AddLast(new Browser("A Browser"));
-            of.Browsers.AddLast(new Browser("B Browser"));
+            //of.Browsers.AddLast(new Browser("A Browser"));
+            //of.Browsers.AddLast(new Browser("B Browser"));
 
             var z = new OpenFilterTree(of);
 

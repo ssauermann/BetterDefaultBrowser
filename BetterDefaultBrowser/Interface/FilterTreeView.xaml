@@ -24,6 +24,9 @@
                         <TextBlock Text=" (" />
                         <TextBlock Text="{Binding Type}" />
                         <TextBlock Text=")" />
+                        <ContentPresenter Height="Auto"
+                                          Width="Auto"
+                                          Content="{StaticResource ImageCode}"></ContentPresenter>
                     </StackPanel>
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type local:BrowserWrapper}"
@@ -41,6 +44,7 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type models:Browser}">
                     <TextBlock Text="{Binding Key}"></TextBlock>
+                    <!-- TODO USE NAME HERE INSTEAD KEY-->
                 </DataTemplate>
             </TreeView.Resources>
         </TreeView>
