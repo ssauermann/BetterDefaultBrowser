@@ -19,6 +19,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterDefaultBrowserLib", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterDefaultBrowser-Proxy", "BetterDefaultBrowser-Proxy\BetterDefaultBrowser-Proxy.csproj", "{98BBA331-8C13-4F6A-9E19-0576EDA44DE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{E11EBE5D-D257-454B-90FC-43AB8D00EF5E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C5285A02-BB9B-422D-B664-E90CDDA9BFC6} = {C5285A02-BB9B-422D-B664-E90CDDA9BFC6}
+		{98BBA331-8C13-4F6A-9E19-0576EDA44DE5} = {98BBA331-8C13-4F6A-9E19-0576EDA44DE5}
+		{2950E43C-EB29-47DD-AE58-90175164B8B6} = {2950E43C-EB29-47DD-AE58-90175164B8B6}
+		{5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C} = {5D95A7AC-7ABD-4CBD-84DC-F0F82BF6312C}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +49,10 @@ Global
 		{98BBA331-8C13-4F6A-9E19-0576EDA44DE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98BBA331-8C13-4F6A-9E19-0576EDA44DE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98BBA331-8C13-4F6A-9E19-0576EDA44DE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E11EBE5D-D257-454B-90FC-43AB8D00EF5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E11EBE5D-D257-454B-90FC-43AB8D00EF5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E11EBE5D-D257-454B-90FC-43AB8D00EF5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E11EBE5D-D257-454B-90FC-43AB8D00EF5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
