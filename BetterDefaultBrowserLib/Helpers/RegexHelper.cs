@@ -22,6 +22,7 @@ namespace BetterDefaultBrowser.Lib.Helpers
 
             try
             {
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 Regex.IsMatch(string.Empty, pattern);
             }
             catch (ArgumentException)

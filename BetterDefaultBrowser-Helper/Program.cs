@@ -1,5 +1,4 @@
 ﻿using BetterDefaultBrowser.Lib;
-using BetterDefaultBrowser.Lib.Debug;
 using BetterDefaultBrowser.Lib.Helpers;
 using Microsoft.Win32;
 using System;

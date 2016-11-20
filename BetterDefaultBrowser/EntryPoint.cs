@@ -7,7 +7,6 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Reflection;
-using BetterDefaultBrowser.Lib.Debug;
 using BetterDefaultBrowser.Lib;
 
 namespace BetterDefaultBrowser
@@ -33,7 +32,7 @@ namespace BetterDefaultBrowser
             try
             {
                 DebugHelper.SetUpListener();
-                
+
                 //Local per session mutex.
                 String mutexName = @"Local\BetterDefaultBrowser";
 
@@ -51,7 +50,7 @@ namespace BetterDefaultBrowser
                     //If app not running, open it.
                     if (createdNew)
                     {
-                        
+
                         //TODO: Parameter parsing (and message to other instance) to help the user to fix or report the problem.
                         if (args != null && args.Length > 0)
                         {
@@ -80,7 +79,7 @@ namespace BetterDefaultBrowser
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Trace.TraceError(ex.ToString());
                 DebugHelper.AllocConsole();
@@ -94,7 +93,7 @@ namespace BetterDefaultBrowser
             {
                 Trace.Close();
             }
-}
+        }
 
         private static void run()
         {

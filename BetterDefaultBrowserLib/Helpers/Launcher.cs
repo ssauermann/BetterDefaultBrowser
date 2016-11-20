@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BetterDefaultBrowser.Lib.Helpers
 {
@@ -21,9 +17,14 @@ namespace BetterDefaultBrowser.Lib.Helpers
         /// <param name="param">Parameter string for the new process.</param>
         public static void Launch(string path, string param)
         {
-            Process proc = new Process();
-            proc.StartInfo.FileName = path;
-            proc.StartInfo.Arguments = param;
+            Process proc = new Process
+            {
+                StartInfo =
+                {
+                    FileName = path,
+                    Arguments = param
+                }
+            };
             proc.Start();
         }
 

@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Win32;
 using BetterDefaultBrowser.Lib;
-using System.Diagnostics;
-using BetterDefaultBrowser.Lib.Debug;
 
 namespace BetterDefaultBrowser.Helper
 {
@@ -14,12 +8,12 @@ namespace BetterDefaultBrowser.Helper
     class FakeBrowser
     {
 
-        private static readonly String keyId = HardcodedValues.APP_NAME;
-        private static readonly String name = HardcodedValues.APP_NAME;
-        private static readonly String progId = HardcodedValues.PROG_ID;
-        private static readonly String appDesc = HardcodedValues.APP_DESC;
+        private static readonly string keyId = HardcodedValues.APP_NAME;
+        private static readonly string name = HardcodedValues.APP_NAME;
+        private static readonly string progId = HardcodedValues.PROG_ID;
+        private static readonly string appDesc = HardcodedValues.APP_DESC;
 
-        public static void InstallFakeBrowser(String helperPath, String proxyPath, String appPath)
+        public static void InstallFakeBrowser(string helperPath, string proxyPath, string appPath)
         {
             helperPath = "\"" + helperPath + "\"";
             proxyPath = "\"" + proxyPath + "\"";
@@ -90,10 +84,8 @@ namespace BetterDefaultBrowser.Helper
             try
             {
                 var k = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", true);
-                if (k != null)
-                    if (k.OpenSubKey(keyId) != null)
-                        k.DeleteSubKeyTree(keyId);
-
+                if (k?.OpenSubKey(keyId) != null)
+                    k.DeleteSubKeyTree(keyId);
             }
             catch (Exception ex)
             {
@@ -104,9 +96,8 @@ namespace BetterDefaultBrowser.Helper
             {
                 //Remove installed program
                 var k = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\RegisteredApplications", true);
-                if (k != null)
-                    if (k.OpenSubKey(keyId) != null)
-                        k.DeleteSubKeyTree(keyId);
+                if (k?.OpenSubKey(keyId) != null)
+                    k.DeleteSubKeyTree(keyId);
             }
             catch (Exception ex)
             {
@@ -117,9 +108,8 @@ namespace BetterDefaultBrowser.Helper
             {
                 //Remove ProgId
                 var k = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes", true);
-                if (k != null)
-                    if (k.OpenSubKey(progId) != null)
-                        k.DeleteSubKeyTree(progId);
+                if (k?.OpenSubKey(progId) != null)
+                    k.DeleteSubKeyTree(progId);
             }
             catch (Exception ex)
             {
