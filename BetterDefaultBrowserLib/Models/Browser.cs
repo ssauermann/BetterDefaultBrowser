@@ -70,30 +70,22 @@ namespace BetterDefaultBrowser.Lib.Models
             return StringBuilder.Stringify(this);
         }
 
-        /// <summary>
-        /// Test equality of two objects.
-        /// </summary>
-        /// <param name="obj">Object to compare</param>
-        /// <returns>Are they equal?</returns>
-        public override bool Equals(object obj)
+        protected bool Equals(Browser other)
         {
-            var other = obj as Browser;
-
-            if (other == null)
-            {
-                return false;
-            }
-
-            return Key == other.Key;
+            return string.Equals(Key, other.Key);
         }
 
-        /// <summary>
-        /// Generate a hash code for this object.
-        /// </summary>
-        /// <returns>Calculated hash code</returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Browser)obj);
+        }
+
         public override int GetHashCode()
         {
-            return string.IsNullOrEmpty(Key) ? 0 : Key.GetHashCode();
+            return Key?.GetHashCode() ?? 0;
         }
 
         #endregion
