@@ -14,14 +14,6 @@ namespace BetterDefaultBrowser.Lib.Models
     public abstract class Filter : IDataErrorInfo
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Filter" /> class.
-        /// <para> Sets the type of the filter.</para>
-        /// </summary>
-        protected Filter()
-        {
-        }
-
-        /// <summary>
         /// Gets or sets the display name.
         /// </summary>
         [YAXAttributeForClass]
@@ -33,7 +25,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// </summary>
         [YAXAttributeForClass]
         [YAXSerializeAs("ID")]
-        public string ID { get; internal set; }
+        public string Id { get; internal set; }
 
         /// <summary>
         /// Gets or sets the filters priority.
@@ -45,9 +37,10 @@ namespace BetterDefaultBrowser.Lib.Models
         #region IDataErrorInfo
         public string Error => string.Empty;
 
-        public string this[string columnName] => this.GetValidationError(columnName);
+        public string this[string columnName] => GetValidationError(columnName);
         #endregion
 
+        #region Object Methods
         /// <summary>
         /// Test equality of two objects.
         /// </summary>
@@ -62,7 +55,7 @@ namespace BetterDefaultBrowser.Lib.Models
                 return false;
             }
 
-            return this.ID == other.ID;
+            return Id == other.Id;
         }
 
         /// <summary>
@@ -71,8 +64,12 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <returns>Calculated hash code</returns>
         public override int GetHashCode()
         {
-            return string.IsNullOrEmpty(this.ID) ? 0 : this.ID.GetHashCode();
+            // ReSharper disable once NonReadonlyMemberInGetHashCode
+            var id = Id;
+            return string.IsNullOrEmpty(id) ? 0 : id.GetHashCode();
         }
+
+        #endregion
 
         #region Validation
 
@@ -98,11 +95,11 @@ namespace BetterDefaultBrowser.Lib.Models
             switch (propertyName)
             {
                 case "Name":
-                    error = this.ValidateName();
+                    error = ValidateName();
                     break;
 
                 case "Priority":
-                    error = this.ValidatePriority();
+                    error = ValidatePriority();
                     break;
 
                 default:
@@ -115,7 +112,7 @@ namespace BetterDefaultBrowser.Lib.Models
 
         private string ValidateName()
         {
-            if (Validator.IsStringMissing(this.Name))
+            if (Validator.IsStringMissing(Name))
             {
                 return "Name must not be empty.";
             }
@@ -124,7 +121,7 @@ namespace BetterDefaultBrowser.Lib.Models
 
         private string ValidatePriority()
         {
-            if (this.Priority >= 0)
+            if (Priority >= 0)
             {
                 return "Priority must not be negative.";
             }

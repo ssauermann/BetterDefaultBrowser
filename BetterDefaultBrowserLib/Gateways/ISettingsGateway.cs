@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BetterDefaultBrowser.Lib.Gateways
 {
@@ -16,7 +12,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
         /// <summary>
         /// Gets or sets the internal default browser.
         /// </summary>
-        Browser DefaultBrowser { get; set; }
+        BrowserStorage DefaultBrowser { get; set; }
 
         /// <summary>
         /// Gets the saved filter list.

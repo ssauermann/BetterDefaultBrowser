@@ -21,7 +21,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
         List<Browser> InstalledBrowsers { get; }
 
         /// <summary>
-        /// Gets a specific installed browser by key.
+        /// Gets a specific installed browser by key. Will return null if the browser is not found.
         /// </summary>
         /// <param name="key">Browser key</param>
         /// <returns>Browser or null</returns>

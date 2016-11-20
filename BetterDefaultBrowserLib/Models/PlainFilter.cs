@@ -9,47 +9,19 @@ namespace BetterDefaultBrowser.Lib.Models
     /// </summary>
     public class PlainFilter : Filter
     {
-        /// <summary>
-        /// Regex string
-        /// </summary>
-        private string _regex;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PlainFilter" /> class.
-        /// </summary>
-        public PlainFilter() : base()
-        {
-        }
-
+        #region Fields
         /// <summary>
         /// Gets or sets the regex string.
         /// </summary>
         [YAXSerializeAs("Regex")]
-        public string Regex
-        {
-            get
-            {
-                return _regex;
-            }
-
-            set
-            {
-                if (RegexHelper.IsValid(value))
-                {
-                    _regex = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Invalid regex");
-                }
-            }
-        }
+        public string Regex { get; set; }
 
         /// <summary>
-        /// Gets or sets the assigned browser.
+        /// Gets or sets the the assigned browser.
         /// </summary>
         [YAXSerializeAs("Browser")]
-        public Browser Browser { get; set; }
+        public BrowserStorage Browser { get; set; }
+        #endregion
 
         #region Validation
 

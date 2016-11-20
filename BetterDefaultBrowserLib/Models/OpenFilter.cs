@@ -11,13 +11,7 @@ namespace BetterDefaultBrowser.Lib.Models
     /// </summary>
     public class OpenFilter : Filter
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OpenFilter" /> class.
-        /// </summary>
-        public OpenFilter() : base()
-        {
-        }
-
+        #region Fields
         /// <summary>
         /// Gets or sets a value indicating whether only currently running browsers should be used
         /// or a new browser should be opened if no running one matches.
@@ -30,7 +24,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// </summary>
         [YAXSerializeAs("Browsers")]
         [YAXCollection(YAXCollectionSerializationTypes.Recursive, EachElementName = "Browser")]
-        public LinkedList<Browser> Browsers { get; } = new LinkedList<Browser>();
+        public LinkedList<BrowserStorage> Browsers { get; } = new LinkedList<BrowserStorage>();
 
         /// <summary>
         /// Gets or sets the inner filter.
@@ -38,6 +32,7 @@ namespace BetterDefaultBrowser.Lib.Models
         [YAXSerializeAs("InnerFilter")]
         public Filter InnerFilter { get; set; }
 
+        #endregion
         #region Validation
 
         private static readonly string[] ValidatedProperties =
@@ -74,7 +69,7 @@ namespace BetterDefaultBrowser.Lib.Models
 
         private string ValidateBrowsers()
         {
-            if (Browsers.Any(browser => !browser.IsValid))
+            if (Browsers.Count == 0)
             {
                 return "Browser list contains invalid browsers.";
             }

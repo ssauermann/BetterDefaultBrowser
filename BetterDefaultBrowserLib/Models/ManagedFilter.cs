@@ -1,5 +1,6 @@
 ﻿using System;
 using BetterDefaultBrowser.Lib.Logic;
+using BetterDefaultBrowser.Lib.Models.Enums;
 using YAXLib;
 
 namespace BetterDefaultBrowser.Lib.Models
@@ -9,13 +10,7 @@ namespace BetterDefaultBrowser.Lib.Models
     /// </summary>
     public class ManagedFilter : PlainFilter
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ManagedFilter" /> class.
-        /// </summary>
-        public ManagedFilter() : base()
-        {
-        }
-
+        #region Fields
         /// <summary>
         /// Gets or sets the matched protocols.
         /// </summary>
@@ -34,6 +29,7 @@ namespace BetterDefaultBrowser.Lib.Models
         [YAXSerializeAs("Flags")]
         public Ignore Flags { get; set; }
 
+        #endregion
         #region Validation
         private static readonly string[] ValidatedProperties =
         {

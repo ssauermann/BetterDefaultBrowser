@@ -26,6 +26,7 @@ namespace BetterDefaultBrowser.Lib.Models
             Key = key;
         }
 
+        #region Fields
         /// <summary>
         /// Gets the browsers key identifying it.
         /// </summary>
@@ -56,6 +57,9 @@ namespace BetterDefaultBrowser.Lib.Models
         /// Gets the path to this browsers executable.
         /// </summary>
         public string ApplicationPath { get; internal set; }
+        #endregion
+
+        #region Object Methods
 
         /// <summary>
         /// Create a string of this object.
@@ -91,6 +95,8 @@ namespace BetterDefaultBrowser.Lib.Models
         {
             return string.IsNullOrEmpty(Key) ? 0 : Key.GetHashCode();
         }
+
+        #endregion
 
         #region Validation
 

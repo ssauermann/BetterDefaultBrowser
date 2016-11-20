@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BetterDefaultBrowser.Lib.Models
+namespace BetterDefaultBrowser.Lib.Models.Enums
 {
     /// <summary>
     /// Ignore flags used by managed filters.
