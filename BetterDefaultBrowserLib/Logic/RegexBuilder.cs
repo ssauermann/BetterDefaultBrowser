@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using BetterDefaultBrowser.Lib.Models.Enums;
 using DNL = DomainName.Library;
 
 namespace BetterDefaultBrowser.Lib.Logic

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace BetterDefaultBrowser.Lib.Gateways
 {
@@ -23,11 +18,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
         /// <param name="propertyName">Property that has changed</param>
         protected virtual void RaisePropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler prop = this.PropertyChanged;
-            if (prop != null)
-            {
-                prop(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

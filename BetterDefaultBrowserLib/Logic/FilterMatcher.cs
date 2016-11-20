@@ -17,7 +17,7 @@ namespace BetterDefaultBrowser.Lib.Logic
         /// <summary>
         /// Gateway instance
         /// </summary>
-        private static IBrowserGateway gateway = BrowserGateway.Instance;
+        private static readonly IBrowserGateway Gateway = BrowserGateway.Instance;
 
         /// <summary>
         /// Checks if a filter matches an url and provides the matched browser.
@@ -25,6 +25,7 @@ namespace BetterDefaultBrowser.Lib.Logic
         /// <param name="f">Filter to match</param>
         /// <param name="url">Url to match</param>
         /// <param name="matchingResult">Browser as matching result if true is returned</param>
+        /// <exception cref="NotImplementedException"></exception>
         /// <returns>Does filter match?</returns>
         public static bool Match(Filter f, string url, out Browser matchingResult)
         {
@@ -84,7 +85,7 @@ namespace BetterDefaultBrowser.Lib.Logic
 
             Browser innerMatch;
 
-            var isMatch = FilterMatcher.Match(f.InnerFilter, url, out innerMatch);
+            var isMatch = Match(f.InnerFilter, url, out innerMatch);
 
             // Inner filter does not match
             if (!isMatch)
@@ -93,7 +94,7 @@ namespace BetterDefaultBrowser.Lib.Logic
             }
 
             // Inner filter does match
-            foreach (Browser b in gateway.InstalledBrowsers)
+            foreach (Browser b in Gateway.InstalledBrowsers)
             {
                 if (IsBrowserOpen(b))
                 {
