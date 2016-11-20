@@ -17,7 +17,8 @@ namespace BetterDefaultBrowser.Lib.Models
 
         [YAXSerializeAs("Filters")]
         [YAXCollection(YAXCollectionSerializationTypes.Recursive, EachElementName = "Filter")]
+        [YAXErrorIfMissed(YAXExceptionTypes.Warning, DefaultValue = null)]
         [YAXSerializableField]
-        internal List<Filter> Filters { get; } = new List<Filter>();
+        internal List<Filter> Filters { get; set; }
     }
 }

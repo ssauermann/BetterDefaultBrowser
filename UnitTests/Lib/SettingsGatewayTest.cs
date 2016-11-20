@@ -90,9 +90,10 @@ namespace UnitTests.Lib
 
             // Filters have to be serialized
             var otherSettings = new SettingsGateway(_path);
+            var list = otherSettings.GetFilters();
             foreach (var filter in _settings.GetFilters())
             {
-                Assert.IsTrue(otherSettings.GetFilters().Contains(filter), "Filters are serialized correctly.");
+                Assert.IsTrue(list.Contains(filter), "Filters are serialized correctly.");
             }
         }
     }

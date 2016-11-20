@@ -81,9 +81,9 @@ namespace UnitTests.Lib
             FilterEqual(Fo, fo);
             Assert.AreEqual(Fo.OnlyOpen, fo.OnlyOpen);
             FilterEqual(Fo.InnerFilter, fo.InnerFilter);
-            foreach (var browser in fo.Browsers)
+            foreach (var browser in Fo.Browsers)
             {
-                Assert.IsTrue(Fo.Browsers.Contains(browser));
+                Assert.IsTrue(fo.Browsers.Contains(browser));
             }
         }
 

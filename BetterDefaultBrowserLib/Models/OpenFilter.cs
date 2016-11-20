@@ -27,7 +27,7 @@ namespace BetterDefaultBrowser.Lib.Models
         [YAXSerializeAs("Browsers")]
         [YAXCollection(YAXCollectionSerializationTypes.Recursive, EachElementName = "Browser")]
         [YAXSerializableField]
-        public List<BrowserStorage> Browsers { get; } = new List<BrowserStorage>();
+        public List<BrowserStorage> Browsers { get; protected set; } = new List<BrowserStorage>();
 
         /// <summary>
         /// Gets or sets the inner filter.

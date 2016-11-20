@@ -57,6 +57,12 @@ namespace BetterDefaultBrowser.Lib.Gateways
                     throw new YAXException("Deserialization failed.");
                 }
 
+                // Create list if not deserialized:
+                if (_settings.Filters == null)
+                {
+                    _settings.Filters = new List<Filter>();
+                }
+
             }
             catch (Exception ex) when (ex is YAXException || ex is IOException || ex is ArgumentException)
             {
