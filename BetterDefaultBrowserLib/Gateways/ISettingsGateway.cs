@@ -15,9 +15,9 @@ namespace BetterDefaultBrowser.Lib.Gateways
         BrowserStorage DefaultBrowser { get; set; }
 
         /// <summary>
-        /// Gets the saved filter list.
+        /// Returns a shallow-copied list of all filters.
         /// </summary>
-        List<Filter> Filters { get; }
+        List<Filter> GetFilters();
 
         /// <summary>
         /// Updates a filter in the save file or adds it if it doesn't exist.
