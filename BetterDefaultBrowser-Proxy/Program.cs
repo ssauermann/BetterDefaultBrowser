@@ -46,17 +46,20 @@ namespace BetterDefaultBrowser.Proxy
 
                 Debug.WriteLine("Information: " + "Url to open: '" + url + "'");
 
+                var settings = new SettingsGateway(HardcodedValues.DATA_FOLDER + "settings.xml");
+                var browserGW = BrowserGateway.Instance;
 
-                var filters = SettingsGateway.Instance.Filters;
+                var filters = settings.GetFilters();
 
                 //Mustn't be null
                 Debug.Assert(filters != null, "Filter list is null");
 
-                var defBrowser = SettingsGateway.Instance.DefaultBrowser;
+                var defBrowser = browserGW.GetBrowser(settings.DefaultBrowser.BrowserKey);
 
                 if (defBrowser == null)
                 {
                     failBrowser();
+                    return;
                 }
 
                 //Select a browser based on the filters

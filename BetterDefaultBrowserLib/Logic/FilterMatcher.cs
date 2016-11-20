@@ -58,8 +58,13 @@ namespace BetterDefaultBrowser.Lib.Logic
 
             if (regex.IsMatch(url))
             {
-                matchingResult = f.Browser;
-                return true;
+                matchingResult = Gateway.GetBrowser(f.Browser.BrowserKey);
+                // Result will be null if browser key does not match any installed browser.
+                // -> Do not match if browser is not available.
+                if (matchingResult != null)
+                {
+                    return true;
+                }
             }
 
             matchingResult = null;
