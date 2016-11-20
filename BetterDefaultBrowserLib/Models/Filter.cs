@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using BetterDefaultBrowser.Lib.Helpers;
 using YAXLib;
 
@@ -13,6 +10,11 @@ namespace BetterDefaultBrowser.Lib.Models
     /// </summary>
     public abstract class Filter : IDataErrorInfo
     {
+        protected Filter()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+
         /// <summary>
         /// Gets or sets the display name.
         /// </summary>
@@ -25,7 +27,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// </summary>
         [YAXAttributeForClass]
         [YAXSerializeAs("ID")]
-        public string Id { get; internal set; }
+        public string Id { get; }
 
         /// <summary>
         /// Gets or sets the filters priority.
@@ -41,32 +43,25 @@ namespace BetterDefaultBrowser.Lib.Models
         #endregion
 
         #region Object Methods
-        /// <summary>
-        /// Test equality of two objects.
-        /// </summary>
-        /// <param name="obj">Object to compare</param>
-        /// <returns>Are they equal?</returns>
-        public override bool Equals(object obj)
+
+        protected bool Equals(Filter other)
         {
-            var other = obj as Filter;
-
-            if (other == null)
-            {
-                return false;
-            }
-
-            return Id == other.Id;
+            return string.Equals(Id, other.Id);
         }
 
-        /// <summary>
-        /// Generate a hash code for this object.
-        /// </summary>
-        /// <returns>Calculated hash code</returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((Filter)obj);
+        }
+
         public override int GetHashCode()
         {
             // ReSharper disable once NonReadonlyMemberInGetHashCode
             var id = Id;
-            return string.IsNullOrEmpty(id) ? 0 : id.GetHashCode();
+            return id?.GetHashCode() ?? 0;
         }
 
         #endregion

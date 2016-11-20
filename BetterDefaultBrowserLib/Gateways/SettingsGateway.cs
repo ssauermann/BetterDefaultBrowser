@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml.Linq;
 using BetterDefaultBrowser.Lib.Models;
 using YAXLib;
@@ -35,7 +34,10 @@ namespace BetterDefaultBrowser.Lib.Gateways
                     {
                         throw new ArgumentException("Path is invalid.", nameof(filePath));
                     }
-                    Directory.CreateDirectory(dir);
+                    if (dir != "")
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
                 }
 
                 // Create file
@@ -46,7 +48,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
                 }
 
                 // Deserialize
-                var ser = new YAXSerializer(typeof(Settings));
+                var ser = new YAXSerializer(typeof(Settings), YAXExceptionHandlingPolicies.ThrowErrorsOnly);
                 var root = XElement.Load(_path);
                 object o = ser.Deserialize(root);
                 _settings = (Settings)o;
@@ -54,6 +56,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
                 {
                     throw new YAXException("Deserialization failed.");
                 }
+
             }
             catch (Exception ex) when (ex is YAXException || ex is IOException || ex is ArgumentException)
             {
@@ -76,7 +79,11 @@ namespace BetterDefaultBrowser.Lib.Gateways
 
             set
             {
-                if (!_settings.DefaultBrowser.Equals(value))
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+                if (!value.Equals(_settings.DefaultBrowser))
                 {
                     _settings.DefaultBrowser = value;
                     StoreSettings();

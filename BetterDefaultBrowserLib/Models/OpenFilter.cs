@@ -9,6 +9,7 @@ namespace BetterDefaultBrowser.Lib.Models
     /// <summary>
     /// Model of a open filter.
     /// </summary>
+    [YAXSerializableType(FieldsToSerialize = YAXSerializationFields.AttributedFieldsOnly)]
     public class OpenFilter : Filter
     {
         #region Fields
@@ -17,6 +18,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// or a new browser should be opened if no running one matches.
         /// </summary>
         [YAXSerializeAs("OnlyOpen")]
+        [YAXSerializableField]
         public bool OnlyOpen { get; set; }
 
         /// <summary>
@@ -24,12 +26,14 @@ namespace BetterDefaultBrowser.Lib.Models
         /// </summary>
         [YAXSerializeAs("Browsers")]
         [YAXCollection(YAXCollectionSerializationTypes.Recursive, EachElementName = "Browser")]
+        [YAXSerializableField]
         public LinkedList<BrowserStorage> Browsers { get; } = new LinkedList<BrowserStorage>();
 
         /// <summary>
         /// Gets or sets the inner filter.
         /// </summary>
         [YAXSerializeAs("InnerFilter")]
+        [YAXSerializableField]
         public Filter InnerFilter { get; set; }
 
         #endregion

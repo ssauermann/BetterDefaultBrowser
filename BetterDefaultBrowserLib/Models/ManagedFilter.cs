@@ -8,6 +8,7 @@ namespace BetterDefaultBrowser.Lib.Models
     /// <summary>
     /// Model of a managed filter.
     /// </summary>
+    [YAXSerializableType(FieldsToSerialize = YAXSerializationFields.AttributedFieldsOnly)]
     public class ManagedFilter : PlainFilter
     {
         #region Fields
@@ -15,18 +16,21 @@ namespace BetterDefaultBrowser.Lib.Models
         /// Gets or sets the matched protocols.
         /// </summary>
         [YAXSerializeAs("Protocols")]
+        [YAXSerializableField]
         public Protocols Protocols { get; set; }
 
         /// <summary>
         /// Gets or sets the matched url.
         /// </summary>
         [YAXSerializeAs("URL")]
+        [YAXSerializableField]
         public string Url { get; set; }
 
         /// <summary>
         /// Gets or sets the ignored url parts.
         /// </summary>
         [YAXSerializeAs("Flags")]
+        [YAXSerializableField]
         public Ignore Flags { get; set; }
 
         #endregion

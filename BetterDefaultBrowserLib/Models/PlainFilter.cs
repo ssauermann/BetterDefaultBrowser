@@ -7,6 +7,7 @@ namespace BetterDefaultBrowser.Lib.Models
     /// <summary>
     /// Model of a plain filter.
     /// </summary>
+    [YAXSerializableType(FieldsToSerialize = YAXSerializationFields.AttributedFieldsOnly)]
     public class PlainFilter : Filter
     {
         #region Fields
@@ -14,12 +15,14 @@ namespace BetterDefaultBrowser.Lib.Models
         /// Gets or sets the regex string.
         /// </summary>
         [YAXSerializeAs("Regex")]
+        [YAXSerializableField]
         public string Regex { get; set; }
 
         /// <summary>
         /// Gets or sets the the assigned browser.
         /// </summary>
         [YAXSerializeAs("Browser")]
+        [YAXSerializableField]
         public BrowserStorage Browser { get; set; }
         #endregion
 
