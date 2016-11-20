@@ -73,7 +73,7 @@
     <Compile Include="Gateways\SpecialBrowsers.cs" />
     <Compile Include="Helpers\Validator.cs" />
     <Compile Include="Logic\FilterMatcher.cs" />
-    <Compile Include="Models\DefaultBrowser.cs" />
+    <Compile Include="Models\BrowserStorage.cs" />
     <Compile Include="Models\Enums\Ignore.cs" />
     <Compile Include="Models\Enums\Protocols.cs" />
     <Compile Include="Logic\RegexBuilder.cs" />

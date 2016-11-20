@@ -8,18 +8,20 @@ namespace BetterDefaultBrowser.Lib.Models
         #region Fields
 
         /// <summary>
-        /// Key of the browser.
+        /// Gets or sets the key of the browser.
         /// </summary>
         [YAXAttributeForClass]
         [YAXSerializeAs("Key")]
+        [YAXSerializableField]
         public string BrowserKey { get; set; }
 
         /// <summary>
-        /// Name of the browser.
+        /// Gets or sets the name of the browser.
         /// This can be used as a fallback for displaying the name if the browser key can't be found in the registry.
         /// </summary>
         [YAXAttributeForClass]
         [YAXSerializeAs("Name")]
+        [YAXSerializableField]
         public string BrowserName { get; set; }
 
         protected bool Equals(BrowserStorage other)
