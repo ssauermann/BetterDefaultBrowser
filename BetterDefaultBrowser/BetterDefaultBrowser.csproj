@@ -122,6 +122,9 @@
       <DependentUpon>FilterTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interface\FilterTreeViewModel.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModels\CloseableViewModel.cs" />
+    <Compile Include="ViewModels\PlainFilterViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>

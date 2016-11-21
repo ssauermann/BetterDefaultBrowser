@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BetterDefaultBrowser.Lib.Gateways
 {
@@ -7,7 +8,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
     /// <summary>
     /// Interface for all classes that load and return browser information.
     /// </summary>
-    public interface IBrowserGateway
+    public interface IBrowserGateway : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets or sets the default browser.

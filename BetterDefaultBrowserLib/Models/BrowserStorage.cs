@@ -26,7 +26,7 @@ namespace BetterDefaultBrowser.Lib.Models
 
         protected bool Equals(BrowserStorage other)
         {
-            return string.Equals(BrowserKey, other.BrowserKey) && string.Equals(BrowserName, other.BrowserName);
+            return string.Equals(BrowserKey, other.BrowserKey);
         }
 
         public override bool Equals(object obj)
@@ -39,10 +39,7 @@ namespace BetterDefaultBrowser.Lib.Models
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return ((BrowserKey?.GetHashCode() ?? 0) * 397) ^ (BrowserName?.GetHashCode() ?? 0);
-            }
+            return BrowserKey?.GetHashCode() ?? 0;
         }
 
         #endregion
