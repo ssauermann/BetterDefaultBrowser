@@ -10,6 +10,12 @@ namespace BetterDefaultBrowser.Lib.Models
     [YAXSerializableType(FieldsToSerialize = YAXSerializationFields.AttributedFieldsOnly)]
     internal class Settings
     {
+        [YAXSerializeAs("Version")]
+        [YAXAttributeForClass]
+        [YAXErrorIfMissed(YAXExceptionTypes.Warning, DefaultValue = 1)]
+        [YAXSerializableField]
+        internal int Version { get; set; }
+
         [YAXSerializeAs("Default")]
         [YAXErrorIfMissed(YAXExceptionTypes.Warning, DefaultValue = null)]
         [YAXSerializableField]
