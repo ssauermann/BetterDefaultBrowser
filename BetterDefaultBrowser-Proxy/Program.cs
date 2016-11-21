@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BetterDefaultBrowser.Lib;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -10,6 +7,7 @@ using BetterDefaultBrowser.Lib.Gateways;
 using BetterDefaultBrowser.Lib.Models;
 using BetterDefaultBrowser.Lib.Logic;
 using BetterDefaultBrowser.Lib.Helpers;
+using Serilog;
 
 namespace BetterDefaultBrowser.Proxy
 {
@@ -19,15 +17,14 @@ namespace BetterDefaultBrowser.Proxy
     /// </summary>
     static class Program
     {
-        private static Uri uriResult;
+        private static Uri _uriResult;
 
         [STAThread]
         static void Main()
         {
             try
             {
-                DebugHelper.SetUpListener();
-                Debug.WriteLine("Proxy was started!");
+                Logging.SetUp("Proxy");
 
                 //Process command line arguments
                 string[] args = Environment.GetCommandLineArgs();
@@ -37,27 +34,39 @@ namespace BetterDefaultBrowser.Proxy
                 if (args.Length > 1)
                     url = args[1];
 
-                //Add protocol if missing. TODO: Fix this for file paths
-                if (!(Uri.TryCreate(url, UriKind.Absolute, out uriResult) && (uriResult != null) && ((uriResult.Scheme == Uri.UriSchemeHttp) || (uriResult.Scheme == Uri.UriSchemeHttps))))
+                Log.Debug("Proxy was started with parameter: {Url}", url);
+
+                if (url != "")
                 {
-                    url = @"http://" + url;
+                    //Add protocol if missing. TODO: Fix this for file paths
+                    if (
+                        !(Uri.TryCreate(url, UriKind.Absolute, out _uriResult) && (_uriResult != null) &&
+                          ((_uriResult.Scheme == Uri.UriSchemeHttp) || (_uriResult.Scheme == Uri.UriSchemeHttps))))
+                    {
+                        url = @"http://" + url;
+                        Log.Debug("Url to open: {Url}", url);
+                    }
                 }
 
-                Debug.WriteLine("Information: " + "Url to open: '" + url + "'");
-
                 var settings = new SettingsGateway(HardcodedValues.DATA_FOLDER + "settings.xml");
-                var browserGW = BrowserGateway.Instance;
+                var browserGw = BrowserGateway.Instance;
 
                 var filters = settings.GetFilters();
 
                 //Mustn't be null
                 Debug.Assert(filters != null, "Filter list is null");
 
-                var defBrowser = browserGW.GetBrowser(settings.DefaultBrowser.BrowserKey);
+                if (settings.DefaultBrowser == null)
+                {
+                    Fail("Default browser is not set.", "set a default browser");
+                    return;
+                }
+
+                var defBrowser = browserGw.GetBrowser(settings.DefaultBrowser.BrowserKey);
 
                 if (defBrowser == null)
                 {
-                    failBrowser();
+                    Fail("Default browser is not installed.", "select another browser as default");
                     return;
                 }
 
@@ -68,21 +77,22 @@ namespace BetterDefaultBrowser.Proxy
                 {
                     if (FilterMatcher.Match(filter, url, out selBrowser))
                     {
+                        Log.Debug("{Browser} was matched via this filter: {Filter}", selBrowser, filter);
                         break;
                     }
                 }
 
                 if (selBrowser == null)
                 {
+                    Log.Debug("Using {DefBrowser} because no matching filter was found", defBrowser);
                     selBrowser = defBrowser;
                 }
-
-                Debug.WriteLine("Information: " + "Matching browser: '" + selBrowser.Name + "'");
 
                 //Loop catching
                 if (selBrowser.Name == HardcodedValues.APP_NAME)
                 {
-                    failLoop();
+                    Fail("No wormholes allowed. You must not create filters which reference BDB.", "remove all filters which reference BDB");
+                    return;
                 }
 
                 //Start browser
@@ -92,73 +102,51 @@ namespace BetterDefaultBrowser.Proxy
                 else
                     Launcher.Launch(selBrowser.ApplicationPath, url);
 
-
-                Debug.WriteLine("Information: " + "Browser opened.");
+                Log.Debug("Proxy finished.");
 
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.ToString());
-                var result = MessageBox.Show("An error has occured!\n" +
-                    "Please open '" + HardcodedValues.APP_NAME + "' and reset your configuration.\n" +
-                    "If this error appears again, report it to the developers and use windows to reset your default browser.",
-                        HardcodedValues.APP_NAME + " - An error has occured!",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Error);
-                if (result == DialogResult.Yes)
-                {
-                    runMainExe(HardcodedValues.PROXY_ERROR_CODE.UNKOWN);
-                }
-                Environment.Exit(1);
+                Log.Error(ex, "Exception was unhandled.");
+                Fail("Unhandled exception: " + ex.Message, "reset your settings. If this error appears again, contact the developers");
             }
             finally
             {
-                Trace.Close();
             }
         }
 
         /// <summary>
         /// Show infobox and exit.
         /// </summary>
-        private static void failLoop()
+        private static void Fail(string msg, string userMsg)
         {
-            Trace.TraceWarning("No wormholes allowed!");
-            var result = MessageBox.Show("This request would loop!\n" +
-                "Please open '" + HardcodedValues.APP_NAME + "' and remove filters that redirect to this proxy.",
-                HardcodedValues.APP_NAME + " - No wormholes allowed!",
+            Log.Error(msg);
+            var result = MessageBox.Show(msg + "\n" +
+                "Please open '" + HardcodedValues.APP_NAME + "' and " + userMsg + ".\nClick yes to open BDB now.",
+                HardcodedValues.APP_NAME + " - An error occured!",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
+                MessageBoxIcon.Error);
             if (result == DialogResult.Yes)
             {
-                runMainExe(HardcodedValues.PROXY_ERROR_CODE.LOOP);
+                RunMainExe();
             }
             Environment.Exit(1);
         }
 
-        private static void failBrowser()
-        {
-            Trace.TraceWarning("Default browser is not set!");
-            var result = MessageBox.Show("The default browser is not set.\n" +
-                "Please open '" + HardcodedValues.APP_NAME + "' and set it there.",
-                HardcodedValues.APP_NAME + " - Exception",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
-            {
-                runMainExe(HardcodedValues.PROXY_ERROR_CODE.DEFAULT_BROWSER);
-            }
-            Environment.Exit(1);
-        }
 
-        private static void runMainExe(HardcodedValues.PROXY_ERROR_CODE error)
+        private static void RunMainExe()
         {
             try
             {
-                var mainAppPath = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet\"
-                    + HardcodedValues.APP_NAME + @"\Capabilities")
-                    .GetValue("ApplicationMainExe").ToString();
+                var openSubKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet\"
+                                                                  + HardcodedValues.APP_NAME + @"\Capabilities");
+                if (openSubKey != null)
+                {
+                    var mainAppPath = openSubKey
+                        .GetValue("ApplicationMainExe").ToString();
 
-                Launcher.Launch(mainAppPath, "-perror " + error.ToString());
+                    Launcher.Launch(mainAppPath, "-perror");
+                }
             }
             catch
             {
