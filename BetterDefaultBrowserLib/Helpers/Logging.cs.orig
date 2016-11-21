@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,6 +11,7 @@ namespace BetterDefaultBrowser.Lib.Helpers
 {
     public static class Logging
     {
+<<<<<<< HEAD
         public static void SetUp(string program)
         {
             var conf = new LoggerConfiguration()
@@ -18,6 +19,12 @@ namespace BetterDefaultBrowser.Lib.Helpers
                 shared: true,
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] [" + program + "] {Message}{NewLine}{Exception}"
                 )
+=======
+        public static void SetUp()
+        {
+            var conf = new LoggerConfiguration()
+                .WriteTo.File(HardcodedValues.DATA_FOLDER + "log.txt", shared: true)
+>>>>>>> caafab73cce9831d43f589167f130940d0b2e02d
                 .MinimumLevel.Information();
 
             // Sets debug level if in debug configuration, else will use information as set above
