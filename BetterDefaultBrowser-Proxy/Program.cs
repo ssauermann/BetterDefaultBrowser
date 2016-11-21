@@ -17,7 +17,6 @@ namespace BetterDefaultBrowser.Proxy
     /// </summary>
     static class Program
     {
-        private static Uri _uriResult;
 
         [STAThread]
         static void Main()
@@ -32,16 +31,19 @@ namespace BetterDefaultBrowser.Proxy
                 //Use first argument as url or empty string if missing
                 var url = "";
                 if (args.Length > 1)
-                    url = args[1];
+                    url = string.Join(" ", args, 1, args.Length - 1);
 
                 Log.Debug("Proxy was started with parameter: {Url}", url);
 
                 if (url != "")
                 {
-                    //Add protocol if missing. TODO: Fix this for file paths
+                    Uri uriResult;
+                    //Add protocol if missing.
                     if (
-                        !(Uri.TryCreate(url, UriKind.Absolute, out _uriResult) && (_uriResult != null) &&
-                          ((_uriResult.Scheme == Uri.UriSchemeHttp) || (_uriResult.Scheme == Uri.UriSchemeHttps))))
+                        !(Uri.TryCreate(url, UriKind.Absolute, out uriResult) && (uriResult != null) &&
+                          ((uriResult.Scheme == Uri.UriSchemeHttp) ||
+                          (uriResult.Scheme == Uri.UriSchemeHttps) ||
+                          (uriResult.Scheme == Uri.UriSchemeFile))))
                     {
                         url = @"http://" + url;
                         Log.Debug("Url to open: {Url}", url);
@@ -84,7 +86,7 @@ namespace BetterDefaultBrowser.Proxy
 
                 if (selBrowser == null)
                 {
-                    Log.Debug("Using {DefBrowser} because no matching filter was found", defBrowser);
+                    Log.Debug("Using {DefBrowser}\n because no matching filter was found", defBrowser);
                     selBrowser = defBrowser;
                 }
 
@@ -96,11 +98,7 @@ namespace BetterDefaultBrowser.Proxy
                 }
 
                 //Start browser
-                //Edge is special
-                if (selBrowser.Key == "MSEDGE")
-                    Launcher.RunEdge(url);
-                else
-                    Launcher.Launch(selBrowser.ApplicationPath, url);
+                Launcher.LaunchBrowser(selBrowser, url);
 
                 Log.Debug("Proxy finished.");
 
@@ -109,9 +107,6 @@ namespace BetterDefaultBrowser.Proxy
             {
                 Log.Error(ex, "Exception was unhandled.");
                 Fail("Unhandled exception: " + ex.Message, "reset your settings. If this error appears again, contact the developers");
-            }
-            finally
-            {
             }
         }
 

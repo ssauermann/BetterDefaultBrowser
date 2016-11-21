@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
+using Serilog;
 
 namespace BetterDefaultBrowser.Lib.Helpers
 {
@@ -25,6 +27,8 @@ namespace BetterDefaultBrowser.Lib.Helpers
                     Arguments = param
                 }
             };
+
+            Log.Debug("Opening {Path} with {Param} as parameters.", path, param);
             proc.Start();
         }
 
@@ -32,31 +36,19 @@ namespace BetterDefaultBrowser.Lib.Helpers
         ///  Open a browser on a webpage.
         /// </summary>
         /// <param name="browser">Browser to open</param>
-        /// <param name="url">URL to open</param>
+        /// <param name="url">URL in an valid scheme to open</param>
         public static void LaunchBrowser(Browser browser, string url)
         {
-            Launch(browser.ApplicationPath, url);
-        }
-
-        ////https://github.com/mihula/RunEdge/blob/master/RunEdge/Program.cs
-
-        /// <summary>
-        /// Run MS Edge
-        /// </summary>
-        /// <param name="url">URL to open</param>
-        public static void RunEdge(string url)
-        {
-            var uri = string.Join(" ", url);
-            if (!string.IsNullOrEmpty(uri))
+            var escaped = url.Replace(" ", "%20");
+            if (browser.Key == "MSEDGE")
             {
-                Uri uriResult;
-                if (!(Uri.TryCreate(uri, UriKind.Absolute, out uriResult) && (uriResult != null) && ((uriResult.Scheme == Uri.UriSchemeHttp) || (uriResult.Scheme == Uri.UriSchemeHttps))))
-                {
-                    uri = @"http://" + uri;
-                }
+                ////https://github.com/mihula/RunEdge/blob/master/RunEdge/Program.cs
+                Process.Start($"microsoft-edge:{escaped}");
             }
-
-            Process.Start($"microsoft-edge:{uri}");
+            else
+            {
+                Launch(browser.ApplicationPath, escaped);
+            }
         }
     }
 }
