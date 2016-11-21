@@ -40,6 +40,14 @@ namespace BetterDefaultBrowser.Lib.Models
         [YAXSerializableField]
         public int Priority { get; set; }
 
+        /// <summary>
+        /// Gets or sets this filter enabled.
+        /// </summary>
+        [YAXAttributeForClass]
+        [YAXSerializeAs("Enabled")]
+        [YAXSerializableField]
+        public bool IsEnabled { get; set; }
+
         #region IDataErrorInfo
         public string Error => string.Empty;
 

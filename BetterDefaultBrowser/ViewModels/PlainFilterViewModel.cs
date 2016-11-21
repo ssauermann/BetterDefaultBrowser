@@ -6,36 +6,14 @@ using BetterDefaultBrowser.Lib.Models;
 
 namespace BetterDefaultBrowser.ViewModels
 {
-    class PlainFilterViewModel : CloseableViewModel, IDataErrorInfo
+    class PlainFilterViewModel : FilterViewModel<PlainFilter>, IDataErrorInfo
     {
-        #region Fields
-
-        private readonly PlainFilter _filter;
-        private readonly ISettingsGateway _settings;
-        private readonly IBrowserGateway _browsers;
-        private RelayCommand _saveCommand;
-
-        #endregion
-
         #region Constructor
 
-        public PlainFilterViewModel(PlainFilter filter, ISettingsGateway settings, IBrowserGateway browsers)
+        public PlainFilterViewModel(PlainFilter filter, ISettingsGateway settingsGateway, IBrowserGateway browserGateway) : base(filter, settingsGateway, browserGateway)
         {
-            if (filter == null)
-            {
-                throw new ArgumentNullException(nameof(filter));
-            }
-            if (settings == null)
-            {
-                throw new ArgumentNullException(nameof(settings));
-            }
-
-            _filter = filter;
-            _settings = settings;
-            _browsers = browsers;
-
             // Subscribe to browser list changed event.
-            _browsers.PropertyChanged += (sender, args) => UpdateBrowsers();
+            BrowserGateway.PropertyChanged += (sender, args) => UpdateBrowsers();
 
             // Initialize browser list
             UpdateBrowsers();
@@ -46,28 +24,28 @@ namespace BetterDefaultBrowser.ViewModels
 
         public string Regex
         {
-            get { return _filter.Regex; }
+            get { return Filter.Regex; }
             set
             {
-                if (value == _filter.Regex)
+                if (value == Filter.Regex)
                 {
                     return;
                 }
-                _filter.Regex = value;
+                Filter.Regex = value;
                 OnPropertyChanged("Regex");
             }
         }
 
         public BrowserStorage Browser
         {
-            get { return _filter.Browser; }
+            get { return Filter.Browser; }
             set
             {
-                if (value.Equals(_filter.Browser))
+                if (value.Equals(Filter.Browser))
                 {
                     return;
                 }
-                _filter.Browser = value;
+                Filter.Browser = value;
                 OnPropertyChanged("Browser");
             }
         }
@@ -79,33 +57,22 @@ namespace BetterDefaultBrowser.ViewModels
 
         public BindingList<BrowserStorage> AvailableBrowsers { get; } = new BindingList<BrowserStorage>();
 
-        public ICommand SaveCommand
-        {
-            get
-            {
-                return _saveCommand ?? (_saveCommand = new RelayCommand(
-                           param => Save(),
-                           param => CanSave
-                       ));
-            }
-        }
-
         #endregion
 
         #region Public Methods
 
-        public void Save()
+        public override void Save()
         {
-            var browser = _browsers.GetBrowser(Browser.BrowserKey);
-            if (!_filter.IsValid || browser == null)
+            var browser = BrowserGateway.GetBrowser(Browser.BrowserKey);
+            if (!Filter.IsValid || browser == null)
             {
                 throw new InvalidOperationException("Can't save filter while it is invalid.");
             }
 
             // Update browser name with real name
-            _filter.Browser.BrowserName = browser.Name;
+            Filter.Browser.BrowserName = browser.Name;
             // Store filter
-            _settings.UpdateOrAddFilter(_filter);
+            SettingsGateway.UpdateOrAddFilter(Filter);
         }
 
         #endregion
@@ -114,26 +81,25 @@ namespace BetterDefaultBrowser.ViewModels
 
         private void UpdateBrowsers()
         {
-            _browsers.InstalledBrowsers.ForEach(
+            BrowserGateway.InstalledBrowsers.ForEach(
                 b => AvailableBrowsers.Add(
                     new BrowserStorage { BrowserKey = b.Key, BrowserName = b.Name }
                 ));
             // OnPropertyChanged("AvailableBrowsers"); // Should not be necessary
         }
 
-        private bool CanSave => ValidateBrowser() == null && _filter.IsValid;
+        protected override bool CanSave => ValidateBrowser() == null && Filter.IsValid;
 
         #endregion
 
         #region IDataErrorInfo Members
-
-        string IDataErrorInfo.Error => (_filter as IDataErrorInfo).Error;
+        string IDataErrorInfo.Error => (Filter as IDataErrorInfo).Error;
 
         string IDataErrorInfo.this[string propertyName]
         {
             get
             {
-                var error = propertyName == "Browser" ? ValidateBrowser() : (_filter as IDataErrorInfo)[propertyName];
+                var error = propertyName == "Browser" ? ValidateBrowser() : (Filter as IDataErrorInfo)[propertyName];
 
                 CommandManager.InvalidateRequerySuggested();
                 return error;
@@ -142,7 +108,7 @@ namespace BetterDefaultBrowser.ViewModels
 
         string ValidateBrowser()
         {
-            var browser = _browsers.GetBrowser(Browser.BrowserKey);
+            var browser = BrowserGateway.GetBrowser(Browser.BrowserKey);
             var error = browser == null ? null : "Selected browser is not available.";
             return error;
         }
