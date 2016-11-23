@@ -22,7 +22,7 @@ namespace BetterDefaultBrowser.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace BetterDefaultBrowser.Properties {
         ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BetterDefaultBrowser.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,30 @@ namespace BetterDefaultBrowser.Properties {
         ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Filtering settings ähnelt.
+        /// </summary>
+        public static string BoxFilteringSettings {
+            get {
+                return ResourceManager.GetString("BoxFilteringSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die General settings ähnelt.
+        /// </summary>
+        public static string BoxGeneralSettings {
+            get {
+                return ResourceManager.GetString("BoxGeneralSettings", resourceCulture);
             }
         }
         
@@ -74,7 +92,7 @@ namespace BetterDefaultBrowser.Properties {
         ///  &lt;!-- Ebene 1/&lt;Zusammengesetzter Pfad&gt; --&gt;
         ///  &lt;Path Fill=&quot;#ff000000&quot; Data=&quot;F1 M 4.500,0.000 L 0.000,5.000 L 4.500,10.000 L 6.000,8.500 L 2.500,5.000  [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
-        internal static string code {
+        public static string code {
             get {
                 return ResourceManager.GetString("code", resourceCulture);
             }
@@ -94,7 +112,7 @@ namespace BetterDefaultBrowser.Properties {
         ///  &lt;!-- Ebene 1/&lt;Zusammengesetzter Pfad&gt; --&gt;
         ///  &lt;Path Fill=&quot;#ff000000&quot; Data=&quot;F1 M 10.000,6.000 C 10.000,7.110 9.110,8.000 8.000,8.000 C 6.890,8.000 6.0 [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
-        internal static string eye {
+        public static string eye {
             get {
                 return ResourceManager.GetString("eye", resourceCulture);
             }
@@ -114,9 +132,45 @@ namespace BetterDefaultBrowser.Properties {
         ///  &lt;!-- Ebene 1/&lt;Zusammengesetzter Pfad&gt; --&gt;
         ///  &lt;Path Fill=&quot;#ff000000&quot; Data=&quot;F1 M 7.000,9.990 C 5.340,9.990 4.000,8.650 4.000,6.990 C 4.000,5.330 5.340 [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
-        internal static string gear {
+        public static string gear {
             get {
                 return ResourceManager.GetString("gear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Browser ähnelt.
+        /// </summary>
+        public static string LabelBrowser {
+            get {
+                return ResourceManager.GetString("LabelBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Name ähnelt.
+        /// </summary>
+        public static string LabelFilterName {
+            get {
+                return ResourceManager.GetString("LabelFilterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Enabled ähnelt.
+        /// </summary>
+        public static string LabelIsEnabled {
+            get {
+                return ResourceManager.GetString("LabelIsEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Regex ähnelt.
+        /// </summary>
+        public static string LabelRegex {
+            get {
+                return ResourceManager.GetString("LabelRegex", resourceCulture);
             }
         }
     }

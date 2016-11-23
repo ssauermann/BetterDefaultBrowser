@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace BetterDefaultBrowser.Views
 {
     /// <summary>
-    /// Interaktionslogik für Menu.xaml
+    /// Logic for PlainFilterView.xaml
     /// </summary>
-    public partial class Menu : UserControl
+    public partial class PlainFilterView : UserControl
     {
-        public Menu()
+        public PlainFilterView()
         {
             InitializeComponent();
         }
