@@ -57,20 +57,20 @@
         <!-- General settings -->
         <GroupBox DockPanel.Dock="Top"
                   Header='{x:Static properties:Resources.BoxGeneralSettings}'>
-            <DockPanel Margin="4 0 4 4">
+            <DockPanel Margin="4 0 4 10">
                 <DockPanel DockPanel.Dock="Left">
 
                     <!-- ENABLED -->
                     <CheckBox DockPanel.Dock="Right"
                               Margin="20 12 0 0"
-                              IsChecked="True"
+                              IsChecked="{Binding Path=IsEnabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}"
                               Content="{x:Static properties:Resources.LabelIsEnabled}" />
 
                     <!-- NAME -->
                     <TextBox MinWidth="200"
                              HorizontalAlignment="Stretch"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text='{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}'>
+                             Text='{Binding Path=Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, ValidatesOnDataErrors=True}'>
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal"
                                         Margin="-2 0 0 0">
@@ -87,6 +87,14 @@
 
             </DockPanel>
         </GroupBox>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0">Close</Button>
+            <Button Grid.Column="1">Save</Button>
+        </Grid>
 
         <!-- Filtering settings -->
         <GroupBox Header='{x:Static properties:Resources.BoxFilteringSettings}'>
@@ -96,12 +104,9 @@
                 <ComboBox DockPanel.Dock="Top"
                           Margin="6 6 6 10"
                           materialDesign:HintAssist.Hint="{x:Static properties:Resources.LabelBrowser}"
-                          Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                    <ComboBoxItem>Andoid</ComboBoxItem>
-                    <ComboBoxItem>iOS</ComboBoxItem>
-                    <ComboBoxItem>Linux</ComboBoxItem>
-                    <ComboBoxItem>Windows</ComboBoxItem>
-                </ComboBox>
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                          ItemsSource="{Binding Path=AvailableBrowsers, Mode=OneWay}"
+                          SelectedItem="{Binding Path=Browser, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
                 <!-- Regex -->
                 <TextBox TextWrapping="Wrap"
@@ -110,40 +115,10 @@
                          AcceptsReturn="True"
                          VerticalScrollBarVisibility="Auto"
                          materialDesign:HintAssist.Hint="{x:Static properties:Resources.LabelRegex}"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         Text="{Binding Path=Regex, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
             </DockPanel>
         </GroupBox>
     </DockPanel>
 </UserControl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

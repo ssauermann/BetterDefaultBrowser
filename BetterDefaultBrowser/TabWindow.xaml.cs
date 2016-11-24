@@ -11,21 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BetterDefaultBrowser.Lib.Gateways;
-using BetterDefaultBrowser.Lib.Models;
-using BetterDefaultBrowser.ViewModels;
 
 namespace BetterDefaultBrowser
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaktionslogik für TabWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TabWindow : Window
     {
-        public MainWindow()
+        public TabWindow()
         {
             InitializeComponent();
-            RefMe.Content = new PlainFilterViewModel(new PlainFilter(), new SettingsGateway(@".\mysettings.xml"), BrowserGateway.Instance);
         }
     }
 }

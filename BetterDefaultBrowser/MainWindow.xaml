@@ -5,17 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BetterDefaultBrowser"
         xmlns:views='clr-namespace:BetterDefaultBrowser.Views'
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="300"
-        Width="300"
+        Height="600"
+        Width="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto">
+    <Window.Resources>
+        <ResourceDictionary Source="MainWindowResources.xaml" />
+    </Window.Resources>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top"
+                   KeyboardNavigation.TabNavigation="None">
+            <Menu KeyboardNavigation.TabNavigation="Cycle">
+                <MenuItem Header="_File">
+                    <MenuItem Header="E_xit"
+                              Command="{Binding Path=CloseCommand}" />
+                </MenuItem>
+                <MenuItem Header="_Edit" />
+                <MenuItem Header="_Options" />
+                <MenuItem Header="_Help" />
+            </Menu>
+        </DockPanel>
+        <Grid>
+            <dragablz:TabablzControl>
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController MoveWindowWithSolitaryTabs="True">
+                        <dragablz:InterTabController.InterTabClient>
+                            <local:InterTabController />
+                        </dragablz:InterTabController.InterTabClient>
+                    </dragablz:InterTabController>
+                </dragablz:TabablzControl.InterTabController>
+                <TabItem x:Name='RefMe'
+                         Header="HELLO" />
+                <TabItem Header="MATERIAL">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center">Material Design</TextBlock>
+                </TabItem>
+                <TabItem Header="DESIGN">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center">Looks Quite Nice</TextBlock>
+                </TabItem>
+            </dragablz:TabablzControl>
 
-    <Grid>
-        <views:PlainFilterView />
-    </Grid>
+            <!--<HeaderedContentControl Content="{Binding Path=Tabs}"
+                                    ContentTemplate="{StaticResource TabTemplate}"
+                                    Header="Foo bars" /> -->
+        </Grid>
+    </DockPanel>
 </Window>
+
+
+
