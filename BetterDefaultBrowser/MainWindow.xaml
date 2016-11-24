@@ -51,10 +51,6 @@
                                VerticalAlignment="Center">Looks Quite Nice</TextBlock>
                 </TabItem>
             </dragablz:TabablzControl>
-
-            <!--<HeaderedContentControl Content="{Binding Path=Tabs}"
-                                    ContentTemplate="{StaticResource TabTemplate}"
-                                    Header="Foo bars" /> -->
         </Grid>
     </DockPanel>
 </Window>

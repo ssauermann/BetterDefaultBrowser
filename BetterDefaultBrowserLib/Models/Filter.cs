@@ -128,7 +128,7 @@ namespace BetterDefaultBrowser.Lib.Models
 
         private string ValidatePriority()
         {
-            if (Priority >= 0)
+            if (Priority < 0)
             {
                 return "Priority must not be negative.";
             }

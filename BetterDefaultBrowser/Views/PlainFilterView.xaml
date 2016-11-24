@@ -93,7 +93,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0">Close</Button>
-            <Button Grid.Column="1">Save</Button>
+            <Button Grid.Column="1"
+                    Content="{x:Static properties:Resources.LabelSave}"
+                    Command="{Binding Path=SaveCommand}" />
         </Grid>
 
         <!-- Filtering settings -->

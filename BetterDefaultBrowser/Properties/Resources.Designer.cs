@@ -173,5 +173,14 @@ namespace BetterDefaultBrowser.Properties {
                 return ResourceManager.GetString("LabelRegex", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Save ähnelt.
+        /// </summary>
+        public static string LabelSave {
+            get {
+                return ResourceManager.GetString("LabelSave", resourceCulture);
+            }
+        }
     }
 }
