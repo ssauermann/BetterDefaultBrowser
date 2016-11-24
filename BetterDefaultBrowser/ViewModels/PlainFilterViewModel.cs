@@ -32,7 +32,7 @@ namespace BetterDefaultBrowser.ViewModels
                     return;
                 }
                 Filter.Regex = value;
-                OnPropertyChanged("Regex");
+                OnPropertyChanged(nameof(Regex));
             }
         }
 
@@ -46,7 +46,7 @@ namespace BetterDefaultBrowser.ViewModels
                     return;
                 }
                 Filter.Browser = value;
-                OnPropertyChanged("Browser");
+                OnPropertyChanged(nameof(Browser));
             }
         }
 
@@ -85,7 +85,7 @@ namespace BetterDefaultBrowser.ViewModels
                 b => AvailableBrowsers.Add(
                     new BrowserStorage { BrowserKey = b.Key, BrowserName = b.Name }
                 ));
-            // OnPropertyChanged("AvailableBrowsers"); // Should not be necessary
+            // OnPropertyChanged(nameof(AvailableBrowsers)); // Should not be necessary
         }
 
         protected override bool CanSave => ValidateBrowser() == null && Filter.IsValid;

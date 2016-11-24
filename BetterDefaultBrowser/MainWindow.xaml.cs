@@ -19,14 +19,35 @@ using MahApps.Metro.Controls;
 namespace BetterDefaultBrowser
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
-            RefMe.Content = new PlainFilterViewModel(new PlainFilter(), new SettingsGateway(@".\mysettings.xml"), BrowserGateway.Instance);
+
+
+            // Create the ViewModel to which 
+            // the main window binds.
+            string path = @".\mysettings.xml";
+            var viewModel = new MainWindowViewModel(path);
+
+            // When the ViewModel asks to be closed, 
+            // close the window.
+            EventHandler handler = null;
+            handler = delegate
+            {
+                viewModel.RequestClose -= handler;
+                Close();
+            };
+            viewModel.RequestClose += handler;
+
+            // Allow all controls in the window to 
+            // bind to the ViewModel by setting the 
+            // DataContext, which propagates down 
+            // the element tree.
+            DataContext = viewModel;
         }
     }
 }

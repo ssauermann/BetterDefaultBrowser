@@ -33,6 +33,9 @@ namespace BetterDefaultBrowser.ViewModels
             Filter = filter;
             SettingsGateway = settingsGateway;
             BrowserGateway = browserGateway;
+
+            // Unsaved changes * when property changed:
+            PropertyChanged += (sender, args) => { if (args.PropertyName != nameof(DisplayName)) UnsavedChanges = true; };
         }
         #endregion
 
@@ -48,7 +51,9 @@ namespace BetterDefaultBrowser.ViewModels
                     return;
                 }
                 Filter.Name = value;
-                OnPropertyChanged("Name");
+                DisplayName = value;
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(DisplayName));
             }
         }
 
@@ -62,7 +67,7 @@ namespace BetterDefaultBrowser.ViewModels
                     return;
                 }
                 Filter.Priority = value;
-                OnPropertyChanged("Priority");
+                OnPropertyChanged(nameof(Priority));
             }
         }
 
@@ -76,9 +81,41 @@ namespace BetterDefaultBrowser.ViewModels
                     return;
                 }
                 Filter.IsEnabled = value;
-                OnPropertyChanged("IsEnabled");
+                OnPropertyChanged(nameof(IsEnabled));
             }
         }
+        #endregion
+
+        #region Unsaved changes
+
+        private bool _unsavedChanges;
+        private bool UnsavedChanges
+        {
+            get { return _unsavedChanges; }
+            set
+            {
+                if (_unsavedChanges != value)
+                {
+                    _unsavedChanges = value;
+                    OnPropertyChanged(nameof(DisplayName));
+                }
+            }
+        }
+
+        // Override display name so no converter from bool to * is needed.
+        public override string DisplayName
+        {
+            get
+            {
+                if (UnsavedChanges)
+                {
+                    return base.DisplayName + "*";
+                }
+                return base.DisplayName;
+            }
+            protected set { base.DisplayName = value; }
+        }
+
         #endregion
 
         #region Command
@@ -87,10 +124,16 @@ namespace BetterDefaultBrowser.ViewModels
             get
             {
                 return SaveCmd ?? (SaveCmd = new RelayCommand(
-                           param => Save(),
+                           param => DoSave(),
                            param => CanSave
                        ));
             }
+        }
+
+        private void DoSave()
+        {
+            Save();
+            UnsavedChanges = false;
         }
 
         public abstract void Save();

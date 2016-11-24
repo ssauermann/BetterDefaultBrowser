@@ -151,4 +151,7 @@
   <data name="AppName" xml:space="preserve">
     <value>Better Default Browser</value>
   </data>
+  <data name="HeaderUnnamed" xml:space="preserve">
+    <value>&lt;unnamed&gt;</value>
+  </data>
 </root>

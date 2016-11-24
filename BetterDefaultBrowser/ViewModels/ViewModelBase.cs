@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using BetterDefaultBrowser.Lib.Helpers;
+using BetterDefaultBrowser.Properties;
 
 namespace BetterDefaultBrowser.ViewModels
 {
@@ -13,12 +15,24 @@ namespace BetterDefaultBrowser.ViewModels
     {
         #region DisplayName
 
+        private string _displayName = Resources.HeaderUnnamed;
+
         /// <summary>
         /// Returns the user-friendly name of this object.
         /// Child classes can set this property to a new value,
         /// or override it to determine the value on-demand.
         /// </summary>
-        public virtual string DisplayName { get; protected set; }
+        public virtual string DisplayName
+        {
+            get
+            {
+                return _displayName;
+            }
+            protected set
+            {
+                _displayName = Validator.IsStringMissing(value) ? Resources.HeaderUnnamed : value;
+            }
+        }
 
         #endregion // DisplayName
 

@@ -1,6 +1,6 @@
 ﻿namespace BetterDefaultBrowser.Lib.Helpers
 {
-    internal static class Validator
+    public static class Validator
     {
         public static bool IsStringMissing(string value)
         {

@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 namespace BetterDefaultBrowser
 {
     /// <summary>
-    /// Interaktionslogik für TabWindow.xaml
+    /// Logic for TabWindow.xaml
     /// </summary>
-    public partial class TabWindow : Window
+    public partial class TabWindow
     {
         public TabWindow()
         {

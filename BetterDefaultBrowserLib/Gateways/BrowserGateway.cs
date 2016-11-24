@@ -296,7 +296,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
             }
 
             // Trigger change event
-            RaisePropertyChanged("InstalledBrowsers");
+            RaisePropertyChanged(nameof(InstalledBrowsers));
         }
 
         /// <summary>
@@ -326,7 +326,7 @@ namespace BetterDefaultBrowser.Lib.Gateways
             }
 
             // Trigger change event
-            RaisePropertyChanged("DefaultBrowser");
+            RaisePropertyChanged(nameof(DefaultBrowser));
         }
         #endregion
     }

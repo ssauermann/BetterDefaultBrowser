@@ -29,10 +29,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-
         <!-- General settings -->
         <GroupBox DockPanel.Dock="Top" Header='{x:Static properties:Resources.BoxGeneralSettings}' BorderThickness="0">
-            <DockPanel Margin="4 0 4 10">
+            <DockPanel Margin="4 0 4 12">
                 <DockPanel DockPanel.Dock="Left">
 
                     <!-- ENABLED -->

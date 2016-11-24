@@ -148,6 +148,15 @@ namespace BetterDefaultBrowser.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;unnamed&gt; ähnelt.
+        /// </summary>
+        public static string HeaderUnnamed {
+            get {
+                return ResourceManager.GetString("HeaderUnnamed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Browser ähnelt.
         /// </summary>
         public static string LabelBrowser {
