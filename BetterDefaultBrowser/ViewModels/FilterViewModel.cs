@@ -36,6 +36,7 @@ namespace BetterDefaultBrowser.ViewModels
 
             // Unsaved changes * when property changed:
             PropertyChanged += (sender, args) => { if (args.PropertyName != nameof(DisplayName)) UnsavedChanges = true; };
+            DisplayName = Name;
         }
         #endregion
 
@@ -103,7 +104,7 @@ namespace BetterDefaultBrowser.ViewModels
         }
 
         // Override display name so no converter from bool to * is needed.
-        public override string DisplayName
+        public sealed override string DisplayName
         {
             get
             {

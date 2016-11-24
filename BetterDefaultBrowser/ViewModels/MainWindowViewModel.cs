@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,25 @@ namespace BetterDefaultBrowser.ViewModels
             Tabs.CollectionChanged += OnTabsChanged;
 
             //TODO: Remove; Just for testing
-            Tabs.Add(new PlainFilterViewModel(new PlainFilter(), _settingsGateway, _browserGateway));
-            Tabs.Add(new PlainFilterViewModel(new PlainFilter(), _settingsGateway, _browserGateway));
+            foreach (var filter in _settingsGateway.GetFilters())
+            {
+                if (typeof(ManagedFilter) == filter.GetType())
+                {
+                    //Tabs.Add(new ManagedFilterViewModel((ManagedFilter)filter, _settingsGateway, _browserGateway));
+                }
+                if (typeof(PlainFilter) == filter.GetType())
+                {
+                    Tabs.Add(new PlainFilterViewModel((PlainFilter)filter, _settingsGateway, _browserGateway));
+                }
+                else if (typeof(OpenFilter) == filter.GetType())
+                {
+                    //Tabs.Add(new OpenFilterViewModel((OpenFilter)filter, _settingsGateway, _browserGateway));
+                }
+                else
+                {
+                    Debug.Fail("Implementation missing for a filter type.");
+                }
+            }
         }
 
         #endregion

@@ -119,7 +119,7 @@ namespace BetterDefaultBrowser.ViewModels
         ~ViewModelBase()
         {
             string msg = $"{GetType().Name} ({DisplayName}) ({GetHashCode()}) Finalized";
-            Debug.WriteLine(msg);
+            //Debug.WriteLine(msg);
         }
 #endif
 
