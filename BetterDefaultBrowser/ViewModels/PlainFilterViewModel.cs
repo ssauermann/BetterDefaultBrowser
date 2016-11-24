@@ -108,8 +108,8 @@ namespace BetterDefaultBrowser.ViewModels
 
         string ValidateBrowser()
         {
-            var browser = BrowserGateway.GetBrowser(Browser.BrowserKey);
-            var error = browser == null ? null : "Selected browser is not available.";
+            var browser = BrowserGateway.GetBrowser(Browser?.BrowserKey);
+            var error = browser != null ? null : "Selected browser is not available.";
             return error;
         }
 
