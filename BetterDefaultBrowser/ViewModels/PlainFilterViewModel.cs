@@ -108,8 +108,16 @@ namespace BetterDefaultBrowser.ViewModels
 
         string ValidateBrowser()
         {
+            //Validate browser storage not null
+            var innerError = (Filter as IDataErrorInfo)[nameof(Filter.Browser)];
+            if (innerError != null)
+            {
+                return innerError;
+            }
+
+            // Validate browser is installed
             var browser = BrowserGateway.GetBrowser(Browser?.BrowserKey);
-            var error = browser != null ? null : "Selected browser is not available.";
+            var error = browser != null ? null : "Selected browser is not available on this system.";
             return error;
         }
 

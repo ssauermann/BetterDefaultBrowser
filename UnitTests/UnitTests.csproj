@@ -78,6 +78,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Lib\Models\PlainFilterTest.cs" />
     <Compile Include="Lib\SettingsGatewayTest.cs" />
     <Compile Include="Lib\SerializationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

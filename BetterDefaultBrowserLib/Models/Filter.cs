@@ -46,7 +46,7 @@ namespace BetterDefaultBrowser.Lib.Models
         [YAXAttributeForClass]
         [YAXSerializeAs("Enabled")]
         [YAXSerializableField]
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = true;
 
         #region IDataErrorInfo
         public string Error => string.Empty;
@@ -138,7 +138,7 @@ namespace BetterDefaultBrowser.Lib.Models
         /// <summary>
         /// Returns true if this object has no validation errors.
         /// </summary>
-        public bool IsValid
+        public virtual bool IsValid
         {
             get
             {

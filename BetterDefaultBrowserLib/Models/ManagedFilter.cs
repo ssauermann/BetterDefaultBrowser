@@ -90,6 +90,18 @@ namespace BetterDefaultBrowser.Lib.Models
             return null;
         }
 
+        public override bool IsValid
+        {
+            get
+            {
+                foreach (string property in ValidatedProperties)
+                    if (GetValidationError(property) != null)
+                        return false;
+
+                return base.IsValid;
+            }
+        }
+
         #endregion
     }
 }

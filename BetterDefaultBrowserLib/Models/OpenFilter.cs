@@ -60,7 +60,7 @@ namespace BetterDefaultBrowser.Lib.Models
             switch (propertyName)
             {
                 case "Browsers":
-                    error = this.ValidateBrowsers();
+                    error = ValidateBrowsers();
                     break;
 
                 default:
@@ -78,6 +78,18 @@ namespace BetterDefaultBrowser.Lib.Models
                 return "Browser list contains invalid browsers.";
             }
             return null;
+        }
+
+        public override bool IsValid
+        {
+            get
+            {
+                foreach (string property in ValidatedProperties)
+                    if (GetValidationError(property) != null)
+                        return false;
+
+                return base.IsValid;
+            }
         }
 
         #endregion
