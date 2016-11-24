@@ -61,6 +61,15 @@ namespace BetterDefaultBrowser.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Better Default Browser ähnelt.
+        /// </summary>
+        public static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Filtering settings ähnelt.
         /// </summary>
         public static string BoxFilteringSettings {

@@ -148,4 +148,7 @@
   <data name="LabelSave" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Better Default Browser</value>
+  </data>
 </root>

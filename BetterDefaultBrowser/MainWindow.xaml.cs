@@ -14,13 +14,14 @@ using System.Windows.Shapes;
 using BetterDefaultBrowser.Lib.Gateways;
 using BetterDefaultBrowser.Lib.Models;
 using BetterDefaultBrowser.ViewModels;
+using MahApps.Metro.Controls;
 
 namespace BetterDefaultBrowser
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
