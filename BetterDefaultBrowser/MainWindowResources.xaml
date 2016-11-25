@@ -2,11 +2,39 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:BetterDefaultBrowser"
                     xmlns:v="clr-namespace:BetterDefaultBrowser.Views"
-                    xmlns:vm="clr-namespace:BetterDefaultBrowser.ViewModels">
+                    xmlns:vm="clr-namespace:BetterDefaultBrowser.ViewModels"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <!-- Data template for all view models mapping the model to the view -->
     <DataTemplate DataType="{x:Type vm:PlainFilterViewModel}">
         <v:PlainFilterView />
     </DataTemplate>
 
+    <!-- Styles for material design -->
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+        <Setter Property="Margin" Value="0 8 0 8" />
+    </Style>
+    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Margin" Value="0 8 0 8" />
+    </Style>
+    <Style TargetType="{x:Type Viewbox}">
+        <Setter Property="Width" Value="18" />
+        <Setter Property="Height" Value="18" />
+        <Setter Property="Margin" Value="0 0 8 0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style TargetType="{x:Type Slider}" BasedOn="{StaticResource MaterialDesignSlider}">
+        <Setter Property="Margin" Value="0 8 0 8" />
+    </Style>
+    <Style TargetType="{x:Type materialDesign:PackIcon}" BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="4 0 4 0" />
+    </Style>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Slider.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
