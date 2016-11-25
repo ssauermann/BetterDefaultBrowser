@@ -83,6 +83,7 @@ namespace BetterDefaultBrowser.Lib.Models
 
         private string ValidateUrl()
         {
+            return null; //TODO
             if (!RegexBuilder.URLIsValid(Url))
             {
                 return "You must provide a valid url.";

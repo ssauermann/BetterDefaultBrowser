@@ -83,6 +83,7 @@
     <Compile Include="Helpers\Logging.cs" />
     <Compile Include="Helpers\Validator.cs" />
     <Compile Include="Logic\FilterMatcher.cs" />
+    <Compile Include="Logic\UrlParser.cs" />
     <Compile Include="Models\BrowserStorage.cs" />
     <Compile Include="Models\Enums\Ignore.cs" />
     <Compile Include="Models\Enums\Protocols.cs" />
