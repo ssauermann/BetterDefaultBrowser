@@ -12,7 +12,7 @@ using BetterDefaultBrowser.Lib.Models;
 
 namespace BetterDefaultBrowser.ViewModels
 {
-    class MainWindowViewModel : CloseableViewModel
+    public class MainWindowViewModel : CloseableViewModel
     {
         #region Fields
 

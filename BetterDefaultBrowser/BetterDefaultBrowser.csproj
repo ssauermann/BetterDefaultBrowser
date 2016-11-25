@@ -155,7 +155,9 @@
     <Compile Include="ViewModels\CloseableViewModel.cs" />
     <Compile Include="ViewModels\FilterViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ManagedFilterViewModel.cs" />
     <Compile Include="ViewModels\PlainFilterViewModel.cs" />
+    <Compile Include="ViewModels\PlainFilterViewModelT.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\PlainFilterView.xaml.cs">
       <DependentUpon>PlainFilterView.xaml</DependentUpon>

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using BetterDefaultBrowser.Lib.Gateways;
 using BetterDefaultBrowser.Lib.Models;
 
 namespace BetterDefaultBrowser.ViewModels
 {
-    abstract class FilterViewModel<T> : CloseableViewModel where T : Filter
+    public abstract class FilterViewModel<T> : CloseableViewModel, IDataErrorInfo where T : Filter
     {
         #region Fields
         protected readonly T Filter;
@@ -139,6 +140,30 @@ namespace BetterDefaultBrowser.ViewModels
 
         public abstract void Save();
         protected abstract bool CanSave { get; }
+        #endregion
+
+        #region IDataErrorInfo Members
+        string IDataErrorInfo.Error => (Filter as IDataErrorInfo).Error;
+
+        string IDataErrorInfo.this[string propertyName]
+        {
+            get
+            {
+                var error = ValidateMe(propertyName);
+                if (error != null)
+                {
+                    return error;
+                }
+
+                error = (Filter as IDataErrorInfo)[propertyName];
+
+                CommandManager.InvalidateRequerySuggested();
+                return error;
+            }
+        }
+
+        protected abstract string ValidateMe(string property);
+
         #endregion
     }
 }

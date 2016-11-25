@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace BetterDefaultBrowser.ViewModels
 {
-    abstract class CloseableViewModel : ViewModelBase
+    public abstract class CloseableViewModel : ViewModelBase
     {
         #region Fields
 
