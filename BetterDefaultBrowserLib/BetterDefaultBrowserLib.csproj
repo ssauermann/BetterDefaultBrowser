@@ -79,6 +79,7 @@
     <Compile Include="Gateways\NotifyPropertyChangedBase.cs" />
     <Compile Include="Gateways\SettingsGateway.cs" />
     <Compile Include="Gateways\SpecialBrowsers.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\Logging.cs" />
     <Compile Include="Helpers\Validator.cs" />
     <Compile Include="Logic\FilterMatcher.cs" />

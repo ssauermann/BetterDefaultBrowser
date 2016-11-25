@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace BetterDefaultBrowser.Lib.Models.Enums
 {
@@ -12,11 +13,13 @@ namespace BetterDefaultBrowser.Lib.Models.Enums
         /// <summary>
         /// HTTP protocol
         /// </summary>
+        [Description("http")]
         HTTP = 1 << 0,
 
         /// <summary>
         /// HTTPS protocol
         /// </summary>
+        [Description("https")]
         HTTPS = 1 << 1
     }
 
@@ -30,7 +33,7 @@ namespace BetterDefaultBrowser.Lib.Models.Enums
         /// </summary>
         /// <param name="prots">Protocol (Must not be multiple flags)</param>
         /// <returns>Regex string</returns>
-        public static String Regex(this Protocols prots)
+        public static string Regex(this Protocols prots)
         {
             switch (prots)
             {

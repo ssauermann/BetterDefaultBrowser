@@ -1,6 +1,10 @@
-﻿using BetterDefaultBrowser.Lib.Gateways;
+﻿using System;
+using System.Collections.Generic;
+using BetterDefaultBrowser.Lib.Gateways;
+using BetterDefaultBrowser.Lib.Helpers;
 using BetterDefaultBrowser.Lib.Models;
 using BetterDefaultBrowser.Lib.Models.Enums;
+using BetterDefaultBrowser.Properties;
 
 namespace BetterDefaultBrowser.ViewModels
 {
@@ -55,5 +59,32 @@ namespace BetterDefaultBrowser.ViewModels
         }
         #endregion
 
+        #region Display properties
+
+        public IEnumerable<Tuple<Enum, string>> AvailableProtocols
+        {
+            get
+            {
+
+                var pro = EnumHelper.GetAllValuesAndDescriptions<Protocols>();
+
+                Protocols anyProtocols = 0;
+                foreach (var tuple in pro)
+                {
+                    anyProtocols |= (Protocols)tuple.Item1;
+                }
+
+                pro.Insert(0, new Tuple<Enum, string>(anyProtocols, Resources.AnyProtocol));
+
+                if (Protocols == 0)
+                {
+                    Protocols = anyProtocols;
+                }
+
+                return pro;
+            }
+        }
+
+        #endregion
     }
 }

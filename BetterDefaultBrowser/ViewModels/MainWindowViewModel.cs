@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BetterDefaultBrowser.Lib.Gateways;
 using BetterDefaultBrowser.Lib.Models;
+using BetterDefaultBrowser.Lib.Models.Enums;
 
 namespace BetterDefaultBrowser.ViewModels
 {
@@ -36,7 +37,7 @@ namespace BetterDefaultBrowser.ViewModels
             {
                 if (typeof(ManagedFilter) == filter.GetType())
                 {
-                    //Tabs.Add(new ManagedFilterViewModel((ManagedFilter)filter, _settingsGateway, _browserGateway));
+                    Tabs.Add(new ManagedFilterViewModel((ManagedFilter)filter, _settingsGateway, _browserGateway));
                 }
                 if (typeof(PlainFilter) == filter.GetType())
                 {
@@ -51,6 +52,8 @@ namespace BetterDefaultBrowser.ViewModels
                     Debug.Fail("Implementation missing for a filter type.");
                 }
             }
+
+            Tabs.Add(new ManagedFilterViewModel(new ManagedFilter(), _settingsGateway, _browserGateway));
         }
 
         #endregion

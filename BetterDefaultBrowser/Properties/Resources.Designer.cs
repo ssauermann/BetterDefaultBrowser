@@ -61,6 +61,15 @@ namespace BetterDefaultBrowser.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die &lt;any protocol&gt; ähnelt.
+        /// </summary>
+        public static string AnyProtocol {
+            get {
+                return ResourceManager.GetString("AnyProtocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Better Default Browser ähnelt.
         /// </summary>
         public static string AppName {
@@ -198,6 +207,15 @@ namespace BetterDefaultBrowser.Properties {
         public static string LabelSave {
             get {
                 return ResourceManager.GetString("LabelSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die URL ähnelt.
+        /// </summary>
+        public static string LabelUrl {
+            get {
+                return ResourceManager.GetString("LabelUrl", resourceCulture);
             }
         }
     }

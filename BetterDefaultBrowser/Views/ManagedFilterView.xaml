@@ -5,10 +5,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:BetterDefaultBrowser.Views"
+    xmlns:vm="clr-namespace:BetterDefaultBrowser.ViewModels"
     xmlns:properties="clr-namespace:BetterDefaultBrowser.Properties"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d" 
-    d:DesignHeight="600" d:DesignWidth="400">
+    d:DesignHeight="600" d:DesignWidth="400"
+    d:DataContext="{d:DesignInstance vm:ManagedFilterViewModel}">
     <UserControl.Resources>
         <ResourceDictionary Source="/MainWindowResources.xaml" />
     </UserControl.Resources>
@@ -27,10 +29,39 @@
                 <!-- Browser -->
                 <ComboBox DockPanel.Dock="Top" Margin="6 6 6 10" materialDesign:HintAssist.Hint="{x:Static properties:Resources.LabelBrowser}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding Path=AvailableBrowsers, Mode=OneWay}" SelectedItem="{Binding Path=Browser, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
-                <!-- Regex -->
-                <TextBox TextWrapping="Wrap" VerticalAlignment="Top" Margin="6 6 6 6" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="{x:Static properties:Resources.LabelRegex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Path=Regex, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+                <!-- Url -->
+                <TextBox DockPanel.Dock="Top" VerticalAlignment="Top" Margin="6 6 6 10" materialDesign:HintAssist.Hint="{x:Static properties:Resources.LabelUrl}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Path=Url, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+
+                <!-- Url split and flags-->
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <ComboBox Margin="2 5" VerticalAlignment="Center"
+                              ItemsSource="{Binding Path=AvailableProtocols}"
+                              SelectedValue="{Binding Protocols}"
+                              SelectedValuePath="Item1"
+                              DisplayMemberPath="Item2"/>
+
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">://</TextBox>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30">www.foo</Button>
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">.</TextBox>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30">google</Button>
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">.</TextBox>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30">co.uk</Button>
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">:</TextBox>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30">80</Button>
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">/</TextBox>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30" Background="{StaticResource MaterialDesignDarkBackground}" BorderBrush="{StaticResource GrayBrush1}">a/b/c</Button>
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">?</TextBox>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                            >x=1|y=2</Button>
+                </WrapPanel>
+
+                <!-- <TextBox DockPanel.Dock="Top" VerticalAlignment="Top" Margin="6 6 6 10" materialDesign:HintAssist.Hint="{x:Static properties:Resources.LabelUrl}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Path=Url, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" /> -->
 
             </DockPanel>
         </GroupBox>
     </DockPanel>
 </UserControl>
+
+
+
