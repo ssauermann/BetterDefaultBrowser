@@ -44,24 +44,24 @@
 
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">://</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
-                            Style="{StaticResource IgnoreSdStyle}" Command="{Binding IgnoreSd}">www.foo</Button>
-                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">.</TextBox>
+                            Style="{StaticResource IgnoreSdStyle}" Command="{Binding IgnoreSd}"
+                            Content="{Binding UrlSd}" Visibility="{Binding UrlSd, Converter={StaticResource HideWhenEmpty}}" />
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold" Visibility="{Binding UrlSd, Converter={StaticResource HideWhenEmpty}}">.</TextBox>
                     <!-- <Button Margin="2 5" Padding="4 0" MinWidth="30" >google</Button> -->
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">google</TextBox>
-                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">.</TextBox>
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold" Visibility="{Binding UrlTld, Converter={StaticResource HideWhenEmpty}}">.</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
-                            Style="{StaticResource IgnoreTldStyle}"  Command="{Binding IgnoreTld}">co.uk</Button>
-                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">:</TextBox>
+                            Style="{StaticResource IgnoreTldStyle}"  Command="{Binding IgnoreTld}" Content="{Binding UrlTld}" Visibility="{Binding UrlTld, Converter={StaticResource HideWhenEmpty}}" />
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold" Visibility="{Binding UrlPort, Converter={StaticResource HideWhenEmpty}}">:</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
-                            Style="{StaticResource IgnorePortStyle}"  Command="{Binding IgnorePort}">80</Button>
-                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">/</TextBox>
+                            Style="{StaticResource IgnorePortStyle}"  Command="{Binding IgnorePort}" Content="{Binding UrlPort}" Visibility="{Binding UrlPort, Converter={StaticResource HideWhenEmpty}}" />
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold" Visibility="{Binding UrlPage, Converter={StaticResource HideWhenEmpty}}">/</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
-                            Style="{StaticResource IgnorePageStyle}"  Command="{Binding IgnorePage}">
-                        a/b/c</Button>
-                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">?</TextBox>
+                            Style="{StaticResource IgnorePageStyle}"  Command="{Binding IgnorePage}" Content="{Binding UrlPage}" Visibility="{Binding UrlPage, Converter={StaticResource HideWhenEmpty}}" />
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold" Visibility="{Binding UrlParameter, Converter={StaticResource HideWhenEmpty}}">?</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
                             Style="{StaticResource IgnoreParameterStyle}"
-                            Command="{Binding IgnoreParameter}" >x=1|y=2</Button>
+                            Command="{Binding IgnoreParameter}" Content="{Binding UrlParameter}" Visibility="{Binding UrlParameter, Converter={StaticResource HideWhenEmpty}}" />
                 </WrapPanel>
 
                 <!-- <TextBox DockPanel.Dock="Top" VerticalAlignment="Top" Margin="6 6 6 10" materialDesign:HintAssist.Hint="{x:Static properties:Resources.LabelUrl}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Path=Url, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" /> -->
@@ -70,9 +70,6 @@
         </GroupBox>
     </DockPanel>
 </UserControl>
-
-
-
 
 
 

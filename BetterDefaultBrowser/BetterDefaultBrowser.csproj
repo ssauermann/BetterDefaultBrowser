@@ -137,6 +137,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converter\ValueConverterGroup.cs" />
+    <Compile Include="Converter\IsStringNullOrEmptyConverter.cs" />
     <Compile Include="Converter\BoolToStringConverter.cs" />
     <Compile Include="Converter\FlagsEnumToBoolConverter.cs" />
     <Compile Include="Interface\Wrappers.cs" />

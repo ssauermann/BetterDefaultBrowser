@@ -37,8 +37,8 @@ namespace BetterDefaultBrowser.Lib.Models
         #region Validation
         private static readonly string[] ValidatedProperties =
         {
-            "Protocols",
-            "URL",
+            nameof(Protocols),
+            nameof(Url),
         };
         protected override string GetValidationError(string propertyName)
         {
@@ -55,11 +55,11 @@ namespace BetterDefaultBrowser.Lib.Models
 
             switch (propertyName)
             {
-                case "Protocols":
+                case nameof(Protocols):
                     error = ValidateProtocols();
                     break;
 
-                case "URL":
+                case nameof(Url):
                     error = ValidateUrl();
                     break;
 

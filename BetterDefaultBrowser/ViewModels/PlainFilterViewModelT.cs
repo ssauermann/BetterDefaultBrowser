@@ -12,7 +12,13 @@ namespace BetterDefaultBrowser.ViewModels
         public PlainFilterViewModelT(T filter, ISettingsGateway settingsGateway, IBrowserGateway browserGateway) : base(filter, settingsGateway, browserGateway)
         {
             // Subscribe to browser list changed event.
-            BrowserGateway.PropertyChanged += (sender, args) => UpdateBrowsers();
+            BrowserGateway.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(IBrowserGateway.InstalledBrowsers))
+                {
+                    UpdateBrowsers();
+                }
+            };
 
             // Initialize browser list
             UpdateBrowsers();

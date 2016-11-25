@@ -91,6 +91,10 @@ namespace BetterDefaultBrowser.Lib.Logic
         /// <returns>Validity of url</returns>
         public static bool URLIsValid(string url)
         {
+            if (url == null)
+            {
+                return false;
+            }
             var domainUrl = Regex.Replace(url, Ignore.Page.Regex(), string.Empty);
             domainUrl = Regex.Replace(domainUrl, Ignore.Parameter.Regex(), string.Empty);
             domainUrl = Regex.Replace(domainUrl, Ignore.Port.Regex(), string.Empty);

@@ -41,7 +41,7 @@ namespace BetterDefaultBrowser.Lib.Models
 
         private static readonly string[] ValidatedProperties =
         {
-            "Browsers",
+            nameof(Browsers),
         };
 
         protected override string GetValidationError(string propertyName)
@@ -59,7 +59,7 @@ namespace BetterDefaultBrowser.Lib.Models
 
             switch (propertyName)
             {
-                case "Browsers":
+                case nameof(Browsers):
                     error = ValidateBrowsers();
                     break;
 

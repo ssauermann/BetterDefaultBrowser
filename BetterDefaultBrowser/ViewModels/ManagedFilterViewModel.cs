@@ -15,6 +15,13 @@ namespace BetterDefaultBrowser.ViewModels
         #region Constructor
         public ManagedFilterViewModel(ManagedFilter filter, ISettingsGateway settingsGateway, IBrowserGateway browserGateway) : base(filter, settingsGateway, browserGateway)
         {
+            PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(Url))
+                {
+                    UpdateUrlParts();
+                }
+            };
         }
         #endregion
 
@@ -53,7 +60,7 @@ namespace BetterDefaultBrowser.ViewModels
             {
                 if (Filter.Url != value)
                 {
-                    Filter.Url = Url;
+                    Filter.Url = value;
                     OnPropertyChanged(nameof(Url));
                 }
             }
@@ -84,6 +91,21 @@ namespace BetterDefaultBrowser.ViewModels
 
                 return pro;
             }
+        }
+
+        #endregion
+
+        #region Button texts
+
+        public string UrlPage { get; private set; }
+        public string UrlParameter { get; private set; }
+        public string UrlPort { get; private set; }
+        public string UrlTld { get; private set; }
+        public string UrlSd { get; private set; }
+
+        private void UpdateUrlParts()
+        {
+
         }
 
         #endregion

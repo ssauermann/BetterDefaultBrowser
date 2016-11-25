@@ -82,8 +82,8 @@ namespace BetterDefaultBrowser.Lib.Models
 
         private static readonly string[] ValidatedProperties =
         {
-            "Name",
-            "Priority",
+            nameof(Name),
+            nameof(Priority),
         };
 
         /// <summary>
@@ -101,11 +101,11 @@ namespace BetterDefaultBrowser.Lib.Models
 
             switch (propertyName)
             {
-                case "Name":
+                case nameof(Name):
                     error = ValidateName();
                     break;
 
-                case "Priority":
+                case nameof(Priority):
                     error = ValidatePriority();
                     break;
 

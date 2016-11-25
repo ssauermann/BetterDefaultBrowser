@@ -30,8 +30,8 @@ namespace BetterDefaultBrowser.Lib.Models
 
         private static readonly string[] ValidatedProperties =
         {
-            "Regex",
-            "Browser"
+            nameof(Regex),
+            nameof(Browser)
         };
 
         protected override string GetValidationError(string propertyName)
@@ -49,10 +49,10 @@ namespace BetterDefaultBrowser.Lib.Models
 
             switch (propertyName)
             {
-                case "Regex":
+                case nameof(Regex):
                     error = ValidateRegex();
                     break;
-                case "Browser":
+                case nameof(Browser):
                     error = ValidateBrowser();
                     break;
                 default:

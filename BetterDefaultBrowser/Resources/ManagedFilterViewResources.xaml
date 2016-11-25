@@ -6,6 +6,11 @@
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Converter -->
+    <converter:ValueConverterGroup x:Key="HideWhenEmpty">
+        <converter:IsStringNullOrEmptyConverter Inverted="True"/>
+        <BooleanToVisibilityConverter/>
+    </converter:ValueConverterGroup>
+
     <converter:FlagsEnumToBoolConverter x:Key="IgnorePageConverter" EnumValueToBind="Page" />
     <converter:FlagsEnumToBoolConverter x:Key="IgnoreParameterConverter" EnumValueToBind="Parameter" />
     <converter:FlagsEnumToBoolConverter x:Key="IgnorePortConverter" EnumValueToBind="Port" />
