@@ -35,6 +35,24 @@
         <Setter Property="Margin" Value="4 0 4 0" />
     </Style>
 
+    <!-- Buttons for ManagedFilter -->
+
+    <!-- Warnings are wrong here -->
+    <!-- ReSharper disable once Xaml.InvalidResourceType -->
+    <SolidColorBrush x:Key="GrayColor" Color="{DynamicResource 'Blue GreyPrimary400'}" />
+    <!-- ReSharper disable once Xaml.InvalidResourceType -->
+    <SolidColorBrush x:Key="GrayColorBorder" Color="{DynamicResource 'Blue GreyPrimary400'}" />
+    <!-- ReSharper disable once Xaml.InvalidResourceType -->
+    <SolidColorBrush x:Key="GrayColorForeground" Color="{DynamicResource 'Blue GreyPrimary400Foreground'}" />
+
+    <Style x:Key="IgnoredPartButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+        <Setter Property="Background" Value="{StaticResource GrayColor}" />
+        <Setter Property="Foreground" Value="{StaticResource GrayColorForeground}" />
+        <Setter Property="BorderBrush" Value="{StaticResource GrayColorBorder}"/>
+    </Style>
+
+    <Style x:Key="MatchedPartButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}" />
+
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />

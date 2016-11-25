@@ -4,23 +4,25 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:BetterDefaultBrowser.Views"
+    xmlns:conv="clr-namespace:BetterDefaultBrowser.Converter"
     xmlns:vm="clr-namespace:BetterDefaultBrowser.ViewModels"
     xmlns:properties="clr-namespace:BetterDefaultBrowser.Properties"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:enum="clr-namespace:BetterDefaultBrowser.Lib.Models.Enums;assembly=BetterDefaultBrowserLib"
+    xmlns:views="clr-namespace:BetterDefaultBrowser.Views"
     mc:Ignorable="d" 
     d:DesignHeight="600" d:DesignWidth="400"
     d:DataContext="{d:DesignInstance vm:ManagedFilterViewModel}">
     <UserControl.Resources>
-        <ResourceDictionary Source="/MainWindowResources.xaml" />
+        <ResourceDictionary Source="/Resources/ManagedFilterViewResources.xaml" />
     </UserControl.Resources>
     <DockPanel>
 
         <!-- Action bar -->
-        <local:FilterActionBar DockPanel.Dock="Top"/>
+        <views:FilterActionBar DockPanel.Dock="Top"/>
 
         <!-- General settings -->
-        <local:FilterGeneralSettings DockPanel.Dock="Top"/>
+        <views:FilterGeneralSettings DockPanel.Dock="Top"/>
 
         <!-- Filtering settings -->
         <GroupBox Header='{x:Static properties:Resources.BoxFilteringSettings}' BorderThickness="0">
@@ -33,7 +35,7 @@
                 <TextBox DockPanel.Dock="Top" VerticalAlignment="Top" Margin="6 6 6 10" materialDesign:HintAssist.Hint="{x:Static properties:Resources.LabelUrl}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Path=Url, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
                 <!-- Url split and flags-->
-                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="4 10">
                     <ComboBox Margin="2 5" VerticalAlignment="Center"
                               ItemsSource="{Binding Path=AvailableProtocols}"
                               SelectedValue="{Binding Protocols}"
@@ -41,18 +43,24 @@
                               DisplayMemberPath="Item2"/>
 
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">://</TextBox>
-                    <Button Margin="2 5" Padding="4 0" MinWidth="30">www.foo</Button>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30"
+                            Style="{StaticResource IgnoreSdStyle}">www.foo</Button>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">.</TextBox>
-                    <Button Margin="2 5" Padding="4 0" MinWidth="30">google</Button>
+                    <!-- <Button Margin="2 5" Padding="4 0" MinWidth="30" >google</Button> -->
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">google</TextBox>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">.</TextBox>
-                    <Button Margin="2 5" Padding="4 0" MinWidth="30">co.uk</Button>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30"
+                            Style="{StaticResource IgnoreTldStyle}">co.uk</Button>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">:</TextBox>
-                    <Button Margin="2 5" Padding="4 0" MinWidth="30">80</Button>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30"
+                            Style="{StaticResource IgnorePortStyle}">80</Button>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">/</TextBox>
-                    <Button Margin="2 5" Padding="4 0" MinWidth="30" Background="{StaticResource MaterialDesignDarkBackground}" BorderBrush="{StaticResource GrayBrush1}">a/b/c</Button>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30"
+                            Style="{StaticResource IgnorePageStyle}">
+                        a/b/c</Button>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">?</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
-                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                            Style="{StaticResource IgnoreParameterStyle}"
                             >x=1|y=2</Button>
                 </WrapPanel>
 
@@ -62,6 +70,18 @@
         </GroupBox>
     </DockPanel>
 </UserControl>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

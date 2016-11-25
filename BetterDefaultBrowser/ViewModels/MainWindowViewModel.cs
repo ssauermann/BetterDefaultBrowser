@@ -53,7 +53,7 @@ namespace BetterDefaultBrowser.ViewModels
                 }
             }
 
-            Tabs.Add(new ManagedFilterViewModel(new ManagedFilter(), _settingsGateway, _browserGateway));
+            Tabs.Add(new ManagedFilterViewModel(new ManagedFilter() { Flags = Ignore.Page }, _settingsGateway, _browserGateway));
         }
 
         #endregion

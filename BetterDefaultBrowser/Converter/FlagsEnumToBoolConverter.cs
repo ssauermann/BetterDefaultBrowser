@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
+using BetterDefaultBrowser.Lib.Models.Enums;
 
 namespace BetterDefaultBrowser.Converter
 {
@@ -12,11 +13,11 @@ namespace BetterDefaultBrowser.Converter
     public class FlagsEnumToBoolConverter : MarkupExtension, IValueConverter
     {
         private int _targetValue;
-        public int EnumValueToBind { get; set; }
+        public Ignore EnumValueToBind { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var mask = EnumValueToBind;
+            var mask = (int)EnumValueToBind;
             _targetValue = (int)value;
 
             return (mask & _targetValue) != 0;
@@ -24,7 +25,7 @@ namespace BetterDefaultBrowser.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            _targetValue ^= EnumValueToBind;
+            _targetValue ^= (int)EnumValueToBind;
             return Enum.Parse(targetType, _targetValue.ToString());
         }
 

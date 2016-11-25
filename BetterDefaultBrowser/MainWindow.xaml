@@ -25,7 +25,7 @@
                    BorderThickness="1"
                    Icon="BDBStupidLogo.ico">
     <Window.Resources>
-        <ResourceDictionary Source="MainWindowResources.xaml" />
+        <ResourceDictionary Source="Resources/MainWindowResources.xaml" />
     </Window.Resources>
     <metro:MetroWindow.RightWindowCommands>
         <metro:WindowCommands>
