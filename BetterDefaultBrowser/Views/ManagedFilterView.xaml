@@ -44,24 +44,24 @@
 
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">://</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
-                            Style="{StaticResource IgnoreSdStyle}">www.foo</Button>
+                            Style="{StaticResource IgnoreSdStyle}" Command="{Binding IgnoreSd}">www.foo</Button>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">.</TextBox>
                     <!-- <Button Margin="2 5" Padding="4 0" MinWidth="30" >google</Button> -->
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">google</TextBox>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">.</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
-                            Style="{StaticResource IgnoreTldStyle}">co.uk</Button>
+                            Style="{StaticResource IgnoreTldStyle}"  Command="{Binding IgnoreTld}">co.uk</Button>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">:</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
-                            Style="{StaticResource IgnorePortStyle}">80</Button>
+                            Style="{StaticResource IgnorePortStyle}"  Command="{Binding IgnorePort}">80</Button>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">/</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
-                            Style="{StaticResource IgnorePageStyle}">
+                            Style="{StaticResource IgnorePageStyle}"  Command="{Binding IgnorePage}">
                         a/b/c</Button>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">?</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
                             Style="{StaticResource IgnoreParameterStyle}"
-                            >x=1|y=2</Button>
+                            Command="{Binding IgnoreParameter}" >x=1|y=2</Button>
                 </WrapPanel>
 
                 <!-- <TextBox DockPanel.Dock="Top" VerticalAlignment="Top" Margin="6 6 6 10" materialDesign:HintAssist.Hint="{x:Static properties:Resources.LabelUrl}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Path=Url, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" /> -->

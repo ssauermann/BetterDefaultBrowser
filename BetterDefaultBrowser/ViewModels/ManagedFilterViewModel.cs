@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 using BetterDefaultBrowser.Lib.Gateways;
 using BetterDefaultBrowser.Lib.Helpers;
 using BetterDefaultBrowser.Lib.Models;
@@ -17,7 +18,7 @@ namespace BetterDefaultBrowser.ViewModels
         }
         #endregion
 
-        #region MangedFilter Properties
+        #region ManagedFilter Properties
 
         public Protocols Protocols
         {
@@ -82,6 +83,47 @@ namespace BetterDefaultBrowser.ViewModels
                 }
 
                 return pro;
+            }
+        }
+
+        #endregion
+
+        #region Button invert commands
+
+        public ICommand IgnorePage => new RelayCommand(
+                         param => InvertFlag(Ignore.Page),
+                         param => true
+                     );
+
+        public ICommand IgnoreParameter => new RelayCommand(
+                     param => InvertFlag(Ignore.Parameter),
+                     param => true
+                 );
+
+        public ICommand IgnorePort => new RelayCommand(
+                     param => InvertFlag(Ignore.Port),
+                     param => true
+                 );
+
+        public ICommand IgnoreSd => new RelayCommand(
+                     param => InvertFlag(Ignore.SD),
+                     param => true
+                 );
+
+        public ICommand IgnoreTld => new RelayCommand(
+                     param => InvertFlag(Ignore.TLD),
+                     param => true
+                 );
+
+        private void InvertFlag(Ignore flag)
+        {
+            if (Flags.HasFlag(flag))
+            {
+                Flags &= ~flag;
+            }
+            else
+            {
+                Flags |= flag;
             }
         }
 
