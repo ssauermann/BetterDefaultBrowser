@@ -14,8 +14,9 @@
     <converter:FlagsEnumToBoolConverter x:Key="IgnorePageConverter" EnumValueToBind="Page" />
     <converter:FlagsEnumToBoolConverter x:Key="IgnoreParameterConverter" EnumValueToBind="Parameter" />
     <converter:FlagsEnumToBoolConverter x:Key="IgnorePortConverter" EnumValueToBind="Port" />
-    <converter:FlagsEnumToBoolConverter x:Key="IgnoreSdConverter" EnumValueToBind="SD" />
-    <converter:FlagsEnumToBoolConverter x:Key="IgnoreTldConverter" EnumValueToBind="TLD" />
+    <converter:FlagsEnumToBoolConverter x:Key="IgnoreProtocolConverter" EnumValueToBind="Protocol" />
+    <converter:FlagsEnumToBoolConverter x:Key="IgnoreSdConverter" EnumValueToBind="SubDomain" />
+    <converter:FlagsEnumToBoolConverter x:Key="IgnoreTldConverter" EnumValueToBind="TopLevelDomain" />
 
     <!-- Styles -->
     <Style x:Key="IgnorePageStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}">
@@ -56,6 +57,21 @@
                 <Setter Property="BorderBrush" Value="{StaticResource GrayColorBorder}"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Flags, Converter={StaticResource IgnorePortConverter}}" Value="False">
+                <Setter Property="Background" Value="{StaticResource SecondaryAccentBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource SecondaryAccentForegroundBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource SecondaryAccentBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="IgnoreProtocolStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Flags, Converter={StaticResource IgnoreProtocolConverter}}" Value="True">
+                <Setter Property="Background" Value="{StaticResource GrayColor}" />
+                <Setter Property="Foreground" Value="{StaticResource GrayColorForeground}" />
+                <Setter Property="BorderBrush" Value="{StaticResource GrayColorBorder}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Flags, Converter={StaticResource IgnoreProtocolConverter}}" Value="False">
                 <Setter Property="Background" Value="{StaticResource SecondaryAccentBrush}" />
                 <Setter Property="Foreground" Value="{StaticResource SecondaryAccentForegroundBrush}" />
                 <Setter Property="BorderBrush" Value="{StaticResource SecondaryAccentBrush}"/>

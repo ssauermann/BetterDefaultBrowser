@@ -13,13 +13,6 @@ namespace BetterDefaultBrowser.Lib.Models
     {
         #region Fields
         /// <summary>
-        /// Gets or sets the matched protocols.
-        /// </summary>
-        [YAXSerializeAs("Protocols")]
-        [YAXSerializableField]
-        public Protocols Protocols { get; set; }
-
-        /// <summary>
         /// Gets or sets the matched url.
         /// </summary>
         [YAXSerializeAs("URL")]
@@ -37,7 +30,6 @@ namespace BetterDefaultBrowser.Lib.Models
         #region Validation
         private static readonly string[] ValidatedProperties =
         {
-            nameof(Protocols),
             nameof(Url),
         };
         protected override string GetValidationError(string propertyName)
@@ -55,10 +47,6 @@ namespace BetterDefaultBrowser.Lib.Models
 
             switch (propertyName)
             {
-                case nameof(Protocols):
-                    error = ValidateProtocols();
-                    break;
-
                 case nameof(Url):
                     error = ValidateUrl();
                     break;
@@ -71,24 +59,15 @@ namespace BetterDefaultBrowser.Lib.Models
             return error;
         }
 
-        private string ValidateProtocols()
-        {
-            // Zero == none selected
-            if (Protocols == 0)
-            {
-                return "You must select at least one protocol.";
-            }
-            return null;
-        }
 
         private string ValidateUrl()
         {
             return null; //TODO
-            if (!RegexBuilder.URLIsValid(Url))
-            {
-                return "You must provide a valid url.";
-            }
-            return null;
+            //if (!RegexBuilder.URLIsValid(Url))
+            //{
+            //    return "You must provide a valid url.";
+            //}
+            //return null;
         }
 
         public override bool IsValid

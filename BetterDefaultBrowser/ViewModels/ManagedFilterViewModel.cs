@@ -17,6 +17,7 @@ namespace BetterDefaultBrowser.ViewModels
         private string _urlPort;
         private string _urlTld;
         private string _urlSd;
+        private string _urlProtocol;
 
         #region Constructor
         public ManagedFilterViewModel(ManagedFilter filter, ISettingsGateway settingsGateway, IBrowserGateway browserGateway) : base(filter, settingsGateway, browserGateway)
@@ -32,19 +33,6 @@ namespace BetterDefaultBrowser.ViewModels
         #endregion
 
         #region ManagedFilter Properties
-
-        public Protocols Protocols
-        {
-            get { return Filter.Protocols; }
-            set
-            {
-                if (Filter.Protocols != value)
-                {
-                    Filter.Protocols = value;
-                    OnPropertyChanged(nameof(Protocols));
-                }
-            }
-        }
 
         public Ignore Flags
         {
@@ -74,30 +62,6 @@ namespace BetterDefaultBrowser.ViewModels
         #endregion
 
         #region Display properties
-
-        public IEnumerable<Tuple<Enum, string>> AvailableProtocols
-        {
-            get
-            {
-
-                var pro = EnumHelper.GetAllValuesAndDescriptions<Protocols>();
-
-                Protocols anyProtocols = 0;
-                foreach (var tuple in pro)
-                {
-                    anyProtocols |= (Protocols)tuple.Item1;
-                }
-
-                pro.Insert(0, new Tuple<Enum, string>(anyProtocols, Resources.AnyProtocol));
-
-                if (Protocols == 0)
-                {
-                    Protocols = anyProtocols;
-                }
-
-                return pro;
-            }
-        }
 
         #endregion
 
@@ -142,6 +106,19 @@ namespace BetterDefaultBrowser.ViewModels
             }
         }
 
+        public string UrlProtocol
+        {
+            get { return _urlProtocol; }
+            private set
+            {
+                if (_urlProtocol != value)
+                {
+                    _urlProtocol = value;
+                    OnPropertyChanged(nameof(UrlProtocol));
+                }
+            }
+        }
+
         public string UrlTld
         {
             get { return _urlTld; }
@@ -173,13 +150,16 @@ namespace BetterDefaultBrowser.ViewModels
             var matcher = new UrlParser(Url);
             if (matcher.Parse())
             {
-                UrlPage = matcher.Protocol;
+                UrlProtocol = matcher.Protocol;
+                UrlPort = "90";
+                UrlTld = "de";
             }
             else
             {
                 UrlPage = null;
                 UrlParameter = null;
                 UrlPort = null;
+                UrlProtocol = null;
                 UrlSd = null;
                 UrlTld = null;
             }
@@ -204,13 +184,18 @@ namespace BetterDefaultBrowser.ViewModels
                      param => true
                  );
 
+        public ICommand IgnoreProtocol => new RelayCommand(
+                     param => InvertFlag(Ignore.Protocol),
+                     param => true
+                 );
+
         public ICommand IgnoreSd => new RelayCommand(
-                     param => InvertFlag(Ignore.SD),
+                     param => InvertFlag(Ignore.SubDomain),
                      param => true
                  );
 
         public ICommand IgnoreTld => new RelayCommand(
-                     param => InvertFlag(Ignore.TLD),
+                     param => InvertFlag(Ignore.TopLevelDomain),
                      param => true
                  );
 

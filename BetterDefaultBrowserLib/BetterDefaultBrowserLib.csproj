@@ -86,7 +86,6 @@
     <Compile Include="Logic\UrlParser.cs" />
     <Compile Include="Models\BrowserStorage.cs" />
     <Compile Include="Models\Enums\Ignore.cs" />
-    <Compile Include="Models\Enums\Protocols.cs" />
     <Compile Include="Logic\RegexBuilder.cs" />
     <Compile Include="HardcodedValues.cs" />
     <Compile Include="Helpers\RegexHelper.cs" />

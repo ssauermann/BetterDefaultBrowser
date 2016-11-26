@@ -36,13 +36,10 @@
 
                 <!-- Url split and flags-->
                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="4 10">
-                    <ComboBox Margin="2 5" VerticalAlignment="Center"
-                              ItemsSource="{Binding Path=AvailableProtocols}"
-                              SelectedValue="{Binding Protocols}"
-                              SelectedValuePath="Item1"
-                              DisplayMemberPath="Item2"/>
-
-                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">://</TextBox>
+                    <Button Margin="2 5" Padding="4 0" MinWidth="30"
+                            Style="{StaticResource IgnoreProtocolStyle}" Command="{Binding IgnoreProtocol}"
+                            Content="{Binding UrlProtocol}" Visibility="{Binding UrlProtocol, Converter={StaticResource HideWhenEmpty}}" />
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold" Visibility="{Binding UrlProtocol, Converter={StaticResource HideWhenEmpty}}">://</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
                             Style="{StaticResource IgnoreSdStyle}" Command="{Binding IgnoreSd}"
                             Content="{Binding UrlSd}" Visibility="{Binding UrlSd, Converter={StaticResource HideWhenEmpty}}" />

@@ -11,12 +11,12 @@ namespace BetterDefaultBrowser.Lib.Models.Enums
         /// <summary>
         /// Ignore subdomain.
         /// </summary>
-        SD = 1 << 0,
+        SubDomain = 1 << 0,
 
         /// <summary>
         /// Ignore top-level-domain.
         /// </summary>
-        TLD = 1 << 1,
+        TopLevelDomain = 1 << 1,
 
         /// <summary>
         /// Ignore port.
@@ -31,7 +31,12 @@ namespace BetterDefaultBrowser.Lib.Models.Enums
         /// <summary>
         /// Ignore parameters.
         /// </summary>
-        Parameter = 1 << 4
+        Parameter = 1 << 4,
+
+        /// <summary>
+        /// Ignore protocols.
+        /// </summary>
+        Protocol = 1 << 5,
     }
 
     /// <summary>
@@ -54,12 +59,14 @@ namespace BetterDefaultBrowser.Lib.Models.Enums
                     return @"(\/(?:[^?])+)";
                 case Ignore.Port:
                     return @"(\:[0-9]+)";
-                case Ignore.TLD:
+                case Ignore.Protocol:
+                    throw new NotImplementedException("Needs rewrite!"); //TODO
+                case Ignore.TopLevelDomain:
                     throw new NotSupportedException("Regex has to be created by DomainNameLib.");
-                case Ignore.SD:
+                case Ignore.SubDomain:
                     throw new NotSupportedException("Regex has to be created by DomainNameLib.");
                 default:
-                    throw new NotImplementedException("Missing implementation for a protocol");
+                    throw new NotImplementedException("Missing implementation for a flag");
             }
         }
     }

@@ -27,7 +27,6 @@ namespace BetterDefaultBrowser.Interface
                 //Browser = new Browser("ABC"),
                 Url = "www.foo.bar.com",
                 Name = "My managed filter",
-                Protocols = Protocols.HTTP,
                 Flags = Ignore.Parameter | Ignore.Page
             });
             var of = new OpenFilter()

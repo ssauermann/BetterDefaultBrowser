@@ -35,7 +35,6 @@ namespace BetterDefaultBrowser.Interface
         public ManagedFilterTree(ManagedFilter filter) : base(filter, "managed")
         {
             Attributes.Add(new StringWrapper("URL", filter.Url));
-            Attributes.Add(new StringWrapper("Protocols", filter.Protocols.ToString()));
             Attributes.Add(new StringWrapper("Ignore", filter.Flags.ToString()));
         }
     }

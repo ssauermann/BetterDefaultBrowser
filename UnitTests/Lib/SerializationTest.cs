@@ -20,7 +20,6 @@ namespace UnitTests.Lib
         {
             Browser = B,
             Name = "My managed filter",
-            Protocols = Protocols.HTTP,
             Flags = Ignore.Parameter,
             Priority = 1,
             Url = "www.google.com"
@@ -70,7 +69,6 @@ namespace UnitTests.Lib
             var fm = SerializeAndBack(Fm);
             FilterEqual(Fm, fm);
             Assert.AreEqual(Fm.Flags, fm.Flags);
-            Assert.AreEqual(Fm.Protocols, fm.Protocols);
             Assert.AreEqual(Fm.Url, fm.Url);
         }
 
