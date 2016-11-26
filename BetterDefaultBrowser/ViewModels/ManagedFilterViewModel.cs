@@ -74,27 +74,27 @@ namespace BetterDefaultBrowser.ViewModels
         {
             // Set ignore flags which have no matching content
             // e.g. Will ignore port if none is set
-            if (UrlPage == null)
+            if (string.IsNullOrEmpty(UrlPage))
             {
                 Flags |= Ignore.Page;
             }
-            if (UrlParameter == null)
+            if (string.IsNullOrEmpty(UrlParameter))
             {
                 Flags |= Ignore.Parameter;
             }
-            if (UrlPort == null)
+            if (string.IsNullOrEmpty(UrlPort))
             {
                 Flags |= Ignore.Port;
             }
-            if (UrlProtocol == null)
+            if (string.IsNullOrEmpty(UrlProtocol))
             {
                 Flags |= Ignore.Protocol;
             }
-            if (UrlSd == null)
+            if (string.IsNullOrEmpty(UrlSd))
             {
                 Flags |= Ignore.SubDomain;
             }
-            if (UrlTld == null)
+            if (string.IsNullOrEmpty(UrlTld))
             {
                 Flags |= Ignore.TopLevelDomain;
             }
