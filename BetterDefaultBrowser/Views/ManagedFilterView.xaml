@@ -45,7 +45,7 @@
                             Content="{Binding UrlSd}" Visibility="{Binding UrlSd, Converter={StaticResource HideWhenEmpty}}" />
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold" Visibility="{Binding UrlSd, Converter={StaticResource HideWhenEmpty}}">.</TextBox>
                     <!-- <Button Margin="2 5" Padding="4 0" MinWidth="30" >google</Button> -->
-                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold">google</TextBox>
+                    <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold" Text="{Binding Path=UrlDomain, Mode=OneWay}" Visibility="{Binding UrlDomain, Converter={StaticResource HideWhenEmpty}}"/>
                     <TextBox IsEnabled="False" BorderBrush="{x:Null}" FontWeight="Bold" Visibility="{Binding UrlTld, Converter={StaticResource HideWhenEmpty}}">.</TextBox>
                     <Button Margin="2 5" Padding="4 0" MinWidth="30"
                             Style="{StaticResource IgnoreTldStyle}"  Command="{Binding IgnoreTld}" Content="{Binding UrlTld}" Visibility="{Binding UrlTld, Converter={StaticResource HideWhenEmpty}}" />

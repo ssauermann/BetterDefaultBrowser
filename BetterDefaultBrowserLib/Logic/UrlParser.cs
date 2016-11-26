@@ -12,11 +12,12 @@ namespace BetterDefaultBrowser.Lib.Logic
         private string _url;
 
         public string Protocol { get; private set; }
-        private string _sd;
-        private string _domain;
-        private string _tld;
-        private string _page;
-        private string _parameter;
+        public string Sd { get; private set; }
+        public string Domain { get; private set; }
+        public string Tld { get; private set; }
+        public string Page { get; private set; }
+        public string Parameter { get; private set; }
+        public string Port { get; private set; }
 
         private static class RegexStrings
         {

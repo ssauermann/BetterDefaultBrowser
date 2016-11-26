@@ -134,11 +134,12 @@ namespace BetterDefaultBrowser.ViewModels
 
         private void DoSave()
         {
-            Save();
+            PrepareSave();
+            SettingsGateway.UpdateOrAddFilter(Filter);
             UnsavedChanges = false;
         }
 
-        public abstract void Save();
+        public abstract void PrepareSave();
         protected abstract bool CanSave { get; }
         #endregion
 

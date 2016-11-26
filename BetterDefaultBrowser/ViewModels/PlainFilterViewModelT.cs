@@ -66,7 +66,7 @@ namespace BetterDefaultBrowser.ViewModels
 
         #region Public Methods
 
-        public override void Save()
+        public override void PrepareSave()
         {
             var browser = BrowserGateway.GetBrowser(Browser.BrowserKey);
             if (!Filter.IsValid || browser == null)
@@ -76,8 +76,6 @@ namespace BetterDefaultBrowser.ViewModels
 
             // Update browser name with real name
             Filter.Browser.BrowserName = browser.Name;
-            // Store filter
-            SettingsGateway.UpdateOrAddFilter(Filter);
         }
 
         #endregion

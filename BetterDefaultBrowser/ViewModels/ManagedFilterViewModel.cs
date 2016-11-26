@@ -12,12 +12,15 @@ namespace BetterDefaultBrowser.ViewModels
 {
     public class ManagedFilterViewModel : PlainFilterViewModelT<ManagedFilter>
     {
+        #region Fields
+        private string _urlDomain;
         private string _urlPage;
         private string _urlParameter;
         private string _urlPort;
         private string _urlTld;
         private string _urlSd;
         private string _urlProtocol;
+        #endregion
 
         #region Constructor
         public ManagedFilterViewModel(ManagedFilter filter, ISettingsGateway settingsGateway, IBrowserGateway browserGateway) : base(filter, settingsGateway, browserGateway)
@@ -65,7 +68,56 @@ namespace BetterDefaultBrowser.ViewModels
 
         #endregion
 
+        #region Saving
+
+        public override void PrepareSave()
+        {
+            // Set ignore flags which have no matching content
+            // e.g. Will ignore port if none is set
+            if (UrlPage == null)
+            {
+                Flags |= Ignore.Page;
+            }
+            if (UrlParameter == null)
+            {
+                Flags |= Ignore.Parameter;
+            }
+            if (UrlPort == null)
+            {
+                Flags |= Ignore.Port;
+            }
+            if (UrlProtocol == null)
+            {
+                Flags |= Ignore.Protocol;
+            }
+            if (UrlSd == null)
+            {
+                Flags |= Ignore.SubDomain;
+            }
+            if (UrlTld == null)
+            {
+                Flags |= Ignore.TopLevelDomain;
+            }
+
+            // Prepare save of parent
+            base.PrepareSave();
+        }
+
+        #endregion
+
         #region Button texts
+        public string UrlDomain
+        {
+            get { return _urlDomain; }
+            private set
+            {
+                if (_urlDomain != value)
+                {
+                    _urlDomain = value;
+                    OnPropertyChanged(nameof(UrlDomain));
+                }
+            }
+        }
 
         public string UrlPage
         {
@@ -150,12 +202,17 @@ namespace BetterDefaultBrowser.ViewModels
             var matcher = new UrlParser(Url);
             if (matcher.Parse())
             {
+                UrlDomain = matcher.Domain;
+                UrlPage = matcher.Page;
+                UrlParameter = matcher.Parameter;
+                UrlPort = matcher.Port;
                 UrlProtocol = matcher.Protocol;
-                UrlPort = "90";
-                UrlTld = "de";
+                UrlSd = matcher.Sd;
+                UrlTld = matcher.Tld;
             }
             else
             {
+                UrlDomain = null;
                 UrlPage = null;
                 UrlParameter = null;
                 UrlPort = null;
