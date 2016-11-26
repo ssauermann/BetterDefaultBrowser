@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BetterDefaultBrowser.Lib.Helpers;
 using Serilog;
 using Serilog.Core;
+using DNL = DomainParser.Library;
 
 namespace BetterDefaultBrowser.Lib.Logic
 {
@@ -28,6 +29,9 @@ namespace BetterDefaultBrowser.Lib.Logic
         internal static readonly RegexOptions Options = RegexOptions.ExplicitCapture;
 
         internal static readonly Regex RegexMatcher = new Regex(@"^((?<protocol>[a-zA-Z]+?)\:\/\/\/?)?(?<domain>([^\?\:\#\/\n\s\(\)\[\]\{\}]+)|(\[[0-9a-fA-F:]+\]))(\:(?<port>[0-9]+))?(\/(?<page>[^\?\n]*))?(\?(?<parameter>.*))?$", Options);
+
+        // This does not validate ip addresses, it just differentiates them from eventually parsable domains
+        internal static readonly Regex IpMatcher = new Regex(@"^(?<ip>(\[[0-9a-fA-F:]+\])|([0-9\.]+))$", Options);
 
 
         public UrlParser(string input)
@@ -58,6 +62,28 @@ namespace BetterDefaultBrowser.Lib.Logic
                 Page = match.Groups["page"].Value;
                 Domain = match.Groups["domain"].Value;
 
+                // Do not parse ipv4 and ipv6 urls -> use ip as complete domain
+                if (IsIp(Domain))
+                {
+                    Sd = "";
+                    Tld = "";
+                    return true;
+                }
+
+                // Parse domain name to get sub and top-level domain
+                DNL.DomainName domainOut;
+                if (!DNL.DomainName.TryParse(Domain, out domainOut))
+                {
+                    return false;
+                }
+
+                Tld = domainOut.TLD;
+
+                // Add subdomain only if subdomain exists, else subdomain would be equal to domain
+                Sd = Domain.Count(c => c == '.') > Tld.Count(c => c == '.') + 1 ? domainOut.SLD : "";
+
+                Domain = domainOut.Domain;
+
                 return true;
             }
             catch (Exception ex)
@@ -65,6 +91,11 @@ namespace BetterDefaultBrowser.Lib.Logic
                 Log.Debug(ex, "Url parsing failed when parsing {url}", _url);
                 return false;
             }
+        }
+
+        private bool IsIp(string domain)
+        {
+            return IpMatcher.IsMatch(domain);
         }
     }
 }
