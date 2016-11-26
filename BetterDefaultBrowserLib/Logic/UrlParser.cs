@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using BetterDefaultBrowser.Lib.Helpers;
+using Serilog;
+using Serilog.Core;
 
 namespace BetterDefaultBrowser.Lib.Logic
 {
@@ -19,13 +22,12 @@ namespace BetterDefaultBrowser.Lib.Logic
         public string Parameter { get; private set; }
         public string Port { get; private set; }
 
-        private static class RegexStrings
-        {
-            internal static readonly RegexOptions Options = RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase;
+        // https://regex101.com/r/GH7ywc/1
+        // https://regex101.com/delete/URJdqtzvwphkCjbyVKS9ivLl
 
-            internal static readonly Regex ProtocolRegex = new Regex(@"^(?<replace>(?<protocol>[a-zA-Z]+?)\:\/\/\/?)",
-                Options);
-        }
+        internal static readonly RegexOptions Options = RegexOptions.ExplicitCapture;
+
+        internal static readonly Regex RegexMatcher = new Regex(@"^((?<protocol>[a-zA-Z]+?)\:\/\/\/?)?(?<domain>([^\?\:\#\/\n\s\(\)\[\]\{\}]+)|(\[[0-9a-fA-F:]+\]))(\:(?<port>[0-9]+))?(\/(?<page>[^\?\n]*))?(\?(?<parameter>.*))?$", Options);
 
 
         public UrlParser(string input)
@@ -43,30 +45,26 @@ namespace BetterDefaultBrowser.Lib.Logic
             try
             {
                 string url = _url;
-                // If any parsing fails it will return false and the short circuit 'and' will stop evaluating.
-                return ParseProtocol(url, out url);
-                // && ParseParameter(url, out url) && ParsePage(url, out url) && ParseDomains(url, out url);
+
+                var match = RegexMatcher.Match(url);
+                if (!match.Success)
+                {
+                    return false;
+                }
+
+                Protocol = match.Groups["protocol"].Value.ToLower();
+                Port = match.Groups["port"].Value;
+                Parameter = match.Groups["parameter"].Value;
+                Page = match.Groups["page"].Value;
+                Domain = match.Groups["domain"].Value;
+
+                return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Log.Debug(ex, "Url parsing failed when parsing {url}", _url);
                 return false;
             }
-        }
-
-        private bool ParseProtocol(string url, out string urlOut)
-        {
-            var m = RegexStrings.ProtocolRegex.Match(url);
-            if (!m.Success)
-            {
-                urlOut = url;
-                return false;
-            }
-
-            Protocol = m.Groups["protocol"].Value.ToLower();
-
-            urlOut = RegexStrings.ProtocolRegex.Replace(url, "$'");
-
-            return true;
         }
     }
 }

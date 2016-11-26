@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Reflection;
 using BetterDefaultBrowser.Lib;
+using BetterDefaultBrowser.Lib.Helpers;
 
 namespace BetterDefaultBrowser
 {
@@ -31,6 +32,7 @@ namespace BetterDefaultBrowser
         {
             try
             {
+                Logging.SetUp("Configurator");
                 DebugHelper.SetUpListener();
 
                 //Local per session mutex.
