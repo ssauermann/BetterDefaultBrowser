@@ -99,7 +99,7 @@ namespace BetterDefaultBrowser.ViewModels
 
         protected override string ValidateMe(string property)
         {
-            return property == "Browser" ? ValidateBrowser() : null;
+            return property == nameof(Browser) ? ValidateBrowser() : null;
         }
 
         string ValidateBrowser()

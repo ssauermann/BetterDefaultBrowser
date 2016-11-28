@@ -78,10 +78,7 @@ namespace BetterDefaultBrowser.Lib.Logic
                 }
 
                 Tld = domainOut.TLD;
-
-                // Add subdomain only if subdomain exists, else subdomain would be equal to domain
-                Sd = Domain.Count(c => c == '.') > Tld.Count(c => c == '.') + 1 ? domainOut.SLD : "";
-
+                Sd = domainOut.SubDomain;
                 Domain = domainOut.Domain;
 
                 return true;

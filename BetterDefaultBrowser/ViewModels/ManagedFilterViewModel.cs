@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Input;
 using BetterDefaultBrowser.Lib.Gateways;
 using BetterDefaultBrowser.Lib.Helpers;
@@ -20,6 +21,8 @@ namespace BetterDefaultBrowser.ViewModels
         private string _urlTld;
         private string _urlSd;
         private string _urlProtocol;
+
+        private bool _urlIsValid;
         #endregion
 
         #region Constructor
@@ -209,6 +212,7 @@ namespace BetterDefaultBrowser.ViewModels
                 UrlProtocol = matcher.Protocol;
                 UrlSd = matcher.Sd;
                 UrlTld = matcher.Tld;
+                _urlIsValid = true;
             }
             else
             {
@@ -219,6 +223,7 @@ namespace BetterDefaultBrowser.ViewModels
                 UrlProtocol = null;
                 UrlSd = null;
                 UrlTld = null;
+                _urlIsValid = false;
             }
         }
 
@@ -266,6 +271,22 @@ namespace BetterDefaultBrowser.ViewModels
             {
                 Flags |= flag;
             }
+        }
+
+        #endregion
+
+        #region Validation
+
+        protected override string ValidateMe(string property)
+        {
+            var baseError = base.ValidateMe(property);
+            return baseError ?? (property == nameof(Url) ? ValidateUrl() : null);
+        }
+
+        string ValidateUrl()
+        {
+            //This will have been set on change.
+            return _urlIsValid ? null : "Url is not valid.";
         }
 
         #endregion

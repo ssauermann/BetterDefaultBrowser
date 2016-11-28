@@ -30,8 +30,8 @@ namespace BetterDefaultBrowser.Lib.Models
         #region Validation
         private static readonly string[] ValidatedProperties =
         {
-            nameof(Url),
         };
+
         protected override string GetValidationError(string propertyName)
         {
             string parentError = base.GetValidationError(propertyName);
@@ -47,27 +47,12 @@ namespace BetterDefaultBrowser.Lib.Models
 
             switch (propertyName)
             {
-                case nameof(Url):
-                    error = ValidateUrl();
-                    break;
-
                 default:
                     System.Diagnostics.Debug.Fail("Unexpected property being validated on ManagedFilter: " + propertyName);
                     break;
             }
 
             return error;
-        }
-
-
-        private string ValidateUrl()
-        {
-            return null; //TODO
-            //if (!RegexBuilder.URLIsValid(Url))
-            //{
-            //    return "You must provide a valid url.";
-            //}
-            //return null;
         }
 
         public override bool IsValid
